@@ -1,0 +1,23 @@
+[core]
+	editor = nvim
+
+[alias]
+	tree = log --graph --oneline --decorate
+	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
+
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[difftool "vimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE
+
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = true
+[mergetool "vimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[pull]
+	rebase = false

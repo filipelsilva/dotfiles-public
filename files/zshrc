@@ -1,0 +1,271 @@
+# Fzf {{{
+
+# Make fzf not collide with zsh
+export FZF_COMPLETION_TRIGGER='++'
+
+# Default options
+export FZF_DEFAULT_OPTS=" \
+--color='fg+:#ebdbb2'
+--layout=reverse \
+--info=inline \
+--multi \
+--bind '?:toggle-preview,ctrl-a:toggle-all' \
+"
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
+_fzf_compgen_path() {
+	fd --hidden --exclude ".git" . "$1"
+}
+
+_fzf_compgen_dir() {
+	fd --type d --hidden --exclude ".git" . "$1"
+}
+# }}}
+
+# Aliases {{{
+
+# Basic commands
+alias ..="cd .."
+alias -- -="cd -"
+alias cp="cp -r"
+alias mkdir="mkdir -p"
+alias wget="wget -c"
+alias ip="ip --color=auto"
+alias diff="diff --color=auto"
+alias grep="grep --color=auto"
+alias t=tmux
+alias v=nvim
+
+# Ls aliases
+alias lt="tree -L 2" # -C"
+alias ls="ls -CN" # --color=auto"
+alias lsa="ls -A"
+alias l="ls -lh"
+alias la="ls -lhA"
+alias lx="ls -lisah"
+alias lr="ls -lhR"
+alias lrs="ls -R"
+alias lra="ls -lhAR"
+
+# Ssh with xterm, for targets without alacritty
+alias ssh="TERM=xterm-256color ssh"
+
+# Search for processes
+alias psfzf="ps aux | fzf ${FZF_DEFAULT_OPTS} --header='[name:process]'"
+alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+
+# Zsh configuration and reload
+alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
+alias zshconfig="nvim $HOME/.zshrc && zshsource"
+
+# i3 configuration and reload
+alias i3source="i3-msg restart"
+alias i3config="nvim $HOME/.config/i3/config && i3source"
+# }}}
+
+# Functions {{{
+
+# Start[x]: to use with optimus-manager, instead of default startx
+function x() {
+	if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]];
+	then
+		sudo /usr/bin/prime-switch
+		exec startx
+	fi
+}
+
+# [Up]grade
+function up() {
+	yay -Syu --devel --timeupdate
+
+	(
+	cd $HOME/.fzf && echo $PWD && git fetch
+	LOCAL=$(git rev-parse @)
+	REMOTE=$(git rev-parse @{u})
+	if [ $LOCAL != $REMOTE ]; then
+		git pull && ./install --all --no-update-rc
+	else
+		echo "Already up to date."
+	fi
+	)
+
+	for folder in $HOME/.gdb_plugins/**; (cd $folder && echo $PWD && git pull)
+
+	echo "$HOME/.zgen" && zgen selfupdate && zgen update
+	echo "update tldr cache" && tldr --update
+
+	zshsource
+}
+
+# [Open] files
+function open() {
+	if [ "$#" -eq 1 ]; then
+		(xdg-open $1 > /dev/null 2>&1 &)
+	else
+		local file="$(fzf --no-multi)"
+		[ -n $file ] && (xdg-open $file > /dev/null 2>&1 &)
+	fi
+}
+
+# [Take]: mkdir directory and cd to it
+function take() {
+	mkdir -p $@ && cd ${@:$#}
+}
+
+# [Linkdump]
+function linkdump() {
+	lynx -dump -listonly -nonumbers $1 | grep .pdf > dump.txt
+	wget -i dump.txt
+	rm dump.txt
+}
+
+# [F]ind-[I]n-[F]ile
+function fif() {
+	if [ ! "$#" -gt 0 ]; then
+		echo "Need a string to search for!";
+		return 1;
+	fi
+	rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --header='[find in file]' --preview "rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+# [K]ill [P]rocess
+function kp() {
+	local pid=$(ps -ef | sed 1d | eval "fzf -m --header='[kill:process]'" | awk '{print $2}')
+	if [ "x$pid" != "x" ]; then
+		echo $pid | xargs kill -${1:-9}
+		kp
+	fi
+}
+
+# }}}
+
+# Prompt {{{
+setopt prompt_subst
+
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:*' unstagedstr '*'
+
+zstyle ':vcs_info:*' formats '[%s:%b%m%u%c]'
+PROMPT='%m%S%n%s%1~${vcs_info_msg_0_}%(?..%F{red}[%?])%f '
+# PROMPT='[%n@%m %1~]${vcs_info_msg_0_}%(?..%F{red}[%?])%f$ '
+
+# zstyle ':vcs_info:*' formats ':(%s)%b%m%u%c'
+# PROMPT='%n@%m:%1~${vcs_info_msg_0_}%(?..%F{red}:%?)%f$ '
+# }}}
+
+# Directory stack {{{
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
+
+alias d="dirs -v"
+for index ({1..9}); alias "$index"="cd +${index}"; unset index
+
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+# }}}
+
+# Completion menu {{{
+zmodload zsh/complist
+
+# Vi mode for selecting completion
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+autoload -U compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+_comp_options+=(globdots)
+
+setopt always_to_end
+setopt auto_menu
+setopt complete_in_word
+setopt flow_control
+setopt autocd
+
+#eval "$(dircolors)"
+#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' completer _extensions _complete _approximate
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path $HOME/.zcompcache
+
+zstyle ':completion:*' menu yes select
+
+zstyle ':completion:*:*:*:*:corrections' format '%F{magenta}-- %d (errors: %e) --%f'
+zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
+zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
+
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
+
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# }}}
+
+# Command history {{{
+HISTFILE=$HOME/.zhistory
+HISTSIZE=100000
+SAVEHIST=100000
+setopt extended_history
+setopt share_history
+setopt hist_find_no_dups
+setopt hist_expire_dups_first
+setopt hist_ignore_space
+# }}}
+
+# History search {{{
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
+
+bindkey "^R" history-incremental-search-backward
+bindkey -M vicmd "/" history-incremental-search-backward
+# }}}
+
+# Vi-mode {{{
+bindkey -v
+KEYTIMEOUT=1
+bindkey "^[[Z" reverse-menu-complete
+bindkey "^[[3~" delete-char
+bindkey "^?" backward-delete-char
+bindkey "\e." insert-last-word
+# }}}
+
+# Variables {{{
+export MANPAGER="nvim +Man!"
+export EDITOR=nvim
+export VISUAL=nvim
+export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
+export BAT_THEME="gruvbox-dark"
+export BAT_STYLE="plain"
+# }}}
+
+# Plugins {{{
+source "${HOME}/.zgen/zgen.zsh"
+if ! zgen saved; then
+    zgen load wfxr/forgit
+    zgen save
+fi
+
+eval "$(zoxide init zsh --cmd j)"
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+# }}}

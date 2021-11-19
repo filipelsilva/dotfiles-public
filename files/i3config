@@ -1,0 +1,340 @@
+# Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+
+# i3 config file (v4)
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# Variables {{{
+
+# Modifier key
+set $mod Mod4
+
+# Others
+set $wallpaper $HOME/dotfiles/wallpapers/arch-gruvbox.png
+
+# Modes
+set $mode_loginopts "(e)xit i3, (l)ock, (r)eboot, (s)hutdown"
+set $mode_layout "[layout] (p)t, (u)s, us-(i)ntl, us-(a)ltgr-intl"
+set $mode_printscreen "[printscreen] (s)election, (a)ctive window, (w)hole screen"
+set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
+set $mode_resize "resize"
+
+# Colors
+set $background #1d2021
+set $foreground #ebdbb2
+set $black      #282828
+set $red        #cc241d
+set $green      #98971a
+set $yellow     #d79921
+set $blue       #458588
+set $magenta    #b16286
+set $cyan       #689d6a
+set $white      #a89984
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# }}}
+
+# System startup and other configs {{{
+
+# Detect monitors
+exec_always --no-startup-id autorandr --change --skip-options crtc
+
+# Apply wallpaper
+exec_always --no-startup-id feh --bg-fill $wallpaper
+
+# Redshift (f.lux alike)
+exec_always --no-startup-id pkill -9 redshift; redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
+
+# Keyboard layout
+exec --no-startup-id setxkbmap -layout us -variant altgr-intl #-option ctrl:swapcaps
+# exec --no-startup-id xcape -e 'Control_L=Escape'
+
+# Optimus-manager
+exec --no-startup-id optimus-manager-qt
+
+# Disable suspension
+exec --no-startup-id xset s off && xset -b -dpms
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color=$background
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+# Bluetooth
+exec --no-startup-id blueman-applet
+
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Media keys
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+# Adjust brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+# }}}
+
+# Keybinds and settings {{{
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Iosevka 12
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Reload the configuration file
+bindsym $mod+Shift+r reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+Mod1+r restart
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start a terminal
+bindsym $mod+Return exec alacritty
+
+# Start a file manager
+bindsym $mod+e exec thunar
+
+# Start dmenu
+bindsym $mod+d exec --no-startup-id rofi -theme gruvbox-dark-hard -font "Iosevka 12" -show run
+
+# Splits
+bindsym $mod+v split h
+bindsym $mod+s split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked and split)
+bindsym $mod+w layout toggle tabbed split
+bindsym $mod+Shift+w layout toggle split
+bindsym $mod+Shift+Mod1+w layout stacked
+
+# Toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# No window names
+default_border pixel 2
+
+# Hide borders if only one window is visible
+hide_edge_borders smart
+
+# Put icons in tabbed mode
+for_window [all] title_window_icon on
+# }}}
+
+# Focusing and moving windows {{{
+
+# Change focus between tiling / floating windows
+bindsym $mod+Shift+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Focus the child container
+bindsym $mod+Shift+a focus child
+
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# }}}
+
+# Workspaces {{{
+
+# Move focused window to scratchpad
+bindsym $mod+equal move scratchpad
+
+# Toggle/Cycle through scratchpad windows
+bindsym $mod+minus scratchpad show
+
+# Move between workspaces
+bindsym $mod+Tab workspace next
+
+# Use $mod+<current workspace number> to switch back to previous workspace
+workspace_auto_back_and_forth yes
+
+# Switch between the current and the previously focused one
+bindsym $mod+b workspace back_and_forth
+bindsym $mod+Shift+b move container to workspace back_and_forth
+
+# Move the whole workspace to the next output
+bindsym $mod+x move workspace to output right
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+# }}}
+
+# Theme {{{
+bar {
+        tray_output primary
+        tray_padding 0
+        position bottom
+
+        status_command i3status # config at $HOME/dotfiles/files/i3statusconfig
+
+        colors {
+                background $background
+                statusline $foreground
+                separator  $white
+
+                # border|background|text
+                focused_workspace  $blue $blue $black
+                active_workspace   $white $white $black
+                inactive_workspace $black $black $white
+                urgent_workspace   $red $red $black
+        }
+}
+
+# Container colors
+# border|background|text|indicator|child_border
+client.focused          $blue $blue $black $black $blue
+client.focused_inactive $white $white $black $black $white
+client.unfocused        $background $black $white $black $black
+client.urgent           $red $red $black $black $red
+# }}}
+
+# MODE: Exit i3, lock, reboot, shutdown {{{
+mode $mode_loginopts {
+        bindsym e exec --no-startup-id i3-msg exit
+        bindsym l exec --no-startup-id loginctl lock-session; mode "default"
+        bindsym r exec --no-startup-id reboot
+        bindsym s exec --no-startup-id shutdown -h now
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+q mode "default"
+}
+
+bindsym $mod+q mode $mode_loginopts
+# }}}
+
+# MODE: Change keyboard layout {{{
+mode $mode_layout {
+        # bindsym p exec --no-startup-id setxkbmap -layout pt -option ctrl:swapcaps; mode "default"
+        # bindsym u exec --no-startup-id setxkbmap -layout us -option ctrl:swapcaps; mode "default"
+        # bindsym i exec --no-startup-id setxkbmap -layout us -variant intl -option ctrl:swapcaps; mode "default"
+        # bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps; mode "default"
+        bindsym p exec --no-startup-id setxkbmap -layout pt; mode "default"
+        bindsym u exec --no-startup-id setxkbmap -layout us; mode "default"
+        bindsym i exec --no-startup-id setxkbmap -layout us -variant intl; mode "default"
+        bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl; mode "default"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+p mode "default"
+}
+
+bindsym $mod+p mode $mode_layout
+# }}}
+
+# MODE: Printscreen {{{
+mode $mode_printscreen {
+        bindsym s exec --no-startup-id maim --select "$HOME/Pictures/$(date).png"; mode "default"
+        bindsym a exec --no-startup-id maim --window $(xdotool getactivewindow) "$HOME/Pictures/$(date).png"; mode "default"
+        bindsym w exec --no-startup-id maim "$HOME/Pictures/$(date).png"; mode "default"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Print mode "default"
+}
+
+bindsym Print mode $mode_printscreen
+# }}}
+
+# MODE: Change brightness and media control {{{
+mode $mode_media_brightness {
+        bindsym p exec --no-startup-id playerctl play-pause
+        bindsym h exec --no-startup-id playerctl previous
+        bindsym j exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+        bindsym k exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+        bindsym l exec --no-startup-id playerctl next
+        bindsym n exec --no-startup-id brightnessctl set 5%-
+        bindsym m exec --no-startup-id brightnessctl set 5%+
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+m mode "default"
+}
+
+bindsym $mod+m mode $mode_media_brightness
+# }}}
+
+# MODE: Resize window {{{
+mode $mode_resize {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode $mode_resize
+# }}}
