@@ -19,6 +19,10 @@ endif
 
 colorscheme pablo
 
+" Show trailing whitespace
+highlight! TrailingWhitespace ctermbg=red guibg=red
+call matchadd("TrailingWhitespace", '\v\s+$')
+
 " K under cursor uses :Man
 set keywordprg=:Man
 
@@ -252,9 +256,14 @@ else
 	vnoremap <Leader>q "zy<Esc>:grep! -R -I --exclude-dir={.git,.svn} "<C-r>z" .<CR> <Bar> :copen<CR>
 endif
 
-" Open a nearby file
-nnoremap <Leader>f :edit <C-r>=expand("%:p:h") . "/"<CR>
-nnoremap <Leader>F :edit $HOME/
+" Open edit command in current shell directory
+nnoremap <Leader>f :edit<Space>
+
+" Open edit command in $HOME
+nnoremap <Leader><Leader>f :edit $HOME/
+
+" Open edit command in directory of current file
+nnoremap <Leader>F :edit <C-r>=expand("%:p:h") . "/"<CR>
 
 " Allow gf to open non-existent files
 map <silent> gf :edit <cfile><CR>

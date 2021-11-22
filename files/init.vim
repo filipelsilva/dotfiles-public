@@ -49,6 +49,7 @@ set termguicolors
 colorscheme gruvbox8_hard
 highlight! link CursorLineNr LineNr
 highlight! link EndOfBuffer LineNr
+highlight! TrailingWhitespace ctermbg=red guibg=red
 
 " DetectIndent
 augroup DetectIndent
@@ -74,8 +75,8 @@ let g:fzf_action = {
 let g:fzf_layout = { 'down': '30%' }
 let g:fzf_buffers_jump = 1
 
-nnoremap <silent> <expr> <Leader>f (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<CR>"
-nnoremap <silent> <Leader>F <Cmd>Files $HOME<CR>
+nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
+nnoremap <silent> <Leader><Leader>f <Cmd>Files $HOME<CR>
 nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
@@ -88,7 +89,7 @@ set omnifunc=v:lua.vim.lsp.omnifunc
 
 lua << EOF
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+new_capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lsp_installer = require('nvim-lsp-installer')
 lsp_installer.settings({
@@ -102,7 +103,7 @@ lsp_installer.settings({
 })
 lsp_installer.on_server_ready(function(server)
 	local opts = {
-		capabilities = capabilities,
+		capabilities = new_capabilities,
 	}
 	server:setup(opts)
 end)
