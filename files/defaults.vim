@@ -12,16 +12,17 @@ if !has("nvim")
 	" Set mouse mode
 	set ttymouse=xterm2
 	" Enable matchit (extends the use of %)
-	runtime macros/matchit.vim
+	runtime! macros/matchit.vim
 	" Enable :Man <search>
-	runtime ftplugin/man.vim
+	runtime! ftplugin/man.vim
 endif
 
-colorscheme pablo
+colorscheme default
+set background=dark
 
-" Show trailing whitespace
-highlight! TrailingWhitespace ctermbg=red guibg=red
-call matchadd("TrailingWhitespace", '\v\s+$')
+" Highlight 80th character (cleaner alternative to colorcolumn)
+highlight! link Character80 ColorColumn
+call matchadd("Character80", '\%80v.')
 
 " K under cursor uses :Man
 set keywordprg=:Man
@@ -41,24 +42,12 @@ set splitright splitbelow
 " Backspace settings
 set backspace=indent,eol,start
 
-" Undo, swap/backup files settings
-set undofile undolevels=10000
-if has("nvim")
-	set undodir=$HOME/.nvim-tmp/undo//
-	set directory=$HOME/.nvim-tmp/swp//
-	set backupdir=$HOME/.nvim-tmp/backup//
-else
-	set undodir=$HOME/.vim-tmp/undo//
-	set directory=$HOME/.vim-tmp/swp//
-	set backupdir=$HOME/.vim-tmp/backup//
-endif
-
 " Indentation settings
 set autoindent copyindent shiftround smarttab breakindent
-set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+set noexpandtab textwidth=0 tabstop=4 softtabstop=4 shiftwidth=4
 
 " Visual settings
-set ruler showcmd linebreak laststatus=1 scrolloff=5 colorcolumn=80
+set ruler showcmd linebreak laststatus=1 scrolloff=5
 set shortmess=filmnrwxaoOtT fillchars+=vert:│ guicursor=
 
 " Spell settings
@@ -78,6 +67,28 @@ if executable("rg")
 	set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 	set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+
+" Undo, swap/backup files settings
+set undofile undolevels=10000
+if has("nvim")
+	if empty(glob($HOME . "/.nvim-tmp"))
+		for subfolder in ["undo", "swp", "backup"]
+			call mkdir($HOME . "/.nvim-tmp/" . subfolder, "p")
+		endfor
+	endif
+	set undodir=$HOME/.nvim-tmp/undo//
+	set directory=$HOME/.nvim-tmp/swp//
+	set backupdir=$HOME/.nvim-tmp/backup//
+else
+	if empty(glob($HOME . "/.vim-tmp"))
+		for subfolder in ["undo", "swp", "backup"]
+			call mkdir($HOME . "/.vim-tmp/" . subfolder, "p")
+		endfor
+	endif
+	set undodir=$HOME/.vim-tmp/undo//
+	set directory=$HOME/.vim-tmp/swp//
+	set backupdir=$HOME/.vim-tmp/backup//
+endif
 " }}}
 
 " Functions {{{
@@ -95,6 +106,18 @@ function! StopHL() abort
 		return
 	else
 		silent call feedkeys("\<Plug>(StopHL)", 'm')
+	endif
+endfunction
+" }}}
+
+" ShowWhitespace {{{
+function! ShowWhitespace() abort
+	if exists("s:whitespace")
+		call matchdelete(s:whitespace)
+		unlet s:whitespace
+	else
+		highlight! Whitespace ctermbg=red guibg=red
+		let s:whitespace = matchadd("Whitespace", '\v\s+$')
 	endif
 endfunction
 " }}}
@@ -189,8 +212,11 @@ augroup END
 
 augroup HighlightToggle
 	autocmd!
+
+	" After some cursor movement, remove highlighting from text
 	autocmd CursorMoved * call StartHL()
 	autocmd InsertEnter * call StopHL()
+
 augroup END
 " }}}
 
@@ -218,7 +244,7 @@ tnoremap <C-l> <C-\><C-n><C-w><C-l>
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
 " Toggle spell
-nnoremap <silent> <Leader>o :setlocal invspell<CR>
+nnoremap <silent> <Leader>o :setlocal invspell<Bar>call ShowWhitespace()<CR>
 
 " Buffer jumping
 nnoremap [b :bnext<CR>
@@ -256,14 +282,16 @@ else
 	vnoremap <Leader>q "zy<Esc>:grep! -R -I --exclude-dir={.git,.svn} "<C-r>z" .<CR> <Bar> :copen<CR>
 endif
 
-" Open edit command in current shell directory
-nnoremap <Leader>f :edit<Space>
-
-" Open edit command in $HOME
-nnoremap <Leader><Leader>f :edit $HOME/
-
-" Open edit command in directory of current file
-nnoremap <Leader>F :edit <C-r>=expand("%:p:h") . "/"<CR>
+" Open files quickly
+if executable("fzf")
+	nnoremap <silent> <Leader>f <Cmd>FZF<CR>
+	nnoremap <silent> <Leader><Leader>f <Cmd>FZF $HOME<CR>
+	nnoremap <silent> <Leader>F :FZF <C-r>=substitute(expand("%:p:h"), " ", "\\\\ ", "g")<CR><CR>
+else
+	nnoremap <Leader>f :edit $PWD/
+	nnoremap <Leader><Leader>f :edit $HOME/
+	nnoremap <Leader>F :edit <C-r>=expand("%:p:h") . "/"<CR>
+endif
 
 " Allow gf to open non-existent files
 map <silent> gf :edit <cfile><CR>
@@ -312,10 +340,6 @@ else
 	noremap <silent> <Leader>T :terminal<CR>
 endif
 
-" Escape terminal mode with <Esc> and send Esc to terminal with <C-v><Esc>
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
-
 " Quickly edit/reload the vimrc file
 nmap <silent> <Leader>e :edit $MYVIMRC<CR>
 nmap <silent> <Leader>E :source $MYVIMRC<CR>
@@ -355,4 +379,27 @@ noremap! <expr> <Plug>(StopHL) execute('nohlsearch')[-1]
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" }}}
+
+" Fzf {{{
+if executable("fzf")
+	" Add fzf to runtimepath, adds :FZF command
+	let s:fzf_runtimepath_command = "set runtimepath+=" . fnamemodify(system("command -v fzf"), ":h:h")
+	execute s:fzf_runtimepath_command
+
+	" Create quickfix list out of selected files
+	function! s:build_quickfix_list(lines)
+		call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+		copen
+		cc
+	endfunction
+
+	" Settings
+	let g:fzf_action = {
+		\ 'ctrl-q': function('s:build_quickfix_list'),
+		\ 'ctrl-t': 'tab split',
+		\ 'ctrl-s': 'split',
+		\ 'ctrl-v': 'vsplit' }
+	let g:fzf_buffers_jump = 1
+endif
 " }}}

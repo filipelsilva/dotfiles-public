@@ -5,7 +5,7 @@ export FZF_COMPLETION_TRIGGER='++'
 
 # Default options
 export FZF_DEFAULT_OPTS=" \
---color='fg+:#ebdbb2'
+--color='fg+:#ebdbb2' \
 --layout=reverse \
 --info=inline \
 --multi \
@@ -36,7 +36,6 @@ alias wget="wget -c"
 alias ip="ip --color=auto"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
-alias t=tmux
 alias v=nvim
 
 # Ls aliases

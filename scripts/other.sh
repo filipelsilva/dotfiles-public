@@ -13,7 +13,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 #source $HOME/.cargo/env # If there is the need to install cargo packages
 
 # Pip programs
-pip3 install --user --upgrade lizard pynvim bpython capstone pyelftools internetarchive
+pip3 install --user --upgrade lizard bpython internetarchive gdbgui
+
+# Pip packages (same as programs but are not used as standalone programs)
+pip3 install --user --upgrade pynvim capstone pyelftools 
 
 # Pwndbg + gef + peda (GDB)
 git clone https://github.com/filipelsilva/gdb-peda-pwndbg-gef.git $HOME/.gdb-peda-pwndbg-gef

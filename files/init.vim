@@ -49,7 +49,7 @@ set termguicolors
 colorscheme gruvbox8_hard
 highlight! link CursorLineNr LineNr
 highlight! link EndOfBuffer LineNr
-highlight! TrailingWhitespace ctermbg=red guibg=red
+highlight! link Character80 ColorColumn
 
 " DetectIndent
 augroup DetectIndent
@@ -57,32 +57,10 @@ augroup DetectIndent
 	autocmd BufRead * DetectIndent
 augroup END
 
-" Fzf {{{
-set runtimepath+=$HOME/.fzf
-
-function! s:build_quickfix_list(lines)
-	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-	copen
-	cc
-endfunction
-
-let g:fzf_action = {
-	\ 'ctrl-q': function('s:build_quickfix_list'),
-	\ 'ctrl-t': 'tab split',
-	\ 'ctrl-s': 'split',
-	\ 'ctrl-v': 'vsplit' }
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
-let g:fzf_layout = { 'down': '30%' }
-let g:fzf_buffers_jump = 1
-
+" Fzf (overrides defaults.vim keybinds on f key, due to fzf.vim being used here)
 nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
-nnoremap <silent> <Leader><Leader>f <Cmd>Files $HOME<CR>
 nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
-tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
-tnoremap <expr> <C-j> (&filetype == "fzf") ? "<C-n>" : "<C-j>"
-tnoremap <expr> <C-k> (&filetype == "fzf") ? "<C-p>" : "<C-k>"
-" }}}
 
 " LSP {{{
 set omnifunc=v:lua.vim.lsp.omnifunc

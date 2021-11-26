@@ -304,6 +304,8 @@ bindsym Print mode $mode_printscreen
 
 # MODE: Change brightness and media control {{{
 mode $mode_media_brightness {
+        bindsym i exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+        bindsym o exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
         bindsym p exec --no-startup-id playerctl play-pause
         bindsym h exec --no-startup-id playerctl previous
         bindsym j exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
