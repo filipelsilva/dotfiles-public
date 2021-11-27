@@ -24,6 +24,9 @@ set background=dark
 highlight! link Character80 ColorColumn
 call matchadd("Character80", '\%80v.')
 
+" Embed language syntax support
+let g:vimsyn_embed="lmpPrt"
+
 " K under cursor uses :Man
 set keywordprg=:Man
 

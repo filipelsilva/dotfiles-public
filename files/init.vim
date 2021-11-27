@@ -27,6 +27,7 @@ function! PackInit() abort
 
 	" Snippets
 	call minpac#add('L3MON4D3/LuaSnip')
+	call minpac#add('rafamadriz/friendly-snippets')
 
 	" Completion sources
 	call minpac#add('saadparwaiz1/cmp_luasnip')
@@ -36,6 +37,10 @@ function! PackInit() abort
 
 	" Completion
 	call minpac#add('hrsh7th/nvim-cmp')
+
+	" Treesitter
+	call minpac#add('nvim-treesitter/nvim-treesitter')
+	call minpac#add('nvim-treesitter/playground')
 
 endfunction
 
@@ -124,10 +129,24 @@ local complete_or_snippet_prev = function(fallback)
 end
 -- }}}
 
+-- Snippets {{{
+local snip = luasnip.snippet
+local node = luasnip.snippet_node
+local text = luasnip.text_node
+local insert = luasnip.insert_node
+local func = luasnip.function_node
+local choice = luasnip.choice_node
+local dynamic = luasnip.dynamic_node
+
+luasnip.snippets = {}
+require('luasnip/loaders/from_vscode').lazy_load()
+-- }}}
+
+-- Completion engine {{{
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			require('luasnip').lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	mapping = {
@@ -149,6 +168,30 @@ cmp.setup({
 		{ name = 'luasnip' },
 		{ name = 'buffer' },
 		{ name = 'path' },
+	},
+})
+-- }}}
+EOF
+" }}}
+
+" Treesitter {{{
+lua << EOF
+local treesitter = require('nvim-treesitter.configs')
+treesitter.setup({
+	ensure_installed = 'maintained',
+	sync_install = false,
+	highlight = {
+		enable = false,
+		additional_vim_regex_highlighting = false,
+	},
+	incremental_selection = {
+		enable = true,
+	},
+	indent = {
+		enable = true,
+	},
+	playground = {
+		enable = true,
 	},
 })
 EOF
