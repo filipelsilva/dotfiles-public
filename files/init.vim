@@ -27,7 +27,6 @@ function! PackInit() abort
 
 	" Snippets
 	call minpac#add('L3MON4D3/LuaSnip')
-	call minpac#add('rafamadriz/friendly-snippets')
 
 	" Completion sources
 	call minpac#add('saadparwaiz1/cmp_luasnip')
@@ -139,7 +138,6 @@ local choice = luasnip.choice_node
 local dynamic = luasnip.dynamic_node
 
 luasnip.snippets = {}
-require('luasnip/loaders/from_vscode').lazy_load()
 -- }}}
 
 -- Completion engine {{{
