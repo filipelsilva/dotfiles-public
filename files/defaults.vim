@@ -18,7 +18,7 @@ if !has("nvim")
 endif
 
 colorscheme default
-set background=dark
+set background=light
 
 " Highlight 80th character (cleaner alternative to colorcolumn)
 highlight! link Character80 ColorColumn
@@ -133,20 +133,6 @@ function! TrimWhitespace() abort
 endfunction
 " }}}
 
-" FocusRelativeNumbers {{{
-function! FocusRelativeNumbers(...) abort
-	if a:1 == "True"
-		if &number && mode() != "i"
-			set relativenumber
-		endif
-	else
-		if &number
-			set norelativenumber
-		endif
-	endif
-endfunction
-" }}}
-
 " CreateUndoBreakPoint {{{
 function! CreateUndoBreakPoint(char) abort
 	" This funcion creates a insert mode map with undo break points
@@ -206,10 +192,10 @@ augroup NumberToggle
 	autocmd!
 
 	" If buffer is in focus, enable relative numbers
-	autocmd BufEnter,FocusGained,InsertLeave,WinEnter * call FocusRelativeNumbers("True")
+	autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number && mode() != "i" | set relativenumber | endif
 
 	" If buffer gets out of focus, disable relative numbers
-	autocmd BufLeave,FocusLost,InsertEnter,WinLeave * call FocusRelativeNumbers("False")
+	autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &number | set norelativenumber | endif
 
 augroup END
 

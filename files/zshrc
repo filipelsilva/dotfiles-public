@@ -142,22 +142,26 @@ function kp() {
 # }}}
 
 # Prompt {{{
-setopt prompt_subst
+# setopt prompt_subst
 
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
+# autoload -Uz vcs_info
+# precmd_vcs_info() { vcs_info }
+# precmd_functions+=( precmd_vcs_info )
 
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:*' unstagedstr '*'
+# zstyle ':vcs_info:*' check-for-changes true
+# zstyle ':vcs_info:*' stagedstr '+'
+# zstyle ':vcs_info:*' unstagedstr '*'
 
-zstyle ':vcs_info:*' formats '[%s:%b%m%u%c]'
-PROMPT='%m%S%n%s%1~${vcs_info_msg_0_}%(?..%F{red}[%?])%f '
+# zstyle ':vcs_info:*' formats '[%s:%b%m%u%c]'
+# PROMPT='%m%S%n%s%1~${vcs_info_msg_0_}%(?..%F{red}[%?])%f '
 # PROMPT='[%n@%m %1~]${vcs_info_msg_0_}%(?..%F{red}[%?])%f$ '
 
 # zstyle ':vcs_info:*' formats ':(%s)%b%m%u%c'
 # PROMPT='%n@%m:%1~${vcs_info_msg_0_}%(?..%F{red}:%?)%f$ '
+
+# Simple prompts
+PROMPT='%n@%m:%~$ '
+# PROMPT='[%n@%m %~] '
 # }}}
 
 # Directory stack {{{
@@ -221,9 +225,8 @@ setopt share_history
 setopt hist_find_no_dups
 setopt hist_expire_dups_first
 setopt hist_ignore_space
-# }}}
 
-# History search {{{
+# Keybinds
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search

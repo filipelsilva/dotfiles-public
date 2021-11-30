@@ -39,7 +39,9 @@ font:
   glyph_offset:
     x: 0
     y: 0
-#}}}
+# }}}
+
+draw_bold_text_with_bright_colors: false
 
 # Colors: Gruvbox8_hard {{{
 colors:
