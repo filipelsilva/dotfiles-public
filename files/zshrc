@@ -79,6 +79,7 @@ function x() {
 # [Up]grade
 function up() {
 	yay -Syu --devel --timeupdate
+	$HOME/dotfiles/scripts/./pip.sh
 
 	(
 	cd $HOME/.fzf && echo $PWD && git fetch
@@ -142,6 +143,12 @@ function kp() {
 # }}}
 
 # Prompt {{{
+
+# Simple prompts
+export PROMPT='%n@%m:%~%# '
+# export PROMPT='[%n@%m %~]%# '
+
+# Prompts with vcs integration
 # setopt prompt_subst
 
 # autoload -Uz vcs_info
@@ -153,15 +160,11 @@ function kp() {
 # zstyle ':vcs_info:*' unstagedstr '*'
 
 # zstyle ':vcs_info:*' formats '[%s:%b%m%u%c]'
-# PROMPT='%m%S%n%s%1~${vcs_info_msg_0_}%(?..%F{red}[%?])%f '
-# PROMPT='[%n@%m %1~]${vcs_info_msg_0_}%(?..%F{red}[%?])%f$ '
+# export PROMPT='%m%S%n%s%1~${vcs_info_msg_0_}%(?..%F{red}[%?])%f '
+# export PROMPT='[%n@%m %1~]${vcs_info_msg_0_}%(?..%F{red}[%?])%f$ '
 
 # zstyle ':vcs_info:*' formats ':(%s)%b%m%u%c'
-# PROMPT='%n@%m:%1~${vcs_info_msg_0_}%(?..%F{red}:%?)%f$ '
-
-# Simple prompts
-PROMPT='%n@%m:%~$ '
-# PROMPT='[%n@%m %~] '
+# export PROMPT='%n@%m:%1~${vcs_info_msg_0_}%(?..%F{red}:%?)%f$ '
 # }}}
 
 # Directory stack {{{

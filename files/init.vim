@@ -180,13 +180,13 @@ treesitter.setup({
 	sync_install = false,
 	highlight = {
 		enable = false,
-		additional_vim_regex_highlighting = false,
+		additional_vim_regex_highlighting = true,
 	},
 	incremental_selection = {
 		enable = true,
 	},
 	indent = {
-		enable = true,
+		enable = false,
 	},
 	playground = {
 		enable = true,

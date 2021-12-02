@@ -383,6 +383,10 @@ if executable("fzf")
 		cc
 	endfunction
 
+	" Keymaps
+	tnoremap <expr> <C-j> (&filetype == "fzf") ? "<C-n>" : "<C-j>"
+	tnoremap <expr> <C-k> (&filetype == "fzf") ? "<C-p>" : "<C-k>"
+
 	" Settings
 	let g:fzf_action = {
 		\ 'ctrl-q': function('s:build_quickfix_list'),
