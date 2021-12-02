@@ -207,10 +207,14 @@ zstyle ':completion:*' cache-path $HOME/.zcompcache
 
 zstyle ':completion:*' menu yes select
 
-zstyle ':completion:*:*:*:*:corrections' format '%F{magenta}-- %d (errors: %e) --%f'
-zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
-zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*:*:*:*:corrections' format '-- %d (errors: %e) --'
+zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
+zstyle ':completion:*:*:*:*:messages' format '-- %d --'
+zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
+# zstyle ':completion:*:*:*:*:corrections' format '%F{magenta}-- %d (errors: %e) --%f'
+# zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
+# zstyle ':completion:*:*:*:*:messages' format '%F{purple}-- %d --%f'
+# zstyle ':completion:*:*:*:*:warnings' format '%F{red}-- no matches found --%f'
 
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
@@ -229,12 +233,12 @@ setopt hist_find_no_dups
 setopt hist_expire_dups_first
 setopt hist_ignore_space
 
-# Keybinds
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
+# Keybinds
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 bindkey "^P" up-line-or-beginning-search
