@@ -41,8 +41,6 @@ font:
     y: 0
 # }}}
 
-draw_bold_text_with_bright_colors: false
-
 # Colors: Gruvbox8_hard {{{
 colors:
   primary:
@@ -67,6 +65,8 @@ colors:
     cyan:    '#8ec07c'
     white:   '#ebdbb2'
 # }}}
+
+draw_bold_text_with_bright_colors: false
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

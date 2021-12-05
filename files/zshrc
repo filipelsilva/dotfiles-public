@@ -39,8 +39,8 @@ alias grep="grep --color=auto"
 alias v=nvim
 
 # Ls aliases
-alias lt="tree -L 2" # -C"
-alias ls="ls -CN" # --color=auto"
+alias lt="tree -F -L 2" # -C"
+alias ls="ls -CNF" # --color=auto"
 alias lsa="ls -A"
 alias l="ls -lh"
 alias la="ls -lhA"
