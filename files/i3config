@@ -186,7 +186,8 @@ bindsym $mod+equal move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Move between workspaces
-bindsym $mod+Tab workspace next
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
 
 # Use $mod+<current workspace number> to switch back to previous workspace
 workspace_auto_back_and_forth yes
@@ -276,10 +277,10 @@ mode $mode_layout {
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+p mode "default"
+        bindsym $mod+i mode "default"
 }
 
-bindsym $mod+p mode $mode_layout
+bindsym $mod+i mode $mode_layout
 # }}}
 
 # MODE: Printscreen {{{
