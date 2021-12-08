@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Vim Minpac
 git clone https://github.com/k-takata/minpac.git $HOME/.vim/pack/minpac/opt/minpac

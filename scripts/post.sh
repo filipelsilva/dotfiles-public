@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Set default shell
 chsh -s "$(command -v zsh)"

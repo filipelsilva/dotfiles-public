@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Pip programs
 pip3 install --user --upgrade pip lizard bpython internetarchive gdbgui tmuxp

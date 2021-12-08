@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf

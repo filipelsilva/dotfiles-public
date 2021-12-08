@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm zsh git tk curl wget glances htop neovim python-pip\
