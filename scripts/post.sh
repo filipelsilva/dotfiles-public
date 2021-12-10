@@ -7,9 +7,6 @@ zsh -c "source $HOME/.zshrc"
 # Vi mode in other programs
 echo "set editing-mode vi" >> $HOME/.inputrc
 
-# Install neovim plugins
-nvim --headless +PackUpdate +PackStatus +quitall
-
 # For usage with optimus-manager
 
 # echo "#!/bin/sh" >> $HOME/.xinitrc

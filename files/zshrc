@@ -79,8 +79,6 @@ function x() {
 # [Up]grade
 function up() {
 	yay -Syu --devel --timeupdate
-	nvim --headless +PackUpdate +PackStatus +quitall
-	echo '\n'
 	$HOME/dotfiles/scripts/./pip.sh
 
 	(

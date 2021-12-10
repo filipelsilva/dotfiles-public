@@ -369,7 +369,8 @@ nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 " Fzf {{{
 if executable("fzf")
 	" Add fzf to runtimepath, adds :FZF command
-	let s:fzf_runtimepath_command = "set runtimepath+=" . fnamemodify(system("command -v fzf"), ":h:h")
+	let s:fzf_runtimepath_command = "set runtimepath+=" . fnamemodify(systemlist("readlink -f $(command -v fzf)")[0], ":h:h")
+
 	execute s:fzf_runtimepath_command
 
 	" Create quickfix list out of selected files
