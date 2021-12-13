@@ -21,11 +21,8 @@ echo "# 4. Miscellaneous"
 echo "# 5. Installing zsh plugins..."
 ./scripts/zsh.sh
 
-echo "# 6. Installing vim plugin managers..."
-./scripts/vim.sh
-
-echo "# 7. Linking dotfiles..."
+echo "# 6. Linking dotfiles..."
 ./scripts/linker.sh $1
 
-echo "# 8. Post instalation things..."
+echo "# 7. Post instalation things..."
 ./scripts/post.sh $1
