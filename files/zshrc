@@ -94,8 +94,8 @@ function up() {
 
 	for folder in $HOME/.gdb_plugins/**; (cd $folder && echo $PWD && git pull)
 
-	echo "$HOME/.zgen" && zgen selfupdate && zgen update
-	echo "update tldr cache" && tldr --update
+	echo "Updating zsh plugins\n" && zit-upgrade
+	echo "Updating tldr cache" && tldr --update
 
 	zshsource
 }
