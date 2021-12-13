@@ -264,16 +264,22 @@ export MANPAGER="nvim +Man!"
 export EDITOR=nvim
 export VISUAL=nvim
 export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
+
 export BAT_THEME="gruvbox-dark"
 export BAT_STYLE="plain"
 # }}}
 
 # Plugins {{{
-source "${HOME}/.zgen/zgen.zsh"
-if ! zgen saved; then
-    zgen load wfxr/forgit
-    zgen save
+export ZIT_MODULES_PATH="${HOME}/.zit.d"
+
+if [[ ! -d "${ZIT_MODULES_PATH}/zit" ]]; then
+	git clone "https://github.com/thiagokokada/zit" "${ZIT_MODULES_PATH}/zit"
 fi
+
+source "${ZIT_MODULES_PATH}/zit/zit.zsh"
+
+zit-install "https://github.com/thiagokokada/zit" "zit"
+zit-install-load "https://github.com/wfxr/forgit" "forgit" "forgit.plugin.zsh"
 
 eval "$(zoxide init zsh --cmd j)"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh

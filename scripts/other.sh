@@ -2,7 +2,7 @@
 
 # Fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-$HOME/.fzf/install --all
+$HOME/.fzf/install --all --no-update-rc
 
 # Cheat.sh
 curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh

@@ -18,11 +18,8 @@ echo "# 3. Pip"
 echo "# 4. Miscellaneous"
 ./scripts/other.sh
 
-echo "# 5. Installing zsh plugins..."
-./scripts/zsh.sh
-
-echo "# 6. Linking dotfiles..."
+echo "# 5. Linking dotfiles..."
 ./scripts/linker.sh $1
 
-echo "# 7. Post instalation things..."
+echo "# 6. Post instalation things..."
 ./scripts/post.sh $1
