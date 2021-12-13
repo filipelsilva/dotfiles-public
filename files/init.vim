@@ -10,7 +10,7 @@ function! PackInit() abort
 	call minpac#add('timakro/vim-yadi')
 
 	" Comment stuff
-	call minpac#add('tpope/vim-commentary')
+	call minpac#add('numToStr/Comment.nvim')
 
 	" Surround stuff
 	call minpac#add('tpope/vim-surround')
@@ -42,10 +42,6 @@ function! PackInit() abort
 	call minpac#add('nvim-treesitter/playground')
 
 endfunction
-
-command! PackUpdate call PackInit() | call minpac#update()
-command! PackClean  call PackInit() | call minpac#clean()
-command! PackStatus packadd minpac | call minpac#status()
 " }}}
 
 " Colorscheme
@@ -65,6 +61,36 @@ augroup END
 nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
 nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
+
+" Comment.nvim {{{
+lua << EOF
+require('Comment').setup({
+    padding = true,
+    sticky = true,
+    ignore = nil,
+    toggler = {
+        line = 'gcc',
+        block = 'gbc',
+    },
+    opleader = {
+        line = 'gc',
+        block = 'gb',
+    },
+    extra = {
+        above = 'gcO',
+        below = 'gco',
+        eol = 'gcA',
+    },
+    mappings = {
+        basic = true,
+        extra = true,
+        extended = true,
+    },
+    pre_hook = nil,
+    post_hook = nil,
+})
+EOF
+" }}}
 
 " LSP {{{
 set omnifunc=v:lua.vim.lsp.omnifunc

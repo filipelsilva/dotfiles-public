@@ -369,9 +369,7 @@ nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 " Fzf {{{
 if executable("fzf")
 	" Add fzf to runtimepath, adds :FZF command
-	let s:fzf_runtimepath_command = "set runtimepath+=" . fnamemodify(systemlist("readlink -f $(command -v fzf)")[0], ":h:h")
-
-	execute s:fzf_runtimepath_command
+	execute "set runtimepath+=" . fnamemodify(systemlist("readlink -f $(command -v fzf)")[0], ":h:h")
 
 	" Create quickfix list out of selected files
 	function! s:build_quickfix_list(lines)
@@ -391,5 +389,33 @@ if executable("fzf")
 		\ 'ctrl-s': 'split',
 		\ 'ctrl-v': 'vsplit' }
 	let g:fzf_buffers_jump = 1
+endif
+" }}}
+
+" Plugins {{{
+function! PackInit() abort
+	packadd minpac
+	call minpac#init()
+	call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+	" Identation detector
+	call minpac#add('timakro/vim-yadi')
+
+	" Comment stuff
+	call minpac#add('tpope/vim-commentary')
+
+	" Surround stuff
+	call minpac#add('tpope/vim-surround')
+
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
+
+" Autoinstall package manager
+if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))
+	call system("git clone https://github.com/k-takata/minpac " . substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac")
+	autocmd VimEnter * silent! PackUpdate
 endif
 " }}}

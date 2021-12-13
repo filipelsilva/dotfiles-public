@@ -7,7 +7,7 @@ echo "#########################"
 sudo echo "# Getting password..."
 
 echo "# 1. Pacman"
-./scripts/packages.sh
+./scripts/packages.sh $1
 
 echo "# 2. AUR"
 ./scripts/aur.sh
@@ -25,7 +25,7 @@ echo "# 6. Installing vim plugin managers..."
 ./scripts/vim.sh
 
 echo "# 7. Linking dotfiles..."
-./scripts/linker.sh
+./scripts/linker.sh $1
 
 echo "# 8. Post instalation things..."
-./scripts/post.sh
+./scripts/post.sh $1
