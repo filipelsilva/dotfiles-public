@@ -17,7 +17,8 @@ if !has("nvim")
 	runtime! ftplugin/man.vim
 endif
 
-colorscheme desert
+colorscheme default
+set background=dark
 
 " Highlight 80th character (cleaner alternative to colorcolumn)
 highlight! link Character80 ColorColumn
@@ -222,11 +223,7 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
-tnoremap <C-w><C-w> <C-\><C-n><C-w><C-w>
-tnoremap <C-h> <C-\><C-n><C-w><C-h>
-tnoremap <C-j> <C-\><C-n><C-w><C-j>
-tnoremap <C-k> <C-\><C-n><C-w><C-k>
-tnoremap <C-l> <C-\><C-n><C-w><C-l>
+tnoremap <C-w> <C-\><C-n><C-w>
 
 " Toggle numbers
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
@@ -237,8 +234,6 @@ nnoremap <silent> <Leader>o :setlocal invspell<Bar>call ShowWhitespace()<CR>
 " Buffer jumping
 nnoremap [b :bnext<CR>
 nnoremap ]b :bprev<CR>
-nnoremap gb :bnext<CR>
-nnoremap gB :bprev<CR>
 inoremap <C-^> <Esc><C-^>
 
 " Alternative tab jumping
@@ -411,7 +406,7 @@ endfunction
 
 command! PackUpdate call PackInit() | call minpac#update()
 command! PackClean  call PackInit() | call minpac#clean()
-command! PackStatus packadd minpac | call minpac#status()
+command! PackStatus packadd minpac  | call minpac#status()
 
 " Autoinstall package manager
 if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))

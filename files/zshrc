@@ -128,7 +128,7 @@ function fif() {
 		echo "Need a string to search for!";
 		return 1;
 	fi
-	rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --header='[find in file]' --preview "rg --ignore-case --pretty --context 10 '$1' {}"
+	rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --header='[find in file]' --preview "rg --pretty --context 10 '$1' {}"
 }
 
 # [K]ill [P]rocess
