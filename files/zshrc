@@ -179,7 +179,11 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 # }}}
 
-# Completion menu {{{
+# Completion/Correction {{{
+
+setopt correct
+setopt correct_all
+
 zmodload zsh/complist
 
 # Vi mode for selecting completion
@@ -250,13 +254,18 @@ bindkey "^R" history-incremental-search-backward
 bindkey -M vicmd "/" history-incremental-search-backward
 # }}}
 
-# Vi-mode {{{
-bindkey -v
+# Vi-mode and keybinds {{{
+autoload -z edit-command-line
+zle -N edit-command-line
+
 KEYTIMEOUT=1
+
+bindkey -v
 bindkey "^[[Z" reverse-menu-complete
 bindkey "^[[3~" delete-char
 bindkey "^?" backward-delete-char
 bindkey "\e." insert-last-word
+bindkey "^E" edit-command-line
 # }}}
 
 # Variables {{{
