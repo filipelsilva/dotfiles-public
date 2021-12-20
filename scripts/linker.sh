@@ -2,6 +2,7 @@
 
 # Dotfiles
 rm $HOME/.zshrc
+mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/.vim-tmp/undo $HOME/.vim-tmp/swp $HOME/.vim-tmp/backup
 mkdir -p $HOME/.nvim-tmp/undo $HOME/.nvim-tmp/swp $HOME/.nvim-tmp/backup
 ln -s $HOME/dotfiles/files/defaults.vim $HOME/.vimrc
