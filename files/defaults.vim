@@ -337,7 +337,7 @@ vnoremap <Leader>x "_x
 nnoremap <Leader>X "_X
 vnoremap <Leader>X "_X
 
-" Copy/Paste to/from the clipboard
+" Copy to/Paste from the clipboard
 nnoremap <Leader>y "+y
 vnoremap <Leader>y "+y
 nnoremap <Leader>Y "+y$
