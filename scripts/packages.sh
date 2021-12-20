@@ -3,51 +3,52 @@
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm \
     zsh \
+    zsh-completions \
+    bash \
+    bash-completion \
+    vim \
+    neovim \
+    tmux \
     git \
-    tk \
+    zoxide \
+    zip \
+    unzip \
+    atool \
     curl \
     wget \
-    glances \
     htop \
-    neovim \
+    glances \
+    tree \
     python \
     pypy \
     gcc \
-    valgrind \
     gdb \
-    unzip \
-    zip \
-    tmux \
-    lynx \
-    tree \
-    ripgrep \
+    valgrind \
     fd \
     the_silver_searcher \
+    ripgrep \
+    ripgrep-all \
     neofetch \
     xclip \
     pkg-config \
-    go \
+    shellcheck \
     make \
-    entr \
+    cmake \
     ctags \
+    entr \
     rlwrap \
     hexyl \
     bat \
-    cmake \
-    shellcheck \
     hyperfine \
-    onefetch \
     npm \
-    atool \
     ascii \
+    go \
     nodejs \
-    pacman-contrib \
-    zsh-completions \
-    zoxide \
     jq \
-    xcape \
+    pacman-contrib \
+    lynx \
     dnsutils \
-    ripgrep-all
+    tk
 
 # For desktop installation:
 
