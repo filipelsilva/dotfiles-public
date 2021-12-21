@@ -405,6 +405,7 @@ endfunction
 
 command! PackUpdate call PackInit() | call minpac#update()
 command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus call PackInit() | call minpac#status()
 
 " Autoinstall package manager
 if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))
