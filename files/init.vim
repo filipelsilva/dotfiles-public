@@ -29,10 +29,11 @@ function! PackInit() abort
 	call minpac#add('L3MON4D3/LuaSnip')
 
 	" Completion sources
+	call minpac#add('hrsh7th/cmp-nvim-lsp')
 	call minpac#add('saadparwaiz1/cmp_luasnip')
 	call minpac#add('hrsh7th/cmp-buffer')
 	call minpac#add('hrsh7th/cmp-path')
-	call minpac#add('hrsh7th/cmp-nvim-lsp')
+	call minpac#add('hrsh7th/cmp-cmdline')
 
 	" Completion
 	call minpac#add('hrsh7th/nvim-cmp')
@@ -97,7 +98,7 @@ set omnifunc=v:lua.vim.lsp.omnifunc
 
 lua << EOF
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-new_capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local new_capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local lsp_installer = require('nvim-lsp-installer')
 lsp_installer.settings({
@@ -187,12 +188,28 @@ cmp.setup({
 		['<Tab>'] = cmp.mapping(complete_or_snippet_next, { 'i', 's' }),
 		['<S-Tab>'] = cmp.mapping(complete_or_snippet_prev, { 'i', 's' }),
 	},
-	sources = {
+	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
 		{ name = 'buffer' },
 		{ name = 'path' },
-	},
+	}),
+})
+
+-- Use nvim-cmp with buffer on search
+cmp.setup.cmdline('/', {
+	sources = cmp.config.sources({
+		{ name = 'buffer' },
+	}),
+})
+
+-- Use nvim-cmp with buffer and path on command mode
+cmp.setup.cmdline(':', {
+	sources = cmp.config.sources({
+		{ name = 'path' }
+	}, {
+		{ name = 'cmdline' }
+	}),
 })
 -- }}}
 EOF
