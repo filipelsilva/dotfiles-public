@@ -16,7 +16,7 @@ function! PackInit() abort
 	call minpac#add('tpope/vim-surround')
 
 	" Colorscheme
-	call minpac#add('lifepillar/vim-gruvbox8')
+	call minpac#add('gruvbox-community/gruvbox')
 
 	" Fzf
 	call minpac#add('junegunn/fzf.vim')
@@ -47,9 +47,12 @@ endfunction
 
 " Colorscheme
 set termguicolors
-colorscheme gruvbox8_hard
-highlight! link CursorLineNr LineNr
-highlight! link EndOfBuffer LineNr
+let g:gruvbox_italic = 1
+let g:gruvbox_italicize_strings = 1
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_invert_signs = 1
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
 highlight! link Character80 ColorColumn
 
 " DetectIndent
@@ -65,7 +68,8 @@ nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
 
 " Comment.nvim {{{
 lua << EOF
-require('Comment').setup({
+local comment = require('Comment')
+comment.setup({
     padding = true,
     sticky = true,
     ignore = nil,

@@ -8,5 +8,6 @@ yay -S --noconfirm \
 	tealdeer \
 	downgrade \
 	vimv-git \
+	python-gdbgui \
 	linux-wifi-hotspot \
 	rr

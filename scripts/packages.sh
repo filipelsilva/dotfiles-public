@@ -9,6 +9,7 @@ sudo pacman -S --noconfirm \
     vim \
     neovim \
     tmux \
+    tmuxp \
     git \
     zoxide \
     zip \
@@ -20,6 +21,14 @@ sudo pacman -S --noconfirm \
     glances \
     tree \
     python \
+    python-pip \
+    python-pynvim \
+    python-setuptools \
+    python-pyelftools \
+    python-pycparser \
+    capstone \
+    bpython \
+    python-internetarchive \
     pypy \
     gcc \
     gdb \

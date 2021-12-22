@@ -12,14 +12,11 @@ echo "# 1. Pacman"
 echo "# 2. AUR"
 ./scripts/aur.sh
 
-echo "# 3. Pip"
-./scripts/pip.sh
-
-echo "# 4. Miscellaneous"
+echo "# 3. Miscellaneous"
 ./scripts/other.sh
 
-echo "# 5. Linking dotfiles..."
+echo "# 4. Linking dotfiles..."
 ./scripts/linker.sh $1
 
-echo "# 6. Post instalation things..."
+echo "# 5. Post instalation things..."
 ./scripts/post.sh $1

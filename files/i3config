@@ -232,7 +232,7 @@ bar {
         status_command i3status # config at $HOME/dotfiles/files/i3statusconfig
 
         colors {
-                background $background
+                background $black
                 statusline $foreground
                 separator  $white
 
@@ -248,7 +248,7 @@ bar {
 # border|background|text|indicator|child_border
 client.focused          $blue $blue $black $black $blue
 client.focused_inactive $white $white $black $black $white
-client.unfocused        $background $black $white $black $black
+client.unfocused        $black $black $white $black $black
 client.urgent           $red $red $black $black $red
 # }}}
 

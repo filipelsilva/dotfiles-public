@@ -28,7 +28,7 @@ _fzf_compgen_dir() {
 # Aliases {{{
 
 # Basic commands
-alias ..="cd .."
+alias ..=".."
 alias -- -="cd -"
 alias cp="cp -r"
 alias mkdir="mkdir -p"
@@ -79,7 +79,6 @@ function x() {
 # [Up]grade
 function up() {
 	yay -Syu --devel --timeupdate
-	$HOME/dotfiles/scripts/./pip.sh
 
 	(
 	cd $HOME/.fzf && echo $PWD && git fetch
@@ -204,7 +203,7 @@ setopt autocd
 
 #eval "$(dircolors)"
 #zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' completer _complete _ignored _expand_alias _extensions _approximate
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $HOME/.zcompcache
