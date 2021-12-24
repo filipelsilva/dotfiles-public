@@ -19,18 +19,6 @@ set $mode_printscreen "[printscreen] (s)election, (a)ctive window, (w)hole scree
 set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
 set $mode_resize "resize"
 
-# Colors
-set $background #1d2021
-set $foreground #ebdbb2
-set $black      #282828
-set $red        #cc241d
-set $green      #98971a
-set $yellow     #d79921
-set $blue       #458588
-set $magenta    #b16286
-set $cyan       #689d6a
-set $white      #a89984
-
 # Workspaces
 set $ws1 "1"
 set $ws2 "2"
@@ -66,7 +54,7 @@ exec --no-startup-id optimus-manager-qt
 exec --no-startup-id xset s off && xset -b -dpms
 
 # Lock screen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color=$background
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color=$brightblack
 
 # NetworkManager
 exec --no-startup-id nm-applet
@@ -117,7 +105,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+e exec thunar
 
 # Start dmenu
-bindsym $mod+d exec --no-startup-id rofi -theme gruvbox-dark-hard -font "Iosevka 12" -show run
+bindsym $mod+d exec --no-startup-id rofi -theme gruvbox-dark-hard -font "Iosevka 14" -show run
 
 # Splits
 bindsym $mod+v split h
@@ -224,6 +212,19 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # }}}
 
 # Theme {{{
+
+# Colors
+set $brightblack #1d2021
+set $brightwhite #ebdbb2
+set $black       #282828
+set $red         #cc241d
+set $green       #98971a
+set $yellow      #d79921
+set $blue        #458588
+set $magenta     #b16286
+set $cyan        #689d6a
+set $white       #a89984
+
 bar {
         tray_output primary
         tray_padding 0
@@ -232,8 +233,8 @@ bar {
         status_command i3status # config at $HOME/dotfiles/files/i3statusconfig
 
         colors {
-                background $black
-                statusline $foreground
+                background $brightblack
+                statusline $brightwhite
                 separator  $white
 
                 # border|background|text
@@ -269,10 +270,10 @@ bindsym $mod+q mode $mode_loginopts
 
 # MODE: Change keyboard layout {{{
 mode $mode_layout {
-        bindsym p exec --no-startup-id setxkbmap -layout pt -option ctrl:nocaps; mode "default"
-        bindsym u exec --no-startup-id setxkbmap -layout us -option ctrl:nocaps; mode "default"
-        bindsym i exec --no-startup-id setxkbmap -layout us -variant intl -option ctrl:nocaps; mode "default"
-        bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps; mode "default"
+        bindsym p exec --no-startup-id setxkbmap -layout pt -option ctrl:swapcaps; mode "default"
+        bindsym u exec --no-startup-id setxkbmap -layout us -option ctrl:swapcaps; mode "default"
+        bindsym i exec --no-startup-id setxkbmap -layout us -variant intl -option ctrl:swapcaps; mode "default"
+        bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps; mode "default"
 
         bindsym Return mode "default"
         bindsym Escape mode "default"

@@ -7,8 +7,17 @@ zsh -c "source $HOME/.zshrc"
 # Vi mode in other programs
 echo "set editing-mode vi" >> $HOME/.inputrc
 
-# Optimus-manager
-# echo "#!/bin/sh" >> $HOME/.xinitrc
-# echo "/usr/bin/prime-offload" >> $HOME/.xinitrc
-# echo "i3" >> $HOME/.xinitrc
-# echo "exit" >> $HOME/.xinitrc
+if [[ $1 = "full" ]]; then
+	# Create user directories
+	xdg-user-dirs-update
+
+	# Create xinitrc file
+	echo "#!/bin/sh" >> $HOME/.xinitrc
+	if [[ -f /usr/bin/prime-offload ]]; then
+		echo "/usr/bin/prime-offload" >> $HOME/.xinitrc
+		echo "i3" >> $HOME/.xinitrc
+		echo "exit" >> $HOME/.xinitrc
+	else
+		echo "exec i3" >> $HOME/.xinitrc
+	fi
+fi

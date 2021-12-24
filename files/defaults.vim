@@ -2,11 +2,13 @@
 syntax enable
 filetype plugin indent on
 
+if &compatible
+	set nocompatible
+endif
 set omnifunc=syntaxcomplete#Complete
-set nomodeline nocompatible hidden confirm
+set nomodeline hidden confirm
 set encoding=utf-8 fileformats=unix,dos,mac
-set updatetime=100 ttimeoutlen=0
-set mouse=a
+set updatetime=100 ttimeoutlen=0 mouse=a
 
 if !has("nvim")
 	" Set mouse mode
