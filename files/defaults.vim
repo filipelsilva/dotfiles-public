@@ -143,13 +143,22 @@ endfunction
 
 " CreateTextObject {{{
 function! CreateTextObject(char) abort
-	" This funcion creates a new text object from the cursor position after the
-	" last occurence of the char, until (a)the next occurence of the char itself
-	" or the cursor position before the next occurence (i).
+	" This function creates a new text object: (I/A is used for things like
+	" function arguments, i/a is the expected behaviour)
+	" From:
+	" - (i/I) from the cursor position after the last occurrence of the char
+	" - (a/A) from the last occurrence of the char
+	" To:
+	" - (a/I) the next occurrence of the char
+	" - (i/A) the cursor position before the next occurrence of the char
 	execute "onoremap <silent> i" . a:char . " :<C-u>normal! T" . a:char . "vt" . a:char . "<CR>"
 	execute "xnoremap <silent> i" . a:char . " :<C-u>normal! T" . a:char . "vt" . a:char . "<CR>"
 	execute "onoremap <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
 	execute "xnoremap <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
+	execute "onoremap <silent> I" . a:char . " :<C-u>normal! F" . a:char . "vt" . a:char . "<CR>"
+	execute "xnoremap <silent> I" . a:char . " :<C-u>normal! F" . a:char . "vt" . a:char . "<CR>"
+	execute "onoremap <silent> A" . a:char . " :<C-u>normal! T" . a:char . "vf" . a:char . "<CR>"
+	execute "xnoremap <silent> A" . a:char . " :<C-u>normal! T" . a:char . "vf" . a:char . "<CR>"
 endfunction
 " }}}
 
@@ -364,9 +373,6 @@ nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 " Fzf {{{
 if executable("fzf")
-	" Add fzf to runtimepath, adds :FZF command
-	execute "set runtimepath+=" . fnamemodify(systemlist("readlink -f $(command -v fzf)")[0], ":h:h")
-
 	" Create quickfix list out of selected files
 	function! s:build_quickfix_list(lines)
 		call setqflist(map(copy(a:lines), '{ "filename": v:val }'))

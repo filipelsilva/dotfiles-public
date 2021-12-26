@@ -2,6 +2,10 @@
 
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm \
+    linux \
+    linux-firmware \
+    base \
+    base-devel \
     zsh \
     zsh-completions \
     bash \
@@ -33,6 +37,8 @@ sudo pacman -S --noconfirm \
     gcc \
     gdb \
     valgrind \
+    fzy \
+    fzf \
     fd \
     the_silver_searcher \
     ripgrep \

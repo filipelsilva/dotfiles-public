@@ -6,6 +6,7 @@ export FZF_COMPLETION_TRIGGER='++'
 # Default options
 export FZF_DEFAULT_OPTS=" \
 --color='fg+:#ebdbb2' \
+--height=30% \
 --layout=reverse \
 --info=inline \
 --multi \
@@ -79,17 +80,6 @@ function x() {
 # [Up]grade
 function up() {
 	yay -Syu --devel --timeupdate
-
-	(
-	cd $HOME/.fzf && echo $PWD && git fetch
-	LOCAL=$(git rev-parse @)
-	REMOTE=$(git rev-parse @{u})
-	if [ $LOCAL != $REMOTE ]; then
-		git pull && ./install --all --no-update-rc
-	else
-		echo "Already up to date."
-	fi
-	)
 
 	for folder in $HOME/.gdb_plugins/**; (cd $folder && echo $PWD && git pull)
 
@@ -202,9 +192,9 @@ setopt auto_menu
 setopt complete_aliases
 setopt complete_in_word
 setopt extended_glob
-setopt flow_control
 setopt glob_complete
 setopt list_types
+unsetopt flow_control
 
 #eval "$(dircolors)"
 #zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -235,11 +225,18 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 HISTFILE=$HOME/.zhistory
 HISTSIZE=100000
 SAVEHIST=100000
+
 setopt extended_history
-setopt share_history
-setopt hist_find_no_dups
 setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
 setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_verify
+setopt inc_append_history
+setopt share_history
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
@@ -295,5 +292,6 @@ zit-install "https://github.com/thiagokokada/zit" "zit"
 zit-install-load "https://github.com/wfxr/forgit" "forgit" "forgit.plugin.zsh"
 
 eval "$(zoxide init zsh --cmd j)"
-[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 # }}}
