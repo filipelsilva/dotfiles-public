@@ -404,6 +404,7 @@ function! PackInit() abort
 	call minpac#add('timakro/vim-yadi')
 
 	" Comment stuff
+	call minpac#add('suy/vim-context-commentstring')
 	call minpac#add('tpope/vim-commentary')
 
 	" Surround stuff

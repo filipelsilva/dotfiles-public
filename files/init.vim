@@ -98,11 +98,21 @@ EOF
 " }}}
 
 " LSP {{{
-set omnifunc=v:lua.vim.lsp.omnifunc
-
 lua << EOF
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-local new_capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local custom_on_attach = function(client, bufnr)
+	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+	local opts = { noremap = true, silent = true }
+	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+	buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+end
+
+local new_capabilities = vim.lsp.protocol.make_client_capabilities()
+new_capabilities = require('cmp_nvim_lsp').update_capabilities(new_capabilities)
 
 local lsp_installer = require('nvim-lsp-installer')
 lsp_installer.settings({
@@ -116,6 +126,7 @@ lsp_installer.settings({
 })
 lsp_installer.on_server_ready(function(server)
 	local opts = {
+		on_attach = custom_on_attach,
 		capabilities = new_capabilities,
 	}
 	server:setup(opts)
