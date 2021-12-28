@@ -72,8 +72,8 @@ if executable("rg")
 	set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" Undo, swap/backup files settings
-set undofile undolevels=10000
+" Undo, command history, swap/backup files settings
+set undofile undolevels=10000 history=10000
 if has("nvim")
 	if empty(glob($HOME . "/.nvim-tmp"))
 		for subfolder in ["undo", "swp", "backup"]

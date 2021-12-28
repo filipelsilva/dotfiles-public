@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Dotfiles
-rm $HOME/.zshrc
 mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/.vim-tmp/undo $HOME/.vim-tmp/swp $HOME/.vim-tmp/backup
 mkdir -p $HOME/.nvim-tmp/undo $HOME/.nvim-tmp/swp $HOME/.nvim-tmp/backup
@@ -11,6 +10,7 @@ ln -s $HOME/dotfiles/files/alacritty.yml $HOME/.alacritty.yml
 ln -s $HOME/dotfiles/files/zshrc $HOME/.zshrc
 ln -s $HOME/dotfiles/files/tmux.conf $HOME/.tmux.conf
 ln -s $HOME/dotfiles/files/gitconfig $HOME/.gitconfig
+ln -s $HOME/dotfiles/files/gdbinit $HOME/.gdbinit
 
 if [[ $1 = "full" ]]; then
     mkdir -p $HOME/.config/i3 $HOME/.config/i3status

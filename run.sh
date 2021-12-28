@@ -10,7 +10,7 @@ echo "# 1. Pacman"
 ./scripts/packages.sh $1
 
 echo "# 2. AUR"
-./scripts/aur.sh
+./scripts/aur.sh $1
 
 echo "# 3. Miscellaneous"
 ./scripts/other.sh

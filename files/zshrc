@@ -64,6 +64,10 @@ alias zshconfig="nvim $HOME/.zshrc && zshsource"
 # i3 configuration and reload
 alias i3source="i3-msg restart"
 alias i3config="nvim $HOME/.config/i3/config && i3source"
+
+# GDB aliases
+alias pwndbg="gdb -quiet -ex init-pwndbg"
+alias gef="gdb -quiet -ex init-gef"
 # }}}
 
 # Functions {{{
@@ -80,13 +84,8 @@ function x() {
 # [Up]grade
 function up() {
 	yay -Syu --devel --timeupdate
-
-	for folder in $HOME/.gdb_plugins/**; (cd $folder && echo $PWD && git pull)
-
-	echo "Updating zsh plugins\n" && zit-upgrade
-	echo "Updating tldr cache" && tldr --update
-
-	zshsource
+	zit-upgrade
+	tldr --update
 }
 
 # [Open] files
@@ -171,7 +170,7 @@ add-zsh-hook chpwd chpwd_recent_dirs
 # Completion/Correction {{{
 
 setopt correct
-setopt correct_all
+# setopt correct_all
 
 zmodload zsh/complist
 
