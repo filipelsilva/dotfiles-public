@@ -226,23 +226,23 @@ set $cyan        #689d6a
 set $white       #a89984
 
 bar {
-        tray_output primary
-        tray_padding 0
-        position bottom
+	tray_output primary
+	tray_padding 0
+	position bottom
 
-        status_command i3status # config at $HOME/dotfiles/files/i3statusconfig
+	status_command i3status # config at $HOME/dotfiles/files/i3statusconfig
 
-        colors {
-                background $brightblack
-                statusline $brightwhite
-                separator  $white
+	colors {
+		background $brightblack
+		statusline $brightwhite
+		separator  $white
 
-                # border|background|text
-                focused_workspace  $blue $blue $black
-                active_workspace   $white $white $black
-                inactive_workspace $black $black $white
-                urgent_workspace   $red $red $black
-        }
+		# border|background|text
+		focused_workspace  $blue $blue $black
+		active_workspace   $white $white $black
+		inactive_workspace $black $black $white
+		urgent_workspace   $red $red $black
+	}
 }
 
 # Container colors
@@ -255,14 +255,14 @@ client.urgent           $red $red $black $black $red
 
 # MODE: Exit i3, lock, reboot, shutdown {{{
 mode $mode_loginopts {
-        bindsym e exec --no-startup-id i3-msg exit
-        bindsym l exec --no-startup-id loginctl lock-session; mode "default"
-        bindsym r exec --no-startup-id reboot
-        bindsym s exec --no-startup-id shutdown -h now
+	bindsym e exec --no-startup-id i3-msg exit
+	bindsym l exec --no-startup-id loginctl lock-session; mode "default"
+	bindsym r exec --no-startup-id reboot
+	bindsym s exec --no-startup-id shutdown -h now
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+q mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+q mode "default"
 }
 
 bindsym $mod+q mode $mode_loginopts
@@ -270,14 +270,14 @@ bindsym $mod+q mode $mode_loginopts
 
 # MODE: Change keyboard layout {{{
 mode $mode_layout {
-        bindsym p exec --no-startup-id setxkbmap -layout pt -option ctrl:swapcaps; mode "default"
-        bindsym u exec --no-startup-id setxkbmap -layout us -option ctrl:swapcaps; mode "default"
-        bindsym i exec --no-startup-id setxkbmap -layout us -variant intl -option ctrl:swapcaps; mode "default"
-        bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps; mode "default"
+	bindsym p exec --no-startup-id setxkbmap -layout pt -option ctrl:swapcaps; mode "default"
+	bindsym u exec --no-startup-id setxkbmap -layout us -option ctrl:swapcaps; mode "default"
+	bindsym i exec --no-startup-id setxkbmap -layout us -variant intl -option ctrl:swapcaps; mode "default"
+	bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps; mode "default"
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+i mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+i mode "default"
 }
 
 bindsym $mod+i mode $mode_layout
@@ -285,13 +285,13 @@ bindsym $mod+i mode $mode_layout
 
 # MODE: Printscreen {{{
 mode $mode_printscreen {
-        bindsym s exec --no-startup-id maim --select "$HOME/Pictures/$(date).png"; mode "default"
-        bindsym a exec --no-startup-id maim --window $(xdotool getactivewindow) "$HOME/Pictures/$(date).png"; mode "default"
-        bindsym w exec --no-startup-id maim "$HOME/Pictures/$(date).png"; mode "default"
+	bindsym s exec --no-startup-id maim --select "$HOME/Pictures/$(date).png"; mode "default"
+	bindsym a exec --no-startup-id maim --window $(xdotool getactivewindow) "$HOME/Pictures/$(date).png"; mode "default"
+	bindsym w exec --no-startup-id maim "$HOME/Pictures/$(date).png"; mode "default"
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym Print mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym Print mode "default"
 }
 
 bindsym Print mode $mode_printscreen
@@ -299,19 +299,19 @@ bindsym Print mode $mode_printscreen
 
 # MODE: Change brightness and media control {{{
 mode $mode_media_brightness {
-        bindsym i exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-        bindsym o exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-        bindsym p exec --no-startup-id playerctl play-pause
-        bindsym h exec --no-startup-id playerctl previous
-        bindsym j exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-        bindsym k exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-        bindsym l exec --no-startup-id playerctl next
-        bindsym n exec --no-startup-id brightnessctl set 5%-
-        bindsym m exec --no-startup-id brightnessctl set 5%+
+	bindsym i exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+	bindsym o exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+	bindsym p exec --no-startup-id playerctl play-pause
+	bindsym h exec --no-startup-id playerctl previous
+	bindsym j exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+	bindsym k exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+	bindsym l exec --no-startup-id playerctl next
+	bindsym n exec --no-startup-id brightnessctl set 5%-
+	bindsym m exec --no-startup-id brightnessctl set 5%+
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+m mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+m mode "default"
 }
 
 bindsym $mod+m mode $mode_media_brightness
@@ -319,18 +319,18 @@ bindsym $mod+m mode $mode_media_brightness
 
 # MODE: Resize window {{{
 mode $mode_resize {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+	bindsym h resize shrink width 10 px or 10 ppt
+	bindsym j resize grow height 10 px or 10 ppt
+	bindsym k resize shrink height 10 px or 10 ppt
+	bindsym l resize grow width 10 px or 10 ppt
+	bindsym Left resize shrink width 10 px or 10 ppt
+	bindsym Down resize grow height 10 px or 10 ppt
+	bindsym Up resize shrink height 10 px or 10 ppt
+	bindsym Right resize grow width 10 px or 10 ppt
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode $mode_resize

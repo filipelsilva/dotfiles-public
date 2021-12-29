@@ -14,7 +14,7 @@ packages=(
 desktop_packages=()
 
 if [[ $1 = "full" ]]; then
-    packages+=(${desktop_packages[@]})
+	packages+=(${desktop_packages[@]})
 fi
 
 sudo pacman -S --needed git base-devel

@@ -7,12 +7,12 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
-        output_format = "i3bar"
-        colors = true
-        interval = 1
-        color_good ="#98971a"
-        color_degraded = "#d79921"
-        color_bad = "#cc241d"
+	output_format = "i3bar"
+	colors = true
+	interval = 1
+	color_good ="#98971a"
+	color_degraded = "#d79921"
+	color_bad = "#cc241d"
 }
 
 order += "cpu_usage"
@@ -26,46 +26,46 @@ order += "ethernet _first_"
 order += "tztime local"
 
 cpu_usage {
-        format= "CPU %usage"
-        max_threshold= 75
+	format= "CPU %usage"
+	max_threshold= 75
 }
 
 memory {
-        format = "RAM %available (%percentage_used)"
+	format = "RAM %available (%percentage_used)"
 }
 
 disk "/" {
-        format = "DISK %avail (%percentage_used)"
+	format = "DISK %avail (%percentage_used)"
 }
 
 battery all {
-        format = "%status %percentage %remaining"
-        format_down = ""
-        status_chr = "CHR"
-        status_bat = "BAT"
-        status_unk = "UNK"
-        status_full = "FULL"
-        path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 10
+	format = "%status %percentage %remaining"
+	format_down = ""
+	status_chr = "CHR"
+	status_bat = "BAT"
+	status_unk = "UNK"
+	status_full = "FULL"
+	path = "/sys/class/power_supply/BAT%d/uevent"
+	low_threshold = 10
 }
 
 wireless _first_ {
-        format_up = "W %ip (%quality \"%essid\" %bitrate)"
-        format_down = ""
+	format_up = "W %ip (%quality \"%essid\" %bitrate)"
+	format_down = ""
 }
 
 ethernet _first_ {
-        format_up = "E %ip (%speed)"
-        format_down = ""
+	format_up = "E %ip (%speed)"
+	format_down = ""
 }
 
 volume master {
-        format = "VOL %volume"
-        format_muted = "VOL muted (%volume)"
-        device = "default"
-        mixer = "Master"
+	format = "VOL %volume"
+	format_muted = "VOL muted (%volume)"
+	device = "default"
+	mixer = "Master"
 }
 
 tztime local {
-        format = "%H:%M:%S %d-%m-%Y"
+	format = "%H:%M:%S %d-%m-%Y"
 }

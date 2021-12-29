@@ -13,7 +13,7 @@ ln -s $HOME/dotfiles/files/gitconfig $HOME/.gitconfig
 ln -s $HOME/dotfiles/files/gdbinit $HOME/.gdbinit
 
 if [[ $1 = "full" ]]; then
-    mkdir -p $HOME/.config/i3 $HOME/.config/i3status
-    ln -s $HOME/dotfiles/files/i3config $HOME/.config/i3/config
-    ln -s $HOME/dotfiles/files/i3statusconfig $HOME/.config/i3status/config
+	mkdir -p $HOME/.config/i3 $HOME/.config/i3status
+	ln -s $HOME/dotfiles/files/i3config $HOME/.config/i3/config
+	ln -s $HOME/dotfiles/files/i3statusconfig $HOME/.config/i3status/config
 fi

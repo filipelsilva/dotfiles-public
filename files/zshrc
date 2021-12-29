@@ -169,7 +169,7 @@ add-zsh-hook chpwd chpwd_recent_dirs
 
 # Completion/Correction {{{
 
-setopt correct
+# setopt correct
 # setopt correct_all
 
 zmodload zsh/complist
