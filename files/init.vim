@@ -55,12 +55,6 @@ let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 highlight! link Character80 ColorColumn
 
-" DetectIndent
-augroup DetectIndent
-	autocmd!
-	autocmd BufRead * DetectIndent
-augroup END
-
 " Fzf (overrides defaults.vim keybinds on f key, due to fzf.vim being used here)
 nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
 nnoremap <silent> <Leader>r <Cmd>Rg<CR>

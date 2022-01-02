@@ -34,6 +34,8 @@ packages=(
 	gdb
 	pwndbg
 	valgrind
+	cloc
+	tokei
 	fzy
 	fzf
 	fd

@@ -3,6 +3,7 @@
 packages=(
 	gef-git
 	cht.sh-git
+	scc-bin
 	downgrade
 	vimv-git
 	rr-bin

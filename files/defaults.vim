@@ -421,4 +421,10 @@ if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))
 	call system("git clone https://github.com/k-takata/minpac " . substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac")
 	autocmd VimEnter * silent! PackUpdate
 endif
+
+" DetectIndent
+augroup DetectIndent
+	autocmd!
+	autocmd BufRead * DetectIndent
+augroup END
 " }}}
