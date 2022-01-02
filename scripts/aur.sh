@@ -11,6 +11,7 @@ packages=(
 )
 
 desktop_packages=(
+	discord_arch_electron
 	linux-wifi-hotspot
 )
 

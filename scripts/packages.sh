@@ -62,6 +62,8 @@ packages=(
 	npm
 	jq
 	pacman-contrib
+	sysstat
+	iftop
 	lynx
 	dnsutils
 	tk
@@ -70,6 +72,10 @@ packages=(
 desktop_packages=(
 	alacritty
 	firefox
+	vlc
+	mpv
+	transmission-cli
+	transmission-gtk
 	torbrowser-launcher
 	i3
 	i3status
