@@ -55,6 +55,7 @@ packages=(
 	tealdeer
 	ascii
 	go
+	rust
 	nodejs
 	npm
 	jq
