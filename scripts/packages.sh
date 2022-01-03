@@ -43,6 +43,7 @@ packages=(
 	ripgrep
 	ripgrep-all
 	neofetch
+	onefetch
 	xclip
 	pkg-config
 	shellcheck

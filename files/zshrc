@@ -142,8 +142,8 @@ export PROMPT='%n@%m:%~%# '
 # export PROMPT='%B%F{green}%n@%m %B%F{blue}%~ %f%b%# '
 
 # Prompts with vcs integration
-# setopt prompt_subst
 
+# setopt prompt_subst
 # autoload -Uz vcs_info
 # precmd_vcs_info() { vcs_info }
 # precmd_functions+=( precmd_vcs_info )
@@ -200,8 +200,9 @@ setopt glob_complete
 setopt list_types
 unsetopt flow_control
 
-#eval "$(dircolors)"
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# eval "$(dircolors)"
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 zstyle ':completion:*' completer _complete _ignored _expand_alias _extensions _approximate
 
 zstyle ':completion:*' use-cache on
@@ -213,6 +214,7 @@ zstyle ':completion:*:*:*:*:corrections' format '-- %d (errors: %e) --'
 zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
 zstyle ':completion:*:*:*:*:messages' format '-- %d --'
 zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
+
 # zstyle ':completion:*:*:*:*:corrections' format '%F{magenta}-- %d (errors: %e) --%f'
 # zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
 # zstyle ':completion:*:*:*:*:messages' format '%F{purple}-- %d --%f'

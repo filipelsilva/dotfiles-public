@@ -11,6 +11,8 @@ packages=(
 )
 
 desktop_packages=(
+	optimus-manager
+	optimus-manager-qt
 	discord_arch_electron
 	linux-wifi-hotspot
 )
