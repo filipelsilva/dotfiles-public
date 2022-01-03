@@ -102,8 +102,8 @@ local custom_on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true }
 	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	buf_set_keymap('n', '<Leader>k', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	buf_set_keymap('n', '[e', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-	buf_set_keymap('n', ']e', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+	buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+	buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 end
 
 local new_capabilities = vim.lsp.protocol.make_client_capabilities()
