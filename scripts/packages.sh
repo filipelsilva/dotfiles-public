@@ -97,6 +97,10 @@ desktop_packages=(
 	thunar-archive-plugin
 	file-roller
 	okular
+	zathura
+	zathura-djvu
+	zathura-pdf-mupdf
+	zathura-ps
 	redshift
 	playerctl
 	brightnessctl

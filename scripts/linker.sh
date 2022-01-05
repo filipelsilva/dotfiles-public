@@ -13,7 +13,10 @@ ln -s $HOME/dotfiles/files/gitconfig $HOME/.gitconfig
 ln -s $HOME/dotfiles/files/gdbinit $HOME/.gdbinit
 
 if [[ $1 = "full" ]]; then
-	mkdir -p $HOME/.config/i3 $HOME/.config/i3status
+	mkdir -p $HOME/.config/i3
+	mkdir -p $HOME/.config/i3status
+	mkdir -p $HOME/.config/zathura
 	ln -s $HOME/dotfiles/files/i3config $HOME/.config/i3/config
 	ln -s $HOME/dotfiles/files/i3statusconfig $HOME/.config/i3status/config
+	ln -s $HOME/dotfiles/files/zathurarc $HOME/.config/zathura/zathurarc
 fi
