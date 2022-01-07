@@ -227,7 +227,7 @@ tnoremap <C-w> <C-\><C-n><C-w>
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
 " Toggle spell
-nnoremap <silent> <Leader>o :setlocal invspell<Bar>call ShowWhitespace()<CR>
+nnoremap <silent> <Leader>o :set invspell<Bar>call ShowWhitespace()<CR>
 
 " Buffer jumping
 nnoremap ]b :bnext<CR>
@@ -288,7 +288,7 @@ for char in [".", ",", "!", "?"]
 endfor
 
 " Text objects (add or remove more, according to needs)
-for char in [".", ",", ";", "/", "\\"]
+for char in [".", ",", ";", "/", "\\", "-", "_"]
 	call CreateTextObject(char)
 endfor
 
@@ -404,15 +404,15 @@ command! PackUpdate call PackInit() | call minpac#update()
 command! PackClean  call PackInit() | call minpac#clean()
 command! PackStatus call PackInit() | call minpac#status()
 
-" Autoinstall package manager
-if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))
-	call system("git clone https://github.com/k-takata/minpac " . substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac")
-	autocmd VimEnter * silent! PackUpdate
-endif
-
 " DetectIndent
 augroup DetectIndent
 	autocmd!
 	autocmd BufRead * DetectIndent
 augroup END
+
+" Autoinstall package manager
+if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))
+	call system("git clone https://github.com/k-takata/minpac " . substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac")
+	autocmd VimEnter * silent! PackUpdate
+endif
 " }}}

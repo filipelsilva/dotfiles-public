@@ -44,6 +44,7 @@ packages=(
 	ripgrep-all
 	neofetch
 	onefetch
+	terminus-font
 	xclip
 	pkg-config
 	shellcheck
@@ -73,6 +74,8 @@ packages=(
 desktop_packages=(
 	alacritty
 	firefox
+	ffmpeg
+	handbrake
 	vlc
 	mpv
 	transmission-cli
@@ -104,6 +107,9 @@ desktop_packages=(
 	redshift
 	playerctl
 	brightnessctl
+	tesseract
+	tesseract-data-por
+	tesseract-data-eng
 	ttc-iosevka
 	ttc-iosevka-ss12
 )

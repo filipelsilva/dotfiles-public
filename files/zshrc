@@ -37,11 +37,11 @@ alias wget="wget -c"
 alias ip="ip --color=auto"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
-alias v=nvim
+alias v="nvim"
 
 # Ls aliases
 alias lt="tree -F -L 2" # -C"
-alias lta="tree -aF -L 2" # -C"
+alias lta="lt -a"
 alias ls="ls -CNF" # --color=auto"
 alias lsa="ls -A"
 alias l="ls -lh"
@@ -132,7 +132,7 @@ function kp() {
 
 # Prompt {{{
 
-# Simple prompts
+# Simple prompts (replace %# with %(!.#.$) for bash-like prompt)
 export PROMPT='%n@%m:%~%# '
 # export PROMPT='%n@%m %~ %# '
 # export PROMPT='[%n@%m %~]%# '
@@ -140,6 +140,7 @@ export PROMPT='%n@%m:%~%# '
 
 # export PROMPT='%B%F{green}%n@%m%f%b:%B%F{blue}%~%f%b%# '
 # export PROMPT='%B%F{green}%n@%m %B%F{blue}%~ %f%b%# '
+# export PROMPT='%F{red}[%F{yellow}%n%F{green}@%F{blue}%m %F{magenta}%~]%f%# '
 
 # Prompts with vcs integration
 
@@ -241,8 +242,7 @@ setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
 setopt hist_verify
-setopt inc_append_history
-# setopt share_history
+setopt inc_append_history_time
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
