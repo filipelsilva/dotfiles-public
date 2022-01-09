@@ -3,6 +3,11 @@
 
 [alias]
 	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
+	cm = "commit -m"
+	cob = "checkout -b"
+	co = "checkout"
+	lg = "log --graph --oneline --decorate"
+	st = "status"
 
 [diff]
 	tool = vimdiff
