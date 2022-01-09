@@ -282,7 +282,7 @@ export VISUAL=nvim
 export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
 
 export BAT_THEME="gruvbox-dark"
-export BAT_STYLE="plain"
+export BAT_STYLE="auto"
 # }}}
 
 # Plugins {{{

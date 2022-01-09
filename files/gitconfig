@@ -2,9 +2,9 @@
 	editor = nvim
 
 [alias]
-	tree = log --graph --oneline --decorate
 	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
 	s = status
+	tree = log --graph --oneline --decorate
 
 [diff]
 	tool = vimdiff
