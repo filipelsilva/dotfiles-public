@@ -3,7 +3,7 @@
 
 [alias]
 	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
-	cm = "commit -m"
+	cm = "commit"
 	cob = "checkout -b"
 	co = "checkout"
 	lg = "log --graph --oneline --decorate"
