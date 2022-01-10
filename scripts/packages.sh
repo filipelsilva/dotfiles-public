@@ -42,6 +42,8 @@ packages=(
 	the_silver_searcher
 	ripgrep
 	ripgrep-all
+	duf
+	dust
 	neofetch
 	onefetch
 	terminus-font
