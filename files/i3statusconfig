@@ -21,9 +21,9 @@ order += "disk /"
 order += "battery all"
 order += "wireless _first_"
 order += "ethernet _first_"
-#order += "ipv6"
-#order += "volume master"
 order += "tztime local"
+# order += "ipv6"
+# order += "volume master"
 
 cpu_usage {
 	format= "CPU %usage"

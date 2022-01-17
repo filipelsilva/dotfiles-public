@@ -204,12 +204,30 @@ unsetopt flow_control
 # eval "$(dircolors)"
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-zstyle ':completion:*' completer _complete _ignored _expand_alias _extensions _approximate
-
-zstyle ':completion:*' use-cache on
+zstyle ':completion:*' add-space true
 zstyle ':completion:*' cache-path $HOME/.zcompcache
+zstyle ':completion:*' completer _expand _complete _ignored _expand_alias _extensions _match _correct _approximate _prefix
+zstyle ':completion:*' file-sort name
+zstyle ':completion:*' format '-- %d --'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' ignore-parents parent pwd
+zstyle ':completion:*' insert-unambiguous false
+zstyle ':completion:*' list-prompt "%SAt %p: Hit TAB for more, or the character to insert%s"
+zstyle ':completion:*' list-suffixes true
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' 'l:|=* r:|=*'
+zstyle ':completion:*' match-original both
+zstyle ':completion:*' max-errors 5 numeric
+zstyle ':completion:*' menu select
+zstyle ':completion:*' original true
+zstyle ':completion:*' preserve-prefix '//[^/]##/'
+zstyle ':completion:*' select-prompt "%SScrolling active: current selection at %p%s"
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' word true
 
-zstyle ':completion:*' menu yes select
+zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
 
 zstyle ':completion:*:*:*:*:corrections' format '-- %d (errors: %e) --'
 zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
@@ -221,11 +239,7 @@ zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
 # zstyle ':completion:*:*:*:*:messages' format '%F{purple}-- %d --%f'
 # zstyle ':completion:*:*:*:*:warnings' format '%F{red}-- no matches found --%f'
 
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
-
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle :compinstall filename "$HOME/.zshrc"
 # }}}
 
 # Command history {{{

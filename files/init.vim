@@ -205,22 +205,6 @@ cmp.setup({
 		{ name = 'path' },
 	}),
 })
-
--- Use nvim-cmp with buffer on search
-cmp.setup.cmdline('/', {
-	sources = cmp.config.sources({
-		{ name = 'buffer' },
-	}),
-})
-
--- Use nvim-cmp with buffer and path on command mode
-cmp.setup.cmdline(':', {
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{ name = 'cmdline' }
-	}),
-})
 -- }}}
 EOF
 " }}}
