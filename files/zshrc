@@ -130,36 +130,8 @@ function kp() {
 }
 # }}}
 
-# Prompt {{{
-
-# Simple prompts (replace %# with %(!.#.$) for bash-like prompt)
+# Prompt (replace %# with %(!.#.$) for bash-like prompt)
 export PROMPT='%n@%m:%~%# '
-# export PROMPT='%n@%m %~ %# '
-# export PROMPT='[%n@%m %~]%# '
-# export PROMPT='%m%S%n%s%~%# '
-
-# export PROMPT='%B%F{green}%n@%m%f%b:%B%F{blue}%~%f%b%# '
-# export PROMPT='%B%F{green}%n@%m %B%F{blue}%~ %f%b%# '
-# export PROMPT='%F{red}[%F{yellow}%n%F{green}@%F{blue}%m %F{magenta}%~]%f%# '
-
-# Prompts with vcs integration
-
-# setopt prompt_subst
-# autoload -Uz vcs_info
-# precmd_vcs_info() { vcs_info }
-# precmd_functions+=( precmd_vcs_info )
-
-# zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:*' stagedstr '+'
-# zstyle ':vcs_info:*' unstagedstr '*'
-
-# zstyle ':vcs_info:*' formats '[%s:%b%m%u%c]'
-# export PROMPT='%m%S%n%s%1~${vcs_info_msg_0_}%(?..%F{red}[%?])%f '
-# export PROMPT='[%n@%m %1~]${vcs_info_msg_0_}%(?..%F{red}[%?])%f$ '
-
-# zstyle ':vcs_info:*' formats ':(%s)%b%m%u%c'
-# export PROMPT='%n@%m:%1~${vcs_info_msg_0_}%(?..%F{red}:%?)%f$ '
-# }}}
 
 # Directory stack {{{
 setopt auto_pushd
@@ -174,9 +146,6 @@ add-zsh-hook chpwd chpwd_recent_dirs
 # }}}
 
 # Completion/Correction {{{
-
-# setopt correct
-# setopt correct_all
 
 zmodload zsh/complist
 
@@ -201,9 +170,6 @@ setopt glob_complete
 setopt list_types
 unsetopt flow_control
 
-# eval "$(dircolors)"
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
 zstyle ':completion:*' add-space true
 zstyle ':completion:*' cache-path $HOME/.zcompcache
 zstyle ':completion:*' completer _expand _complete _ignored _expand_alias _extensions _match _correct _approximate _prefix
@@ -227,7 +193,7 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' word true
 
-zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
+zstyle ':completion:*:*:-command-:*:*' group-order aliases functions builtins commands
 
 zstyle ':completion:*:*:*:*:corrections' format '-- %d (errors: %e) --'
 zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
@@ -295,7 +261,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
 
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="ansi"
 export BAT_STYLE="auto"
 # }}}
 
