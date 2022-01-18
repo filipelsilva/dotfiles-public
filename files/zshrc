@@ -1,12 +1,12 @@
 # Variables {{{
-export EDITOR="nvim"
-export VISUAL="$EDITOR"
-
-if [ "$EDITOR" = "nvim" ]; then
+if (( $+commands[nvim] )); then
+	export EDITOR="nvim"
 	export MANPAGER="nvim +Man!"
 else
+	export EDITOR="vim"
 	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
 fi
+export VISUAL="$EDITOR"
 
 export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
 
