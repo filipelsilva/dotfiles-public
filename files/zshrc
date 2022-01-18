@@ -32,9 +32,9 @@ alias grep="grep --color=auto"
 alias v="$EDITOR"
 
 # Ls aliases
-alias lt="tree -F -L 2" # -C"
+alias lt="tree -F -L 2"
 alias lta="lt -a"
-alias ls="ls -CNF" # --color=auto"
+alias ls="ls -CNF"
 alias lsa="ls -A"
 alias l="ls -lh"
 alias la="ls -lhA"
@@ -112,10 +112,10 @@ unsetopt flow_control
 zstyle ':completion:*' add-space true
 zstyle ':completion:*' cache-path $HOME/.zcompcache
 zstyle ':completion:*' completer _expand _complete _ignored _expand_alias _extensions _match _correct _approximate _prefix
+zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' format '-- %d --'
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' insert-unambiguous false
 zstyle ':completion:*' list-prompt "%SAt %p: Hit TAB for more, or the character to insert%s"
 zstyle ':completion:*' list-suffixes true
@@ -248,10 +248,10 @@ function x() {
 
 # Fzf {{{
 if (( $+commands[fzf] )); then
-
 	FZF_KEYBINDS=/usr/share/fzf/key-bindings.zsh
 	FZF_COMPLETION=/usr/share/fzf/completion.zsh
-	source $FZF_KEYBINDS $FZF_COMPLETION
+	source $FZF_KEYBINDS
+	source $FZF_COMPLETION
 
 	# Make fzf not collide with zsh
 	export FZF_COMPLETION_TRIGGER='++'
@@ -267,7 +267,7 @@ if (( $+commands[fzf] )); then
 		"
 
 	if (( $+commands[fd] )); then
-		export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+		export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
 		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 		export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
