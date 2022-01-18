@@ -8,7 +8,9 @@ else
 fi
 export VISUAL="$EDITOR"
 
-export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/.local/bin
+(( $+commands[go] )) && export PATH=$PATH:$HOME/go/bin
+(( $+commands[cargo] )) && export PATH=$PATH:$HOME/.cargo/bin
 
 if (( $+commands[bat] )); then
 	export BAT_THEME="ansi"
