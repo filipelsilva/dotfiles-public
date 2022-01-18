@@ -44,6 +44,7 @@ packages=(
 	ripgrep-all
 	duf
 	dust
+	diskus
 	neofetch
 	onefetch
 	terminus-font

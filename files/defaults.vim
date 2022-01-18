@@ -256,11 +256,11 @@ vnoremap <Leader>S "zy<Esc>:%s/\<<C-r>z\>//g<Left><Left>
 
 " Create quickfix list with searched word
 if executable("rg")
-	nnoremap <Leader>q :grep! "<cword>" .<CR> <Bar> :copen<CR>
-	vnoremap <Leader>q "zy<Esc>:grep! "<C-r>z" .<CR> <Bar> :copen<CR>
+	nnoremap <Leader>q :grep! "<cword>" .<CR><Bar>:copen<CR>
+	vnoremap <Leader>q "zy<Esc>:grep! "<C-r>z" .<CR><Bar>:copen<CR>
 else
-	nnoremap <Leader>q :grep! -R -I --exclude-dir={.git,.svn} "<cword>" .<CR> <Bar> :copen<CR>
-	vnoremap <Leader>q "zy<Esc>:grep! -R -I --exclude-dir={.git,.svn} "<C-r>z" .<CR> <Bar> :copen<CR>
+	nnoremap <Leader>q :grep! -R -I --exclude-dir={.git,.svn} "<cword>" .<CR><Bar>:copen<CR>
+	vnoremap <Leader>q "zy<Esc>:grep! -R -I --exclude-dir={.git,.svn} "<C-r>z" .<CR><Bar>:copen<CR>
 endif
 
 " Open files quickly

@@ -1,29 +1,17 @@
-# Fzf {{{
+# Variables {{{
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
 
-# Make fzf not collide with zsh
-export FZF_COMPLETION_TRIGGER='++'
+if [ "$EDITOR" = "nvim" ]; then
+	export MANPAGER="nvim +Man!"
+else
+	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
+fi
 
-# Default options
-export FZF_DEFAULT_OPTS=" \
---color='fg+:#ebdbb2' \
---height=30% \
---layout=reverse \
---info=inline \
---multi \
---bind '?:toggle-preview,ctrl-a:toggle-all' \
-"
+export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
 
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
-
-_fzf_compgen_path() {
-	fd --hidden --exclude ".git" . "$1"
-}
-
-_fzf_compgen_dir() {
-	fd --type d --hidden --exclude ".git" . "$1"
-}
+export BAT_THEME="ansi"
+export BAT_STYLE="auto"
 # }}}
 
 # Aliases {{{
@@ -37,7 +25,7 @@ alias wget="wget -c"
 alias ip="ip --color=auto"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
-alias v="nvim"
+alias v="$EDITOR"
 
 # Ls aliases
 alias lt="tree -F -L 2" # -C"
@@ -60,74 +48,15 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 # Zsh configuration and reload
 alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
-alias zshconfig="nvim $HOME/.zshrc && zshsource"
+alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
 
 # i3 configuration and reload
 alias i3source="i3-msg restart"
-alias i3config="nvim $HOME/.config/i3/config && i3source"
+alias i3config="$EDITOR $HOME/.config/i3/config && i3source"
 
 # GDB aliases
 alias pwndbg="gdb -quiet -ex init-pwndbg"
 alias gef="gdb -quiet -ex init-gef"
-# }}}
-
-# Functions {{{
-
-# Start[x]: to use with optimus-manager, instead of default startx
-function x() {
-	if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]];
-	then
-		sudo /usr/bin/prime-switch
-		exec startx
-	fi
-}
-
-# [Up]grade
-function up() {
-	yay -Syu --devel --timeupdate
-	zit-upgrade
-	tldr --update
-}
-
-# [Open] files
-function open() {
-	if [ "$#" -eq 1 ]; then
-		(xdg-open $1 > /dev/null 2>&1 &)
-	else
-		local file="$(fzf --no-multi)"
-		[ -n $file ] && (xdg-open $file > /dev/null 2>&1 &)
-	fi
-}
-
-# [Take]: mkdir directory and cd to it
-function take() {
-	mkdir -p $@ && cd ${@:$#}
-}
-
-# [Linkdump]
-function linkdump() {
-	lynx -dump -listonly -nonumbers $1 | grep .pdf > dump.txt
-	wget -i dump.txt
-	rm dump.txt
-}
-
-# [F]ind-[I]n-[F]ile
-function fif() {
-	if [ ! "$#" -gt 0 ]; then
-		echo "Need a string to search for!";
-		return 1;
-	fi
-	rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --header='[find in file]' --preview "rg --pretty --context 10 '$1' {}"
-}
-
-# [K]ill [P]rocess
-function kp() {
-	local pid=$(ps -ef | sed 1d | eval "fzf -m --header='[kill:process]'" | awk '{print $2}')
-	if [ "x$pid" != "x" ]; then
-		echo $pid | xargs kill -${1:-9}
-		kp
-	fi
-}
 # }}}
 
 # Prompt (replace %# with %(!.#.$) for bash-like prompt)
@@ -208,6 +137,20 @@ zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
 zstyle :compinstall filename "$HOME/.zshrc"
 # }}}
 
+# Vi-mode and keybinds {{{
+autoload -z edit-command-line
+zle -N edit-command-line
+
+KEYTIMEOUT=1
+
+bindkey -v
+bindkey "^[[Z" reverse-menu-complete
+bindkey "^[[3~" delete-char
+bindkey "^?" backward-delete-char
+bindkey "\e." insert-last-word
+bindkey "^E" edit-command-line
+# }}}
+
 # Command history {{{
 HISTFILE=$HOME/.zhistory
 HISTSIZE=100000
@@ -241,28 +184,91 @@ bindkey "^R" history-incremental-search-backward
 bindkey -M vicmd "/" history-incremental-search-backward
 # }}}
 
-# Vi-mode and keybinds {{{
-autoload -z edit-command-line
-zle -N edit-command-line
+# Functions {{{
 
-KEYTIMEOUT=1
+# [Take]: mkdir directory and cd to it
+function take() {
+	mkdir -p $@ && cd ${@:$#}
+}
 
-bindkey -v
-bindkey "^[[Z" reverse-menu-complete
-bindkey "^[[3~" delete-char
-bindkey "^?" backward-delete-char
-bindkey "\e." insert-last-word
-bindkey "^E" edit-command-line
+# [Up]grade
+function up() {
+	yay -Syu --devel --timeupdate
+	zit-upgrade
+	tldr --update
+}
+
+# [Open] files
+function open() {
+	if [ "$#" -eq 1 ]; then
+		(xdg-open $1 > /dev/null 2>&1 &)
+	else
+		local file="$(fzf --no-multi)"
+		[ -n $file ] && (xdg-open $file > /dev/null 2>&1 &)
+	fi
+}
+
+# [Linkdump]
+function linkdump() {
+	lynx -dump -listonly -nonumbers $1 | grep .pdf > dump.txt
+	wget -i dump.txt
+	rm dump.txt
+}
+
+# [F]ind-[I]n-[F]ile
+function fif() {
+	if [ ! "$#" -gt 0 ]; then
+		echo "Need a string to search for!";
+		return 1;
+	fi
+	rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --header='[find in file]' --preview "rg --pretty --context 10 '$1' {}"
+}
+
+# [K]ill [P]rocess
+function kp() {
+	local pid=$(ps -ef | sed 1d | eval "fzf -m --header='[kill:process]'" | awk '{print $2}')
+	if [ "x$pid" != "x" ]; then
+		echo $pid | xargs kill -${1:-9}
+		kp
+	fi
+}
+
+# Start[x]: to use with optimus-manager, instead of default startx
+function x() {
+	if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]];
+	then
+		sudo /usr/bin/prime-switch
+		exec startx
+	fi
+}
 # }}}
 
-# Variables {{{
-export MANPAGER="nvim +Man!"
-export EDITOR=nvim
-export VISUAL=nvim
-export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
+# Fzf {{{
 
-export BAT_THEME="ansi"
-export BAT_STYLE="auto"
+# Make fzf not collide with zsh
+export FZF_COMPLETION_TRIGGER='++'
+
+# Default options
+export FZF_DEFAULT_OPTS=" \
+--color='fg+:#ebdbb2' \
+--height=30% \
+--layout=reverse \
+--info=inline \
+--multi \
+--bind '?:toggle-preview,ctrl-a:toggle-all' \
+"
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
+_fzf_compgen_path() {
+	fd --hidden --exclude ".git" . "$1"
+}
+
+_fzf_compgen_dir() {
+	fd --type d --hidden --exclude ".git" . "$1"
+}
 # }}}
 
 # Plugins {{{
