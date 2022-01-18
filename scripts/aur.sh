@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 packages=(
+	forgit-git
 	gef-git
 	cht.sh-git
 	scc-bin

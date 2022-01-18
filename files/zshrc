@@ -10,8 +10,10 @@ fi
 
 export PATH=$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin
 
-export BAT_THEME="ansi"
-export BAT_STYLE="auto"
+if (( $+commands[bat] )); then
+	export BAT_THEME="ansi"
+	export BAT_STYLE="auto"
+fi
 # }}}
 
 # Aliases {{{
@@ -43,7 +45,9 @@ alias lra="ls -lhAR"
 alias ssh="TERM=xterm-256color ssh"
 
 # Search for processes
-alias psfzf="ps aux | fzf ${FZF_DEFAULT_OPTS} --header='[name:process]'"
+if (( $+commands[fzf] )); then
+	alias psfzf="ps aux | fzf ${FZF_DEFAULT_OPTS} --header='[name:process]'"
+fi
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 # Zsh configuration and reload
@@ -51,12 +55,16 @@ alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
 alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
 
 # i3 configuration and reload
-alias i3source="i3-msg restart"
-alias i3config="$EDITOR $HOME/.config/i3/config && i3source"
+if (( $+commands[i3] )); then
+	alias i3source="i3-msg restart"
+	alias i3config="$EDITOR $HOME/.config/i3/config && i3source"
+fi
 
 # GDB aliases
-alias pwndbg="gdb -quiet -ex init-pwndbg"
-alias gef="gdb -quiet -ex init-gef"
+if [ -f $HOME/.gdbinit ]; then
+	alias pwndbg="gdb -quiet -ex init-pwndbg"
+	alias gef="gdb -quiet -ex init-gef"
+fi
 # }}}
 
 # Prompt (replace %# with %(!.#.$) for bash-like prompt)
@@ -129,12 +137,6 @@ zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
 zstyle ':completion:*:*:*:*:messages' format '-- %d --'
 zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
 
-# zstyle ':completion:*:*:*:*:corrections' format '%F{magenta}-- %d (errors: %e) --%f'
-# zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
-# zstyle ':completion:*:*:*:*:messages' format '%F{purple}-- %d --%f'
-# zstyle ':completion:*:*:*:*:warnings' format '%F{red}-- no matches found --%f'
-
-zstyle :compinstall filename "$HOME/.zshrc"
 # }}}
 
 # Vi-mode and keybinds {{{
@@ -194,7 +196,6 @@ function take() {
 # [Up]grade
 function up() {
 	yay -Syu --devel --timeupdate
-	zit-upgrade
 	tldr --update
 }
 
@@ -244,46 +245,46 @@ function x() {
 # }}}
 
 # Fzf {{{
+if (( $+commands[fzf] )); then
 
-# Make fzf not collide with zsh
-export FZF_COMPLETION_TRIGGER='++'
+	FZF_KEYBINDS=/usr/share/fzf/key-bindings.zsh
+	FZF_COMPLETION=/usr/share/fzf/completion.zsh
+	source $FZF_KEYBINDS $FZF_COMPLETION
 
-# Default options
-export FZF_DEFAULT_OPTS=" \
---color='fg+:#ebdbb2' \
---height=30% \
---layout=reverse \
---info=inline \
---multi \
---bind '?:toggle-preview,ctrl-a:toggle-all' \
-"
+	# Make fzf not collide with zsh
+	export FZF_COMPLETION_TRIGGER='++'
 
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+	# Default options
+	export FZF_DEFAULT_OPTS=" \
+		--color='fg+:#ebdbb2' \
+		--height=30% \
+		--layout=reverse \
+		--info=inline \
+		--multi \
+		--bind '?:toggle-preview,ctrl-a:toggle-all' \
+		"
 
-_fzf_compgen_path() {
-	fd --hidden --exclude ".git" . "$1"
-}
+	if (( $+commands[fd] )); then
+		export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+		export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
-_fzf_compgen_dir() {
-	fd --type d --hidden --exclude ".git" . "$1"
-}
+		_fzf_compgen_path() {
+			fd --hidden --exclude ".git" . "$1"
+		}
+
+		_fzf_compgen_dir() {
+			fd --type d --hidden --exclude ".git" . "$1"
+		}
+	fi
+fi
 # }}}
 
 # Plugins {{{
-export ZIT_MODULES_PATH="${HOME}/.zit.d"
+FORGIT_PLUGIN=/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh
+[ -f $FORGIT_PLUGIN ] && source $FORGIT_PLUGIN
 
-if [[ ! -d "${ZIT_MODULES_PATH}/zit" ]]; then
-	git clone "https://github.com/thiagokokada/zit" "${ZIT_MODULES_PATH}/zit"
+if (( $+commands[zoxide] )); then
+	eval "$(zoxide init zsh --cmd j)"
 fi
-
-source "${ZIT_MODULES_PATH}/zit/zit.zsh"
-
-zit-install "https://github.com/thiagokokada/zit" "zit"
-zit-install-load "https://github.com/wfxr/forgit" "forgit" "forgit.plugin.zsh"
-
-eval "$(zoxide init zsh --cmd j)"
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
 # }}}
