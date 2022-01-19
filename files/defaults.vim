@@ -276,6 +276,7 @@ endif
 
 " Make Y work like D and C
 nnoremap Y y$
+xnoremap Y <Esc>y$gv
 
 " Center cursor when searching or joining lines (zz: center, zv: open folds)
 nnoremap n nzzzv
@@ -288,7 +289,7 @@ for char in [".", ",", "!", "?"]
 endfor
 
 " Text objects (add or remove more, according to needs)
-for char in [".", ",", ";", "/", "\\", "-", "_"]
+for char in [".", ",", ";", ":", "/", "\\", "-", "_"]
 	call CreateTextObject(char)
 endfor
 
