@@ -195,12 +195,6 @@ function take() {
 	mkdir -p $@ && cd ${@:$#}
 }
 
-# [Up]grade
-function up() {
-	yay -Syu --devel --timeupdate
-	tldr --update
-}
-
 # [Open] files
 function open() {
 	if [ "$#" -eq 1 ]; then
