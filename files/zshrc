@@ -110,19 +110,21 @@ setopt list_types
 unsetopt flow_control
 
 zstyle ':completion:*' add-space true
+zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' cache-path $HOME/.zcompcache
 zstyle ':completion:*' completer _expand _complete _ignored _expand_alias _extensions _match _correct _approximate _prefix
 zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' format '-- %d --'
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*' ignore-parents parent pwd directory
 zstyle ':completion:*' insert-unambiguous false
 zstyle ':completion:*' list-prompt "%SAt %p: Hit TAB for more, or the character to insert%s"
 zstyle ':completion:*' list-suffixes true
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
 zstyle ':completion:*' match-original both
 zstyle ':completion:*' max-errors 5 numeric
-zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select=0
 zstyle ':completion:*' original true
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt "%SScrolling active: current selection at %p%s"
