@@ -42,6 +42,7 @@ packages=(
 	the_silver_searcher
 	ripgrep
 	ripgrep-all
+	gping
 	duf
 	dust
 	diskus
