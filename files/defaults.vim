@@ -390,7 +390,7 @@ function! PackInit() abort
 	call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 	" Identation detector
-	call minpac#add('timakro/vim-yadi')
+	call minpac#add('tpope/vim-sleuth')
 
 	" Comment stuff
 	call minpac#add('suy/vim-context-commentstring')
@@ -404,12 +404,6 @@ endfunction
 command! PackUpdate call PackInit() | call minpac#update()
 command! PackClean  call PackInit() | call minpac#clean()
 command! PackStatus call PackInit() | call minpac#status()
-
-" DetectIndent
-augroup DetectIndent
-	autocmd!
-	autocmd BufRead * DetectIndent
-augroup END
 
 " Autoinstall package manager
 if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))

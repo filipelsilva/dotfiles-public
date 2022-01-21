@@ -7,7 +7,7 @@ function! PackInit() abort
 	call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 	" Identation detector
-	call minpac#add('timakro/vim-yadi')
+	call minpac#add('tpope/vim-sleuth')
 
 	" Comment stuff
 	call minpac#add('numToStr/Comment.nvim')
