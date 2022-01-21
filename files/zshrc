@@ -70,7 +70,7 @@ fi
 # }}}
 
 # Prompt (replace %# with %(!.#.$) for bash-like prompt)
-export PROMPT='%n@%m:%1~%# '
+export PROMPT="%n@%m:%1~%# "
 
 # Directory stack {{{
 setopt auto_pushd
@@ -103,7 +103,6 @@ setopt autocd
 setopt auto_list
 setopt auto_menu
 setopt auto_param_slash
-setopt complete_aliases
 setopt complete_in_word
 setopt extended_glob
 setopt glob_complete

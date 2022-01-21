@@ -4,11 +4,12 @@ packages=(
 	forgit-git
 	gef-git
 	cht.sh-git
-	scc-bin
 	downgrade
 	vimv-git
+	scc-bin
 	rr-bin
 	python-gdbgui
+	mermaid-cli
 )
 
 desktop_packages=(
