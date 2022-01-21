@@ -373,6 +373,11 @@ if executable("fzf")
 	tnoremap <expr> <C-j> (&filetype == "fzf") ? "<C-n>" : "<C-j>"
 	tnoremap <expr> <C-k> (&filetype == "fzf") ? "<C-p>" : "<C-k>"
 
+	" Environment variable
+	if empty($FZF_DEFAULT_OPTS)
+		let $FZF_DEFAULT_OPTS = "--layout=reverse --info=inline --bind 'ctrl-a:toggle-all'"
+	endif
+
 	" Settings
 	let g:fzf_action = {
 		\ 'alt-q': function('s:build_quickfix_list'),
