@@ -74,6 +74,7 @@ packages=(
 	dnsutils
 	tk
 	time
+	words
 )
 
 desktop_packages=(
