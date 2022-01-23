@@ -1,6 +1,7 @@
 # Filipe Ligeiro Silva's Dotfiles
 
-These are my dotfiles. You could use them to inspire yourself, and make your own!
+These are my dotfiles. You could use them to inspire yourself, and make your
+own!
 
 The commits are more sporadic on the public version, as I started the private
 version way earlier, and might still be trying out new things over there.
@@ -12,23 +13,122 @@ There are two sections:
 These consist of configurations for the following:
 
 * Alacritty
+* GDB
+* Git
+* i3
 * (Neo)Vim
 * Tmux
+* Zathura
 * Zsh
-* i3
-* Git
 
 ## 2. Installers
 
 Scripts made by me, in order to link the dotfiles to their places and install
-all needed packages.
-Keep in mind: these are **very likely to break**, therefore **use them at your
-own risk**.
+all needed packages. Keep in mind: these are **very likely to break**,
+therefore **use them at your own risk**.
 
 Usage:
 
 ```bash
 git clone https://github.com/filipelsilva/dotfiles-public $HOME/dotfiles
 cd $HOME/dotfiles
-./run.sh
+./run.sh        # If terminal is all you need
+./run.sh full   # If you want to install i3 and desktop packages
 ```
+
+## 3. Rationale behind the config files
+
+### alacritty.yml
+
+Only changing colors and font, to Gruvbox and Iosevka Term, respectively. There
+are other settings, but nothing of great importance.
+
+### gdbinit
+
+If the packages for pwndbg and gef are installed, the aliases in zsh will
+source the files defined in there. This way, you can run default `gdb`,
+`pwndbg`, and `gef`, all separated. Before, I had a git repo dedicated to this,
+but this solution is way cleaner.
+
+### gitconfig
+
+Aliases and some settings to do diffs and merges using `nvim` are defined in
+here. I recommend putting your name and email in here, to ease the commit/push
+process.
+
+### i3config and i3statusconfig
+
+Using Gruvbox colors, the keybinds have been defined so that even people with
+60% keyboards can do things such as play/pause audio, change brightness,
+volume, etc. However, the keybind placement is quite subjective (as is the case
+with all config files, actually, but I feel this one might be even less
+intuitive to those first seeing it), so I recommend seeing what you like and
+changing what you don't.
+
+### tmux.conf
+
+This config uses `xclip` to manage the clipboard, to make it seamless between
+other programs and tmux (vim does not use it by default, but there are keybinds
+to use it when needed, as I feel it's better to separate those clipboards).
+
+The theme is the default one, with a slight modification to the right side of
+the status bar. Also, it only appears if more than one tab is open. The pane
+border status only appears if there is more than one pane.
+
+### vimrc
+
+This file's main objective was to be simple and portable (assuming a relatively
+recent version of Vim). All keybinds and functions are documented fairly well,
+and some plugins were added on order to improve the experience (mostly surround
+words with characters, comment stuff quickly, and change indentation settings
+according to the file that is being edited). If ripgrep (`rg`) is installed, it
+will be used as the grep program, and if `fzf` is installed, it will be used
+for the functions to edit files (mapped to \<Leader\>[f,ff,F]). Otherwise,
+normal Vim methods will be used.
+
+It automatically installs a simple plugin manager (minpac) that uses Vim's
+runtimepath, if the system has `git` (well, if it hadn't, the probability you
+were reading this was quite low anyway). This is used to install the plugins
+described in the paragraph above).
+
+### init.vim
+
+This is the part of the config that I don't consider very portable. It
+piggybacks on the vimrc described above, and adds many plugins, in order to
+leverage Neovim's LSP capabilities. I include a colorscheme as well (Gruvbox
+really is the best), and `fzf` is joined by another plugin, `fzf`.vim, that
+adds integration with ripgrep and some other packages, to provide some quite
+useful functions.
+
+The plugin declarations are in the function PackInit (that already existed in
+the vimrc file but is overwritten here).
+
+### zathurarc
+
+This file only exists because I needed to change the clipboard to which Zathura
+copies text. And then I added Gruvbox colors, because why not?
+
+### zshrc
+
+The objective of this config was to make it portable (at the very least, the
+basic functionality), therefore it has multiple guards that only define some
+aliases and options if the package exists, e.g. `fzf` (in the off chance you
+haven't read the last 2000 mentions to this package in this readme, it is
+**really** awesome and you should have it installed).
+
+As I only use one plugin, and that is forgit (depends on `fzf` as well, but
+really useful for Git repos), I have decided to manage it from the Pacman/AUR
+repos, instead of using a plugin manager.
+
+The "Functions" section of this file has multiple functions that depend on
+certain non default packages and have not been guarded, as I found no clean way
+to do this, preferring to not use them or have them break if used. You can
+safely delete that section, apart from the first function, "take", which I
+consider quite useful, and only uses `cd` and `mkdir`.
+
+The completion system is done "by hand", instead of using some package to
+manage it. This assures that it works the way I expect it to work always (or
+*almost* always), but it might not be your preferred way of using completion.
+If you don't like it, i suggest using a package that provides completion, or
+running the completion assistant and defining the settings yourself: `autoload
+-U zsh-newuser-install && zsh-newuser-install -f`.
