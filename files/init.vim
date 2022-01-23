@@ -1,4 +1,4 @@
-source $HOME/dotfiles/files/defaults.vim
+source $HOME/dotfiles/files/vimrc
 
 " Plugins {{{
 function! PackInit() abort
