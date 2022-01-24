@@ -308,7 +308,7 @@ vnoremap . :normal.<CR>
 nnoremap <silent> <Leader>, :nohlsearch<CR>
 
 " Run line as command, output here
-noremap Q !!$SHELL<CR>
+noremap Q yyp!!$SHELL<CR>
 
 " Open $SHELL in splits
 if has("nvim")
