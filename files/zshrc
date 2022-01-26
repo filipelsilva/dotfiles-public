@@ -255,12 +255,12 @@ if (( $+commands[fzf] )); then
 
 	# Default options
 	fzf_options=(
-		" --color='fg+:#ebdbb2'"
-		" --height=30%"
-		" --layout=reverse"
-		" --info=inline"
-		" --multi"
-		" --bind '?:toggle-preview,ctrl-a:toggle-all'"
+		--color='fg+:#ebdbb2'
+		--height=30%
+		--layout=reverse
+		--info=inline
+		--multi
+		--bind '?:toggle-preview,ctrl-a:toggle-all'
 	)
 	export FZF_DEFAULT_OPTS=${fzf_options[@]}
 
