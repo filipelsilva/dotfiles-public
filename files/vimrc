@@ -229,20 +229,34 @@ nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 " Toggle spell
 nnoremap <silent> <Leader>o :set invspell<Bar>call ShowWhitespace()<CR>
 
+" File jumping
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+nnoremap [A :first<CR>
+nnoremap ]A :last<CR>
+
 " Buffer jumping
+nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
-nnoremap [b :bprev<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :blast<CR>
 inoremap <C-^> <Esc><C-^>
 
 " Alternative tab jumping
+nnoremap [t :tabprevious<CR>
 nnoremap ]t :tabnext<CR>
-nnoremap [t :tabprev<CR>
+nnoremap [T :tabfirst<CR>
+nnoremap ]T :tablast<CR>
 
 " Quickfix list jumping
-nnoremap ]q :cnext<CR>zz
-nnoremap [q :cprev<CR>zz
-nnoremap ]l :lnext<CR>zz
-nnoremap [l :lprev<CR>zz
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
+nnoremap [L :lfirst<CR>
+nnoremap ]L :llast<CR>
 
 " Like o and O but stays on cursor
 nnoremap <silent> ]<Space> :<C-u>call append(line("."),   repeat([""], v:count1))<CR>

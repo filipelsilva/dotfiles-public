@@ -28,6 +28,8 @@ packages=(
 	python-pip
 	python-pynvim
 	python-internetarchive
+	python-keystone
+	ropper
 	pypy
 	bpython
 	gcc
