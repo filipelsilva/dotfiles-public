@@ -8,9 +8,10 @@ else
 fi
 export VISUAL="$EDITOR"
 
-export PATH=$PATH:$HOME/.local/bin
-(( $+commands[go] )) && export PATH=$PATH:$HOME/go/bin
-(( $+commands[cargo] )) && export PATH=$PATH:$HOME/.cargo/bin
+PATH=$PATH:$HOME/.local/bin
+(( $+commands[go] )) && PATH=$PATH:$HOME/go/bin
+(( $+commands[cargo] )) && PATH=$PATH:$HOME/.cargo/bin
+export PATH
 
 if (( $+commands[bat] )); then
 	export BAT_THEME="ansi"
@@ -220,12 +221,12 @@ function fif() {
 		echo "Need a string to search for!";
 		return 1;
 	fi
-	rg --files-with-matches --no-messages "$1" | fzf $FZF_PREVIEW_WINDOW --header='[find in file]' --preview "rg --pretty --context 10 '$1' {}"
+	rg --files-with-matches --no-messages "$1" | fzf --header='[find in file]' --preview "rg --pretty --context 10 '$1' {}"
 }
 
 # [K]ill [P]rocess
 function kp() {
-	local pid=$(ps -ef | sed 1d | eval "fzf -m --header='[kill:process]'" | awk '{print $2}')
+	local pid=$(ps -ef | sed 1d | eval "fzf --header='[kill:process]'" | awk '{print $2}')
 	if [ "x$pid" != "x" ]; then
 		echo $pid | xargs kill -${1:-9}
 		kp
@@ -249,18 +250,19 @@ if (( $+commands[fzf] )); then
 	source $FZF_KEYBINDS
 	source $FZF_COMPLETION
 
-	# Make fzf not collide with zsh
+	# Make fzf completion trigger not collide with zsh glob operator
 	export FZF_COMPLETION_TRIGGER='++'
 
 	# Default options
-	export FZF_DEFAULT_OPTS=" \
-		--color='fg+:#ebdbb2' \
-		--height=30% \
-		--layout=reverse \
-		--info=inline \
-		--multi \
-		--bind '?:toggle-preview,ctrl-a:toggle-all' \
-		"
+	fzf_options=(
+		" --color='fg+:#ebdbb2'"
+		" --height=30%"
+		" --layout=reverse"
+		" --info=inline"
+		" --multi"
+		" --bind '?:toggle-preview,ctrl-a:toggle-all'"
+	)
+	export FZF_DEFAULT_OPTS=${fzf_options[@]}
 
 	if (( $+commands[fd] )); then
 		export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
@@ -282,7 +284,5 @@ fi
 FORGIT_PLUGIN=/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh
 [ -f $FORGIT_PLUGIN ] && source $FORGIT_PLUGIN
 
-if (( $+commands[zoxide] )); then
-	eval "$(zoxide init zsh --cmd j)"
-fi
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh --cmd j)"
 # }}}
