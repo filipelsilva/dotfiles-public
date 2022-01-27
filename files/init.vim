@@ -64,29 +64,29 @@ nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
 lua << EOF
 local comment = require('Comment')
 comment.setup({
-    padding = true,
-    sticky = true,
-    ignore = nil,
-    toggler = {
-        line = 'gcc',
-        block = 'gbb',
-    },
-    opleader = {
-        line = 'gc',
-        block = 'gb',
-    },
-    extra = {
-        above = 'gcO',
-        below = 'gco',
-        eol = 'gcA',
-    },
-    mappings = {
-        basic = true,
-        extra = true,
-        extended = true,
-    },
-    pre_hook = nil,
-    post_hook = nil,
+	padding = true,
+	sticky = true,
+	ignore = nil,
+	toggler = {
+		line = 'gcc',
+		block = 'gbb',
+	},
+	opleader = {
+		line = 'gc',
+		block = 'gb',
+	},
+	extra = {
+		above = 'gcO',
+		below = 'gco',
+		eol = 'gcA',
+	},
+	mappings = {
+		basic = true,
+		extra = true,
+		extended = true,
+	},
+	pre_hook = nil,
+	post_hook = nil,
 })
 EOF
 " }}}
@@ -111,12 +111,12 @@ new_capabilities = require('cmp_nvim_lsp').update_capabilities(new_capabilities)
 
 local lsp_installer = require('nvim-lsp-installer')
 lsp_installer.settings({
-    ui = {
-        icons = {
-            server_installed = '->',
-            server_pending = '??',
-            server_uninstalled = '!!',
-        },
+	ui = {
+		icons = {
+			server_installed = '->',
+			server_pending = '??',
+			server_uninstalled = '!!',
+		},
 	},
 })
 lsp_installer.on_server_ready(function(server)

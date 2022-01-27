@@ -35,7 +35,7 @@ alias v="$EDITOR"
 # Ls aliases
 alias lt="tree -F -L 2"
 alias lta="lt -a"
-alias ls="ls -CNF"
+alias ls="ls -CF"
 alias lsa="ls -A"
 alias l="ls -lh"
 alias la="ls -lhA"
