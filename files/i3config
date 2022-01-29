@@ -9,6 +9,9 @@
 # Modifier key
 set $mod Mod4
 
+# Rofi theme and font options
+set $rofi_options  -theme gruvbox-dark-hard -font "Iosevka 14"
+
 # Others
 set $wallpaper $HOME/dotfiles/wallpapers/arch-gruvbox.png
 
@@ -105,10 +108,10 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+e exec thunar
 
 # Start dmenu
-bindsym $mod+d exec --no-startup-id rofi -theme gruvbox-dark-hard -font "Iosevka 14" -show run
+bindsym $mod+d exec --no-startup-id rofi $rofi_options -show run
 
 # Open files
-bindsym $mod+o exec --no-startup-id fd --type f -e pdf . $HOME | rofi -theme gruvbox-dark-hard -font "Iosevka 14" -keep-right -dmenu -i -p Files -multi-select | xargs -I {} xdg-open {}
+bindsym $mod+o exec --no-startup-id fd --type f . $HOME | rofi $rofi_options -dmenu -i -p files -multi-select -keep-right | xargs -I {} xdg-open {}
 
 # Splits
 bindsym $mod+v split h

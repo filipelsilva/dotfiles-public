@@ -10,6 +10,7 @@ packages=(
 	rr-bin
 	python-gdbgui
 	mermaid-cli
+	sysz
 )
 
 desktop_packages=(
