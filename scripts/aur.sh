@@ -14,10 +14,11 @@ packages=(
 )
 
 desktop_packages=(
+	discord_arch_electron
+	zoom
+	linux-wifi-hotspot
 	optimus-manager
 	optimus-manager-qt
-	discord_arch_electron
-	linux-wifi-hotspot
 )
 
 if [[ $1 = "full" ]]; then

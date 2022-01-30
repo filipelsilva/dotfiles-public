@@ -32,6 +32,7 @@ packages=(
 	ropper
 	pypy
 	bpython
+	indent
 	gcc
 	gdb
 	pwndbg
