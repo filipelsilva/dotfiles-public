@@ -19,7 +19,8 @@ if !has("nvim")
 	runtime! ftplugin/man.vim
 endif
 
-colorscheme pablo
+colorscheme default
+set background=dark
 
 " Highlight 80th character (cleaner alternative to colorcolumn)
 highlight! link Character80 ColorColumn
@@ -216,12 +217,21 @@ let mapleader = "\<Space>"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Easier navigation
+" Easier navigation in splits
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
-tnoremap <C-w> <C-\><C-n><C-w>
+
+" Easier navigation in splits for the integrated terminal
+tnoremap <C-h> <C-\><C-n><C-w><C-h>
+tnoremap <C-j> <C-\><C-n><C-w><C-j>
+tnoremap <C-k> <C-\><C-n><C-w><C-k>
+tnoremap <C-l> <C-\><C-n><C-w><C-l>
+
+" Change binds for Esc inside terminal
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
 
 " Toggle numbers
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
@@ -293,9 +303,9 @@ nnoremap Y y$
 xnoremap Y <Esc>y$gv
 
 " Center cursor when searching or joining lines (zz: center, zv: open folds)
-nnoremap n nzzzv
-nnoremap N Nzzzv
-nnoremap J mzJ`z
+" nnoremap n nzzzv
+" nnoremap N Nzzzv
+" nnoremap J mzJ`z
 
 " Undo break points (add or remove more, according to needs)
 for char in [".", ",", "!", "?"]
@@ -383,9 +393,13 @@ if executable("fzf")
 		cc
 	endfunction
 
-	" Keymaps
-	tnoremap <expr> <C-j> (&filetype == "fzf") ? "<C-n>" : "<C-j>"
-	tnoremap <expr> <C-k> (&filetype == "fzf") ? "<C-p>" : "<C-k>"
+	" Remake keybinds for terminal to keep fzf in mind
+	tnoremap <expr> <C-h> (&filetype == "fzf") ? "<C-h>" : "<C-\><C-n><C-w><C-h>"
+	tnoremap <expr> <C-j> (&filetype == "fzf") ? "<C-n>" : "<C-\><C-n><C-w><C-j>"
+	tnoremap <expr> <C-k> (&filetype == "fzf") ? "<C-p>" : "<C-\><C-n><C-w><C-k>"
+	tnoremap <expr> <C-l> (&filetype == "fzf") ? "<C-l>" : "<C-\><C-n><C-w><C-l>"
+	tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
+	tnoremap <expr> <C-v><Esc> (&filetype == "fzf") ? "<C-v><Esc>" : "<Esc>"
 
 	" Environment variable
 	if empty($FZF_DEFAULT_OPTS)
