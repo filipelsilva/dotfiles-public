@@ -12,9 +12,6 @@ set $mod Mod4
 # Rofi theme and font options
 set $rofi_options  -theme gruvbox-dark-hard -font "Iosevka 14"
 
-# Others
-set $wallpaper $HOME/dotfiles/wallpapers/arch-gruvbox.png
-
 # Modes
 set $mode_loginopts "(e)xit i3, (l)ock, (r)eboot, (s)hutdown"
 set $mode_layout "[layout] (p)t, (u)s, us-(i)ntl, us-(a)ltgr-intl"
@@ -42,7 +39,7 @@ set $ws10 "10"
 exec_always --no-startup-id autorandr --change --skip-options crtc
 
 # Apply wallpaper
-exec_always --no-startup-id feh --bg-fill --no-fehbg $wallpaper
+exec_always --no-startup-id $HOME/.fehbg
 
 # Redshift (f.lux alike)
 exec_always --no-startup-id pkill -9 redshift; redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
