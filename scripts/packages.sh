@@ -119,6 +119,9 @@ desktop_packages=(
 	tesseract
 	tesseract-data-por
 	tesseract-data-eng
+	noto-fonts
+	noto-fonts-emoji
+	noto-fonts-cjk
 	ttc-iosevka
 	ttc-iosevka-ss12
 	ttf-hack
