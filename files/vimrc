@@ -19,13 +19,6 @@ if !has("nvim")
 	runtime! ftplugin/man.vim
 endif
 
-colorscheme default
-set background=dark
-
-" Highlight 80th character (cleaner alternative to colorcolumn)
-highlight! link Character80 ColorColumn
-call matchadd("Character80", '\%80v.')
-
 " Embed language syntax support
 let g:vimsyn_embed="lmpPrt"
 
@@ -195,6 +188,14 @@ augroup NumberToggle
 
 	" If buffer gets out of focus, disable relative numbers
 	autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &number | set norelativenumber | endif
+
+augroup END
+
+augroup ColorschemeOverrides
+	autocmd!
+
+	" Colorscheme changes
+	autocmd Colorscheme * highlight! link Character80 ColorColumn
 
 augroup END
 
@@ -382,6 +383,17 @@ noremap! <expr> <Plug>(StopHL) execute('nohlsearch')[-1]
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" }}}
+
+" Colorscheme {{{
+
+colorscheme default
+set background=dark
+
+" Highlight 80th character (cleaner alternative to colorcolumn)
+call matchadd("Character80", '\%80v.')
+
 " }}}
 
 " Fzf {{{

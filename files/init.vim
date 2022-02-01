@@ -53,7 +53,6 @@ let g:gruvbox_invert_selection = 0
 let g:gruvbox_invert_signs = 1
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
-highlight! link Character80 ColorColumn
 
 " Fzf (overrides defaults.vim keybinds on f key, due to fzf.vim being used here)
 nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
