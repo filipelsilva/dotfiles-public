@@ -1,0 +1,16 @@
+# Include original inputrc
+$include /etc/inputrc
+
+# Keybinds
+"\C-p":history-search-backward
+"\C-n":history-search-forward
+
+# Settings
+set editing-mode vi
+set bell-style none
+# set colored-stats on
+set completion-ignore-case on
+set mark-symlinked-directories on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set visible-stats on

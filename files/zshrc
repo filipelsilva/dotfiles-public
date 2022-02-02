@@ -118,6 +118,7 @@ zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' format '-- %d --'
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*' group-order aliases functions builtins commands
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' insert-unambiguous false
 zstyle ':completion:*' list-prompt "%SAt %p: Hit TAB for more, or the character to insert%s"
@@ -134,8 +135,6 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' word true
-
-zstyle ':completion:*:*:-command-:*:*' group-order aliases functions builtins commands
 
 zstyle ':completion:*:*:*:*:corrections' format '-- %d (errors: %e) --'
 zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
