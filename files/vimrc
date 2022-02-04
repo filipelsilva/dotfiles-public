@@ -388,8 +388,7 @@ nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 " Colorscheme {{{
 
-colorscheme default
-set background=dark
+colorscheme elflord
 
 " Highlight 80th character (cleaner alternative to colorcolumn)
 call matchadd("Character80", '\%80v.')

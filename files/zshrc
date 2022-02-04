@@ -22,7 +22,7 @@ fi
 # Aliases {{{
 
 # Basic commands
-alias ..=".."
+alias ..="cd .."
 alias -- -="cd -"
 alias cp="cp -r"
 alias mkdir="mkdir -p"
