@@ -96,7 +96,7 @@ described in the paragraph above).
 This is the part of the config that I don't consider very portable. It
 piggybacks on the vimrc described above, and adds many plugins, in order to
 leverage Neovim's LSP capabilities. I include a colorscheme as well (Gruvbox
-really is the best), and `fzf` is joined by another plugin, `fzf`.vim, that
+really is the best), and `fzf` is joined by another plugin, fzf.vim, that
 adds integration with ripgrep and some other packages, to provide some quite
 useful functions.
 

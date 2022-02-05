@@ -2,7 +2,6 @@
 
 # Set default shell
 chsh -s "$(command -v zsh)"
-zsh -c "source $HOME/.zshrc"
 
 # Tty font
 echo "FONT=ter-v20b" | sudo tee -a /etc/vconsole.conf

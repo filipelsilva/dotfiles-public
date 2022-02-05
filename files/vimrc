@@ -303,11 +303,6 @@ endif
 nnoremap Y y$
 xnoremap Y <Esc>y$gv
 
-" Center cursor when searching or joining lines (zz: center, zv: open folds)
-" nnoremap n nzzzv
-" nnoremap N Nzzzv
-" nnoremap J mzJ`z
-
 " Undo break points (add or remove more, according to needs)
 for char in [".", ",", "!", "?"]
 	call CreateUndoBreakPoint(char)
