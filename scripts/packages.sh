@@ -70,6 +70,7 @@ packages=(
 	nodejs
 	npm
 	jq
+	nmap
 	pacman-contrib
 	sysstat
 	iftop
