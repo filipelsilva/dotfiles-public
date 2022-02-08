@@ -432,7 +432,6 @@ function! PackInit() abort
 	call minpac#add('tpope/vim-sleuth')
 
 	" Comment stuff
-	call minpac#add('suy/vim-context-commentstring')
 	call minpac#add('tpope/vim-commentary')
 
 	" Surround stuff
