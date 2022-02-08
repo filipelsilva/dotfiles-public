@@ -130,19 +130,6 @@ local complete_or_snippet_prev = function(fallback)
 end
 -- }}}
 
--- Snippets {{{
-local snip = luasnip.snippet
-local node = luasnip.snippet_node
-local text = luasnip.text_node
-local insert = luasnip.insert_node
-local func = luasnip.function_node
-local choice = luasnip.choice_node
-local dynamic = luasnip.dynamic_node
-
-luasnip.snippets = {}
--- }}}
-
--- Completion engine {{{
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -170,6 +157,5 @@ cmp.setup({
 		{ name = 'path' },
 	}),
 })
--- }}}
 EOF
 " }}}
