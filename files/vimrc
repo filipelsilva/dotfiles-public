@@ -431,11 +431,11 @@ function! PackInit() abort
 	" Identation detector
 	call minpac#add('tpope/vim-sleuth')
 
-	" Comment stuff
-	call minpac#add('tpope/vim-commentary')
-
 	" Surround stuff
 	call minpac#add('tpope/vim-surround')
+
+	" Comment stuff
+	call minpac#add('tpope/vim-commentary')
 
 endfunction
 

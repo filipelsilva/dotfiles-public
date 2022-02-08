@@ -9,11 +9,11 @@ function! PackInit() abort
 	" Identation detector
 	call minpac#add('tpope/vim-sleuth')
 
-	" Comment stuff
-	call minpac#add('numToStr/Comment.nvim')
-
 	" Surround stuff
 	call minpac#add('tpope/vim-surround')
+
+	" Comment stuff
+	call minpac#add('numToStr/Comment.nvim')
 
 	" Colorscheme
 	call minpac#add('gruvbox-community/gruvbox')
@@ -51,7 +51,7 @@ let g:gruvbox_italic = 1
 let g:gruvbox_italicize_strings = 1
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_invert_signs = 1
-let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
 
 " Fzf (overrides defaults.vim keybinds on f key, due to fzf.vim being used here)
@@ -59,25 +59,26 @@ nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":
 nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
 
-" Comment.nvim {{{
 lua << EOF
-local comment = require('Comment')
+
+-- Comment.nvim {{{
+local comment = require("Comment")
 comment.setup({
 	padding = true,
 	sticky = true,
 	ignore = nil,
 	toggler = {
-		line = 'gcc',
-		block = 'gbb',
+		line = "gcc",
+		block = "gbb",
 	},
 	opleader = {
-		line = 'gc',
-		block = 'gb',
+		line = "gc",
+		block = "gb",
 	},
 	extra = {
-		above = 'gcO',
-		below = 'gco',
-		eol = 'gcA',
+		above = "gcO",
+		below = "gco",
+		eol = "gcA",
 	},
 	mappings = {
 		basic = true,
@@ -87,34 +88,32 @@ comment.setup({
 	pre_hook = nil,
 	post_hook = nil,
 })
-EOF
-" }}}
+-- }}}
 
-" LSP {{{
-lua << EOF
+-- LSP {{{
 local custom_on_attach = function(client, bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	local opts = { noremap = true, silent = true }
-	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	buf_set_keymap('n', '<Leader>k', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-	buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+	buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "<Leader>k", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	buf_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	buf_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 end
 
 local new_capabilities = vim.lsp.protocol.make_client_capabilities()
-new_capabilities = require('cmp_nvim_lsp').update_capabilities(new_capabilities)
+new_capabilities = require("cmp_nvim_lsp").update_capabilities(new_capabilities)
 
-local lsp_installer = require('nvim-lsp-installer')
+local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.settings({
 	ui = {
 		icons = {
-			server_installed = '->',
-			server_pending = '??',
-			server_uninstalled = '!!',
+			server_installed = "->",
+			server_pending = "??",
+			server_uninstalled = "!!",
 		},
 	},
 })
@@ -125,26 +124,24 @@ lsp_installer.on_server_ready(function(server)
 	}
 	server:setup(opts)
 end)
-EOF
-" }}}
+-- }}}
 
-" Completion {{{
-lua << EOF
-local luasnip = require('luasnip')
-local cmp = require('cmp')
+-- Nvim-cmp {{{
+local cmp = require("cmp")
+local ls = require("luasnip")
 
 -- Helper functions {{{
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 -- Next completion or move in snippet
 local complete_or_snippet_next = function(fallback)
 	if cmp.visible() then
 		cmp.select_next_item()
-	elseif luasnip.expand_or_jumpable() then
-		luasnip.expand_or_jump()
+	elseif ls.expand_or_jumpable() then
+		ls.expand_or_jump()
 	elseif has_words_before() then
 		cmp.complete()
 	else
@@ -156,63 +153,53 @@ end
 local complete_or_snippet_prev = function(fallback)
 	if cmp.visible() then
 		cmp.select_prev_item()
-	elseif luasnip.jumpable(-1) then
-		luasnip.jump(-1)
+	elseif ls.jumpable(-1) then
+		ls.jump(-1)
 	else
 		fallback()
 	end
 end
 -- }}}
 
--- Snippets {{{
-local snip = luasnip.snippet
-local node = luasnip.snippet_node
-local text = luasnip.text_node
-local insert = luasnip.insert_node
-local func = luasnip.function_node
-local choice = luasnip.choice_node
-local dynamic = luasnip.dynamic_node
-
-luasnip.snippets = {}
--- }}}
-
--- Completion engine {{{
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			ls.lsp_expand(args.body)
 		end,
 	},
 	mapping = {
-		['<C-y>'] = cmp.mapping.confirm({
+		["<C-y>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
-		['<CR>'] = cmp.mapping.confirm({
+		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
 		}),
-		['<C-n>'] = cmp.mapping(complete_or_snippet_next, { 'i', 's' }),
-		['<C-p>'] = cmp.mapping(complete_or_snippet_prev, { 'i', 's' }),
-		['<Tab>'] = cmp.mapping(complete_or_snippet_next, { 'i', 's' }),
-		['<S-Tab>'] = cmp.mapping(complete_or_snippet_prev, { 'i', 's' }),
+		["<C-n>"] = cmp.mapping(complete_or_snippet_next, { "i", "s" }),
+		["<C-p>"] = cmp.mapping(complete_or_snippet_prev, { "i", "s" }),
+		["<Tab>"] = cmp.mapping(complete_or_snippet_next, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(complete_or_snippet_prev, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' },
-		{ name = 'buffer' },
-		{ name = 'path' },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "path" },
 	}),
 })
 -- }}}
-EOF
-" }}}
 
-" Treesitter {{{
-lua << EOF
-local treesitter = require('nvim-treesitter.configs')
+-- Treesitter {{{
+local treesitter = require("nvim-treesitter.configs")
 treesitter.setup({
-	ensure_installed = {},
+	ensure_installed = {
+		"c",
+		"cpp",
+		"lua",
+		"python",
+		"vim",
+	},
 	sync_install = false,
 	highlight = {
 		enable = false,
@@ -228,5 +215,6 @@ treesitter.setup({
 		enable = true,
 	},
 })
+-- }}}
+
 EOF
-" }}}
