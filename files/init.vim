@@ -39,10 +39,6 @@ function! PackInit() abort
 	" Completion
 	call minpac#add('hrsh7th/nvim-cmp')
 
-	" Treesitter
-	call minpac#add('nvim-treesitter/nvim-treesitter')
-	call minpac#add('nvim-treesitter/playground')
-
 endfunction
 " }}}
 
