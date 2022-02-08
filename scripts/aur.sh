@@ -8,8 +8,6 @@ packages=(
 	vimv-git
 	scc-bin
 	rr-bin
-	python-gdbgui
-	mermaid-cli
 	sysz
 )
 
@@ -19,6 +17,9 @@ desktop_packages=(
 	linux-wifi-hotspot
 	optimus-manager
 	optimus-manager-qt
+	python-gdbgui
+	mermaid-cli
+	noisetorch
 )
 
 if [[ $1 = "full" ]]; then

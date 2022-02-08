@@ -10,7 +10,8 @@ function! PackInit() abort
 	call minpac#add('tpope/vim-sleuth')
 
 	" Comment stuff
-	call minpac#add('numToStr/Comment.nvim')
+	call minpac#add('suy/vim-context-commentstring')
+	call minpac#add('tpope/vim-commentary')
 
 	" Surround stuff
 	call minpac#add('tpope/vim-surround')
@@ -58,37 +59,6 @@ colorscheme gruvbox
 nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
 nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
-
-" Comment.nvim {{{
-lua << EOF
-local comment = require('Comment')
-comment.setup({
-	padding = true,
-	sticky = true,
-	ignore = nil,
-	toggler = {
-		line = 'gcc',
-		block = 'gbb',
-	},
-	opleader = {
-		line = 'gc',
-		block = 'gb',
-	},
-	extra = {
-		above = 'gcO',
-		below = 'gco',
-		eol = 'gcA',
-	},
-	mappings = {
-		basic = true,
-		extra = true,
-		extended = true,
-	},
-	pre_hook = nil,
-	post_hook = nil,
-})
-EOF
-" }}}
 
 " LSP {{{
 lua << EOF
@@ -205,28 +175,5 @@ cmp.setup({
 	}),
 })
 -- }}}
-EOF
-" }}}
-
-" Treesitter {{{
-lua << EOF
-local treesitter = require('nvim-treesitter.configs')
-treesitter.setup({
-	ensure_installed = {},
-	sync_install = false,
-	highlight = {
-		enable = false,
-		additional_vim_regex_highlighting = true,
-	},
-	incremental_selection = {
-		enable = true,
-	},
-	indent = {
-		enable = false,
-	},
-	playground = {
-		enable = true,
-	},
-})
 EOF
 " }}}

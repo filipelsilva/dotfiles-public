@@ -209,6 +209,14 @@ function take() {
 	mkdir -p $@ && cd ${@:$#}
 }
 
+# [Checksum] files
+function checksum() {
+	if [ "$#" -ne 2 ]; then
+		echo "Usage: checksum <file> <intended result>"
+	fi
+	echo "$2  $1" | shasum -a 256 -c
+}
+
 # [Open] files
 function open() {
 	if [ "$#" -ne 0 ]; then
