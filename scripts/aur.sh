@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
 packages=(
+	7-zip-full
+	atool
 	forgit-git
 	gef-git
 	cht.sh-git
 	downgrade
 	vimv-git
-	scc-bin
 	rr-bin
 	sysz
 )
 
 desktop_packages=(
+	onedrive-abraunegg-git
 	discord_arch_electron
 	zoom
 	linux-wifi-hotspot
