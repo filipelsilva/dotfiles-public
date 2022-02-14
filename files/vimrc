@@ -47,6 +47,7 @@ set noexpandtab textwidth=0 tabstop=4 softtabstop=4 shiftwidth=4
 " Visual settings
 set ruler showcmd linebreak laststatus=1 signcolumn=number
 set shortmess=filmnrwxaoOtT fillchars+=vert:│ guicursor=
+set listchars=tab:<->,trail:-,nbsp:+,eol:$
 
 " Spell settings
 set spelllang=en,pt
@@ -91,31 +92,19 @@ endif
 
 " Functions {{{
 
-" HighlightToggle {{{
-function! StartHL() abort
+" ToggleSearchHighlight {{{
+function! StartSearchHighlight() abort
 	let s:pos = match(getline('.'), @/, col('.') - 1) + 1
 	if s:pos != col('.')
-		call StopHL()
+		call StopSearchHighlight()
 	endif
 endfunction
 
-function! StopHL() abort
+function! StopSearchHighlight() abort
 	if !v:hlsearch || mode() isnot 'n'
 		return
 	else
-		silent call feedkeys("\<Plug>(StopHL)", 'm')
-	endif
-endfunction
-" }}}
-
-" ShowWhitespace {{{
-function! ShowWhitespace() abort
-	if exists("s:whitespace")
-		call matchdelete(s:whitespace)
-		unlet s:whitespace
-	else
-		highlight! Whitespace ctermbg=red guibg=red
-		let s:whitespace = matchadd("Whitespace", '\v\s+$')
+		silent call feedkeys("\<Plug>(StopSearchHighlight)", 'm')
 	endif
 endfunction
 " }}}
@@ -173,7 +162,7 @@ augroup Vimrc
 	autocmd BufWritePost $MYVIMRC source % | echomsg "Reloaded " . $MYVIMRC
 
 	" Go to last edited position on open file
-	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype !~# 'commit' | execute "normal! g'\"" | endif
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype !~# "commit" | execute "normal! g'\"" | endif
 
 	" If vim window is resized, resize the splits within
 	autocmd VimResized * wincmd =
@@ -199,12 +188,12 @@ augroup ColorschemeOverrides
 
 augroup END
 
-augroup HighlightToggle
+augroup ToggleSearchHighlight
 	autocmd!
 
 	" After some cursor movement, remove highlighting from text
-	autocmd CursorMoved * call StartHL()
-	autocmd InsertEnter * call StopHL()
+	autocmd CursorMoved * call StartSearchHighlight()
+	autocmd InsertEnter * call StopSearchHighlight()
 
 augroup END
 " }}}
@@ -238,7 +227,7 @@ tnoremap <C-v><Esc> <Esc>
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
 " Toggle spell
-nnoremap <silent> <Leader>o :set invspell<Bar>call ShowWhitespace()<CR>
+nnoremap <silent> <Leader>l :set invspell invlist<CR>
 
 " File jumping
 nnoremap [a :previous<CR>
@@ -284,8 +273,8 @@ if executable("rg")
 	nnoremap <Leader>q :grep! "<cword>" .<CR><Bar>:copen<CR>
 	vnoremap <Leader>q "zy<Esc>:grep! "<C-r>z" .<CR><Bar>:copen<CR>
 else
-	nnoremap <Leader>q :grep! -R -I --exclude-dir={.git,.svn} "<cword>" .<CR><Bar>:copen<CR>
-	vnoremap <Leader>q "zy<Esc>:grep! -R -I --exclude-dir={.git,.svn} "<C-r>z" .<CR><Bar>:copen<CR>
+	nnoremap <Leader>q :grep! -R -I --exclude-dir={.git} "<cword>" .<CR><Bar>:copen<CR>
+	vnoremap <Leader>q "zy<Esc>:grep! -R -I --exclude-dir={.git} "<C-r>z" .<CR><Bar>:copen<CR>
 endif
 
 " Open files quickly
@@ -314,8 +303,8 @@ for char in [".", ",", ";", ":", "/", "\\", "-", "_"]
 endfor
 
 " Add <number>[jk] to jumplists
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . "j"
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . "k"
 
 " Move blocks of code
 vnoremap <C-j> :m '>+1<CR>gv=gv
@@ -371,19 +360,19 @@ vnoremap <Leader>P "+P
 nnoremap <Leader><Leader>y :%yank+<CR>
 
 " Disable hlsearch right after moving
-noremap <expr> <Plug>(StopHL) execute('nohlsearch')[-1]
-noremap! <expr> <Plug>(StopHL) execute('nohlsearch')[-1]
-
-" Output the current syntax group
-nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+noremap <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
+noremap! <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
 
 " }}}
 
 " Colorscheme {{{
 
-colorscheme elflord
+colorscheme default
+
+" Vim does not set the background correctly
+if !has("nvim") && !has("gui_running")
+	set background=dark
+endif
 
 " Highlight 80th character (cleaner alternative to colorcolumn)
 call matchadd("Character80", '\%80v.')
@@ -414,10 +403,10 @@ if executable("fzf")
 
 	" Settings
 	let g:fzf_action = {
-		\ 'alt-q': function('s:build_quickfix_list'),
-		\ 'ctrl-t': 'tab split',
-		\ 'ctrl-s': 'split',
-		\ 'ctrl-v': 'vsplit' }
+		\ "alt-q": function("s:build_quickfix_list"),
+		\ "ctrl-t": "tab split",
+		\ "ctrl-s": "split",
+		\ "ctrl-v": "vsplit" }
 	let g:fzf_buffers_jump = 1
 endif
 " }}}
@@ -426,16 +415,16 @@ endif
 function! PackInit() abort
 	packadd minpac
 	call minpac#init()
-	call minpac#add('k-takata/minpac', {'type': 'opt'})
+	call minpac#add("k-takata/minpac", {"type": "opt"})
 
 	" Identation detector
-	call minpac#add('tpope/vim-sleuth')
+	call minpac#add("tpope/vim-sleuth")
 
 	" Surround stuff
-	call minpac#add('tpope/vim-surround')
+	call minpac#add("tpope/vim-surround")
 
 	" Comment stuff
-	call minpac#add('tpope/vim-commentary')
+	call minpac#add("tpope/vim-commentary")
 
 endfunction
 

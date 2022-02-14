@@ -21,6 +21,7 @@ packages=(
 	curl
 	wget
 	htop
+	btop
 	glances
 	tree
 	python

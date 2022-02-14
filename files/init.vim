@@ -4,43 +4,50 @@ source $HOME/dotfiles/files/vimrc
 function! PackInit() abort
 	packadd minpac
 	call minpac#init()
-	call minpac#add('k-takata/minpac', {'type': 'opt'})
+	call minpac#add("k-takata/minpac", {"type": "opt"})
 
 	" Identation detector
-	call minpac#add('tpope/vim-sleuth')
+	call minpac#add("tpope/vim-sleuth")
 
 	" Surround stuff
-	call minpac#add('tpope/vim-surround')
+	call minpac#add("tpope/vim-surround")
 
 	" Comment stuff
-	call minpac#add('numToStr/Comment.nvim')
+	call minpac#add("numToStr/Comment.nvim")
 
 	" Colorscheme
-	call minpac#add('gruvbox-community/gruvbox')
+	call minpac#add("gruvbox-community/gruvbox")
 
 	" Fzf
-	call minpac#add('junegunn/fzf.vim')
+	call minpac#add("junegunn/fzf.vim")
+
+	" Telescope requirement
+	call minpac#add("nvim-lua/plenary.nvim")
+
+	" Telescope
+	call minpac#add("nvim-telescope/telescope.nvim")
+	call minpac#add("nvim-telescope/telescope-fzf-native.nvim", { "do": "make" })
 
 	" Lsp and autoinstall
-	call minpac#add('neovim/nvim-lspconfig')
-	call minpac#add('williamboman/nvim-lsp-installer')
+	call minpac#add("neovim/nvim-lspconfig")
+	call minpac#add("williamboman/nvim-lsp-installer")
 
 	" Snippets
-	call minpac#add('L3MON4D3/LuaSnip')
+	call minpac#add("L3MON4D3/LuaSnip")
 
 	" Completion sources
-	call minpac#add('hrsh7th/cmp-nvim-lsp')
-	call minpac#add('saadparwaiz1/cmp_luasnip')
-	call minpac#add('hrsh7th/cmp-buffer')
-	call minpac#add('hrsh7th/cmp-path')
-	call minpac#add('hrsh7th/cmp-cmdline')
+	call minpac#add("hrsh7th/cmp-nvim-lsp")
+	call minpac#add("saadparwaiz1/cmp_luasnip")
+	call minpac#add("hrsh7th/cmp-buffer")
+	call minpac#add("hrsh7th/cmp-path")
+	call minpac#add("hrsh7th/cmp-cmdline")
 
 	" Completion
-	call minpac#add('hrsh7th/nvim-cmp')
+	call minpac#add("hrsh7th/nvim-cmp")
 
 	" Treesitter
-	call minpac#add('nvim-treesitter/nvim-treesitter')
-	call minpac#add('nvim-treesitter/playground')
+	call minpac#add("nvim-treesitter/nvim-treesitter", { "do": "TSUpdate" })
+	call minpac#add("nvim-treesitter/playground")
 
 endfunction
 " }}}
@@ -54,12 +61,44 @@ let g:gruvbox_invert_signs = 1
 let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
 
-" Fzf (overrides defaults.vim keybinds on f key, due to fzf.vim being used here)
-nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles") . "\<CR>"
-nnoremap <silent> <Leader>r <Cmd>Rg<CR>
-nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
+" Telescope keybinds
+nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Telescope find_files hidden=true" : ":Telescope git_files hidden=true")."\<cr>"
+nnoremap <silent> <Leader><Leader>f <Cmd>lua require("telescope.builtin").find_files({ cwd = "$HOME", hidden = true })<CR>
+nnoremap <silent> <Leader>F <Cmd>lua require("telescope.builtin").find_files({ cwd = require("telescope.utils").buffer_dir(), hidden = true })<CR>
+nnoremap <silent> <Leader>r <Cmd>Telescope live_grep<CR>
+nnoremap <silent> <Leader>j <Cmd>Telescope buffers<CR>
 
 lua << EOF
+
+-- Telescope {{{
+local telescope = require("telescope")
+local actions = require("telescope.actions")
+telescope.setup({
+	defaults = {
+		mappings = {
+			i = {
+				["<c-s>"] = actions.select_horizontal,
+				["<c-x>"] = false,
+				["<c-a>"] = actions.select_all,
+			},
+			n = {
+				["<c-s>"] = actions.select_horizontal,
+				["<c-x>"] = false,
+				["<c-a>"] = actions.select_all,
+			},
+		},
+	},
+	extensions = {
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mode = "smart_case",
+		}
+	},
+})
+telescope.load_extension("fzf")
+-- }}}
 
 -- Comment.nvim {{{
 local comment = require("Comment")
@@ -100,8 +139,8 @@ local custom_on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true }
 	buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "<Leader>k", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	buf_set_keymap("n", "[e", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	buf_set_keymap("n", "]e", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 end
 
 local new_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -193,13 +232,7 @@ cmp.setup({
 -- Treesitter {{{
 local treesitter = require("nvim-treesitter.configs")
 treesitter.setup({
-	ensure_installed = {
-		"c",
-		"cpp",
-		"lua",
-		"python",
-		"vim",
-	},
+	ensure_installed = "maintained",
 	sync_install = false,
 	highlight = {
 		enable = false,
