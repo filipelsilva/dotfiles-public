@@ -9,19 +9,16 @@ packages=(
 	downgrade
 	vimv-git
 	rr-bin
-	sysz
 )
 
 desktop_packages=(
 	onedrive-abraunegg-git
 	discord_arch_electron
 	zoom
-	linux-wifi-hotspot
+	noisetorch
+	ventoy-bin
 	optimus-manager
 	optimus-manager-qt
-	python-gdbgui
-	mermaid-cli
-	noisetorch
 )
 
 if [[ $1 = "full" ]]; then
