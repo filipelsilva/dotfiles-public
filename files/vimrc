@@ -11,12 +11,16 @@ set encoding=utf-8 fileformats=unix,dos,mac
 set updatetime=100 ttimeoutlen=0 mouse=a
 
 if !has("nvim")
+
 	" Set mouse mode
 	set ttymouse=xterm2
+
 	" Enable matchit (extends the use of %)
 	runtime! macros/matchit.vim
+
 	" Enable :Man <search>
 	runtime! ftplugin/man.vim
+
 endif
 
 " Embed language syntax support
@@ -69,25 +73,24 @@ endif
 
 " Undo, command history, swap/backup files settings
 set undofile undolevels=10000 history=10000
+
 if has("nvim")
-	if empty(glob($HOME . "/.nvim-tmp"))
-		for subfolder in ["undo", "swp", "backup"]
-			call mkdir($HOME . "/.nvim-tmp/" . subfolder, "p")
-		endfor
-	endif
-	set undodir=$HOME/.nvim-tmp/undo//
-	set directory=$HOME/.nvim-tmp/swp//
-	set backupdir=$HOME/.nvim-tmp/backup//
+	let s:tmp_folder = $HOME . "/.nvim-tmp"
 else
-	if empty(glob($HOME . "/.vim-tmp"))
-		for subfolder in ["undo", "swp", "backup"]
-			call mkdir($HOME . "/.vim-tmp/" . subfolder, "p")
-		endfor
-	endif
-	set undodir=$HOME/.vim-tmp/undo//
-	set directory=$HOME/.vim-tmp/swp//
-	set backupdir=$HOME/.vim-tmp/backup//
+	let s:tmp_folder = $HOME . "/.vim-tmp"
 endif
+
+let s:tmp_subfolders = [["undodir", "undo"], ["directory", "swp"], ["backupdir", "backup"]]
+
+if empty(glob(s:tmp_folder))
+	for subfolder in s:tmp_subfolders
+		call mkdir(s:tmp_folder . "/" . subfolder[1], "p")
+	endfor
+endif
+
+for subfolder in s:tmp_subfolders
+	execute "set " . subfolder[0] . "=" . s:tmp_folder . "/" . subfolder[1] . "//"
+endfor
 " }}}
 
 " Functions {{{
@@ -376,6 +379,7 @@ endif
 
 " Highlight 80th character (cleaner alternative to colorcolumn)
 call matchadd("Character80", '\%80v.')
+highlight! link Character80 ColorColumn
 
 " }}}
 
