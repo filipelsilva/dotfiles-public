@@ -19,6 +19,7 @@ desktop_packages=(
 	ventoy-bin
 	optimus-manager
 	optimus-manager-qt
+	cpufreqctl
 )
 
 if [[ $1 = "full" ]]; then

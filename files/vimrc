@@ -33,7 +33,7 @@ set keywordprg=:Man
 set foldmethod=marker
 
 " Search settings
-set ignorecase smartcase incsearch hlsearch nowrapscan
+set ignorecase smartcase incsearch hlsearch
 
 " Completion menu settings
 set wildmenu wildmode=longest:full,full completeopt=menuone,noinsert,noselect
@@ -74,12 +74,7 @@ endif
 " Undo, command history, swap/backup files settings
 set undofile undolevels=10000 history=10000
 
-if has("nvim")
-	let s:tmp_folder = $HOME . "/.nvim-tmp"
-else
-	let s:tmp_folder = $HOME . "/.vim-tmp"
-endif
-
+let s:tmp_folder = $HOME . "/." . (has("nvim") ? "n" : "") . "vim-tmp"
 let s:tmp_subfolders = [["undodir", "undo"], ["directory", "swp"], ["backupdir", "backup"]]
 
 if empty(glob(s:tmp_folder))
@@ -226,6 +221,9 @@ tnoremap <C-l> <C-\><C-n><C-w><C-l>
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
 
+" Open command-line window and search in it
+nnoremap ; q:?
+
 " Toggle numbers
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
@@ -295,6 +293,9 @@ endif
 nnoremap Y y$
 xnoremap Y <Esc>y$gv
 
+" Clear highlighted search and run diffupdate
+nnoremap <C-l> <Cmd>nohlsearch<Bar>diffupdate<CR><C-l>
+
 " Undo break points (add or remove more, according to needs)
 for char in [".", ",", "!", "?"]
 	call CreateUndoBreakPoint(char)
@@ -315,9 +316,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Make . to work with visually selected lines
 vnoremap . :normal.<CR>
-
-" Disable highlighting
-nnoremap <silent> <Leader>, :nohlsearch<CR>
 
 " Run line as command, output here
 noremap Q yyp!!$SHELL<CR>

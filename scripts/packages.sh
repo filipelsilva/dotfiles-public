@@ -3,6 +3,7 @@
 packages=(
 	linux
 	linux-firmware
+	util-linux
 	base
 	base-devel
 	zsh
@@ -97,6 +98,7 @@ desktop_packages=(
 	autorandr
 	feh
 	nomacs
+	perl-image-exiftool
 	maim
 	pavucontrol
 	xdotool
