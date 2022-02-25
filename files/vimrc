@@ -6,7 +6,7 @@ if &compatible
 	set nocompatible
 endif
 set omnifunc=syntaxcomplete#Complete
-set nomodeline hidden confirm
+set nomodeline hidden confirm noerrorbells visualbell
 set encoding=utf-8 fileformats=unix,dos,mac
 set updatetime=100 ttimeoutlen=0 mouse=a
 
@@ -38,20 +38,23 @@ set ignorecase smartcase incsearch hlsearch
 " Completion menu settings
 set wildmenu wildmode=longest:full,full completeopt=menuone,noinsert,noselect
 
-" Splits to the right and bottom
-set splitright splitbelow
-
 " Backspace settings
 set backspace=indent,eol,start
 
 " Indentation settings
 set autoindent copyindent shiftround smarttab breakindent
-set noexpandtab textwidth=0 tabstop=4 softtabstop=4 shiftwidth=4
+set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 
 " Visual settings
-set ruler showcmd linebreak laststatus=1 signcolumn=number
-set shortmess=filmnrwxaoOtT fillchars+=vert:│ guicursor=
+set ruler showcmd linebreak laststatus=1 signcolumn=number display=truncate
+set shortmess=a fillchars+=vert:│ guicursor=
 set listchars=tab:<->,trail:-,nbsp:+,eol:$
+
+" Motions keep cursor on the same column
+set nostartofline
+
+" Format options
+set formatoptions=cqrtj
 
 " Spell settings
 set spelllang=en,pt
@@ -63,7 +66,10 @@ set diffopt=internal,filler,closeoff,indent-heuristic,algorithm:histogram
 set isfname-==
 
 " Don't use octal for <C-x> and <C-a>
-set nrformats=bin,hex
+set nrformats=alpha,hex,bin
+
+" Language may disable some keybinds, stop that
+set nolangremap
 
 " If rg exists, use it
 if executable("rg")
@@ -71,11 +77,21 @@ if executable("rg")
 	set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" Undo, command history, swap/backup files settings
+" Save vim variables between sessions
+if has("nvim")
+	set shada=%,'50,<1000,s1000,\"100,:100,n$HOME/.nvim-tmp/shada
+else
+	set viminfo=%,'50,<1000,s1000,\"100,:100,n$HOME/.vim-tmp/viminfo
+endif
+
+" Undo/swap/backup files settings
 set undofile undolevels=10000 history=10000
 
 let s:tmp_folder = $HOME . "/." . (has("nvim") ? "n" : "") . "vim-tmp"
-let s:tmp_subfolders = [["undodir", "undo"], ["directory", "swp"], ["backupdir", "backup"]]
+
+let s:tmp_subfolders = [["undodir", "undo"]]
+let s:tmp_subfolders += [["directory", "swp"]]
+let s:tmp_subfolders += [["backupdir", "backup"]]
 
 if empty(glob(s:tmp_folder))
 	for subfolder in s:tmp_subfolders
@@ -153,6 +169,15 @@ command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
 " }}}
 
 " Autocommands {{{
+
+augroup PlainTextWidth
+	autocmd!
+
+	" On plain text files, set textwidth to something other than 0
+	autocmd FileType text,markdown,rst,tex,latex,context,plaintex setlocal textwidth=80
+
+augroup END
+
 augroup Vimrc
 	autocmd!
 
