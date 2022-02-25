@@ -49,7 +49,7 @@ alias ssh="TERM=xterm-256color ssh"
 
 # Search for processes
 if (( $+commands[fzf] )); then
-	alias psfzf="ps aux | fzf ${FZF_DEFAULT_OPTS} --header='[name:process]'"
+	alias psfzf="ps aux | fzf --header='[name:process]'"
 fi
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
