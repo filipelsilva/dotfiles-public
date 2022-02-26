@@ -6,7 +6,7 @@ function! PackInit() abort
 	call minpac#init()
 	call minpac#add("k-takata/minpac", {"type": "opt"})
 
-	" Identation detector
+	" Indentation detector
 	call minpac#add("tpope/vim-sleuth")
 
 	" Surround stuff
