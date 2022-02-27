@@ -25,24 +25,28 @@ fi
 alias ..="cd .."
 alias -- -="cd -"
 alias cp="cp -r"
+alias bc="bc -l"
 alias mkdir="mkdir -p"
 alias wget="wget -c"
 alias ip="ip --color=auto"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias v="$EDITOR"
+if (( $+commands[nvim] )); then
+	alias vimdiff="nvim -d"
+fi
 
 # Ls aliases
-alias lt="tree -F -L 2"
+alias lt="tree --dirsfirst -FL 2" # -C"
 alias lta="lt -a"
-alias ls="ls -CF"
+alias ls="ls -hCF --group-directories-first" # --color=auto"
 alias lsa="ls -A"
-alias l="ls -lh"
-alias la="ls -lhA"
-alias lx="ls -lisah"
-alias lr="ls -lhR"
+alias l="ls -l"
+alias la="ls -lA"
+alias lx="ls -lisa"
+alias lr="ls -lR"
 alias lrs="ls -R"
-alias lra="ls -lhAR"
+alias lra="ls -lAR"
 
 # Ssh with xterm, for targets without alacritty
 alias ssh="TERM=xterm-256color ssh"
@@ -71,7 +75,8 @@ fi
 # }}}
 
 # Prompt (replace %# with %(!.#.$) for bash-like prompt)
-export PROMPT="%n@%m:%1~%# "
+export PROMPT="%n@%M:%1~%# "
+# export PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M %F{magenta}%~%F{red}]%f%#%b "
 
 # Directory stack {{{
 setopt auto_pushd
@@ -155,6 +160,19 @@ bindkey "^[[3~" delete-char
 bindkey "^?" backward-delete-char
 bindkey "\e." insert-last-word
 bindkey "^E" edit-command-line
+
+# Add text objects to command line
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+	for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+		bindkey -M $km -- $c select-quoted
+	done
+	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+		bindkey -M $km -- $c select-bracketed
+	done
+done
 # }}}
 
 # Command history {{{

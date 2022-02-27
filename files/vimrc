@@ -55,9 +55,6 @@ set listchars=tab:<->,trail:-,nbsp:+,eol:$
 " Motions keep cursor on the same column
 set nostartofline
 
-" Format options
-set formatoptions=cqrtj
-
 " Spell languages
 set spelllang=en,pt
 
@@ -172,14 +169,6 @@ command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
 
 " Autocommands {{{
 
-augroup PlainTextWidth
-	autocmd!
-
-	" On plain text files, set textwidth to something other than 0
-	autocmd FileType text,markdown,rst,tex,latex,context,plaintex setlocal textwidth=80
-
-augroup END
-
 augroup Vimrc
 	autocmd!
 
@@ -191,6 +180,17 @@ augroup Vimrc
 
 	" If vim window is resized, resize the splits within
 	autocmd VimResized * wincmd =
+
+	" Change formatoptions everywhere
+	autocmd FileType * setlocal formatoptions=tcqj
+
+augroup END
+
+augroup PlainTextWidth
+	autocmd!
+
+	" On plain text files, set textwidth to something other than 0
+	autocmd FileType text,markdown,rst,tex,latex,context,plaintex setlocal textwidth=80
 
 augroup END
 
@@ -247,9 +247,6 @@ tnoremap <C-l> <C-\><C-n><C-w><C-l>
 " Change binds for Esc inside terminal
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
-
-" Open command-line window and search in it
-nnoremap ; q:?
 
 " Toggle numbers
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
@@ -329,7 +326,7 @@ for char in [".", ",", "!", "?"]
 endfor
 
 " Text objects (add or remove more, according to needs)
-for char in [".", ",", ";", ":", "/", "\\", "-", "_"]
+for char in [".", ",", ";", ":", "/", "\\", "-", "_", "@", "+", "-", "=", "`"]
 	call CreateTextObject(char)
 endfor
 
@@ -342,7 +339,7 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Make . to work with visually selected lines
-vnoremap . :normal.<CR>
+vnoremap . :normal .<CR>
 
 " Run line as command, output here
 noremap Q yyp!!$SHELL<CR>
@@ -441,10 +438,11 @@ endif
 " }}}
 
 " Plugins {{{
-if empty(glob(substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"))
+let s:plugin_folder = substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"
+if empty(glob(s:plugin_folder))
 
 	" If there is no plugin manager, install it
-	call system("git clone https://github.com/k-takata/minpac " . substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac")
+	call system("git clone https://github.com/k-takata/minpac " . s:plugin_folder)
 
 	" Source the file again and install plugins
 	autocmd VimEnter * silent! source $MYVIMRC | PackUpdate
