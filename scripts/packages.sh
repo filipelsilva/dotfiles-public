@@ -4,6 +4,7 @@ packages=(
 	linux
 	linux-firmware
 	util-linux
+	pacman-contrib
 	base
 	base-devel
 	zsh
@@ -21,6 +22,7 @@ packages=(
 	unzip
 	curl
 	wget
+	aria2
 	htop
 	btop
 	glances
@@ -69,7 +71,6 @@ packages=(
 	npm
 	jq
 	nmap
-	pacman-contrib
 	sysstat
 	iftop
 	lynx
@@ -82,6 +83,7 @@ packages=(
 desktop_packages=(
 	alacritty
 	firefox
+	yt-dlp
 	ffmpeg
 	handbrake
 	vlc
