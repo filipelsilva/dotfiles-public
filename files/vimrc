@@ -228,6 +228,9 @@ augroup END
 " <Leader> key bind
 let mapleader = "\<Space>"
 
+" Open command mode quickly
+nnoremap ; :
+
 " Easier completion menus
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -392,7 +395,7 @@ noremap! <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
 
 " Colorscheme {{{
 
-colorscheme default
+colorscheme desert
 
 " Vim does not set the background correctly
 if !has("nvim") && !has("gui_running")
@@ -438,7 +441,9 @@ endif
 " }}}
 
 " Plugins {{{
-let s:plugin_folder = substitute(&packpath, ",.*", "", "") . "/pack/minpac/opt/minpac"
+let s:plugin_folder = substitute(&packpath, ",.*", "", "")
+let s:plugin_folder .= "/pack/minpac/opt/minpac"
+
 if empty(glob(s:plugin_folder))
 
 	" If there is no plugin manager, install it

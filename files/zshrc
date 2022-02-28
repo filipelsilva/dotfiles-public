@@ -76,6 +76,7 @@ fi
 
 # Prompt (replace %# with %(!.#.$) for bash-like prompt)
 export PROMPT="%n@%M:%1~%# "
+# export PROMPT="%B%F{green}%n@%M%f:%F{blue}%1~%f%#%b "
 # export PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M %F{magenta}%~%F{red}]%f%#%b "
 
 # Directory stack {{{
@@ -95,10 +96,10 @@ add-zsh-hook chpwd chpwd_recent_dirs
 zmodload zsh/complist
 
 # Vi mode for selecting completion
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect "h" vi-backward-char
+bindkey -M menuselect "k" vi-up-line-or-history
+bindkey -M menuselect "j" vi-down-line-or-history
+bindkey -M menuselect "l" vi-forward-char
 
 autoload -U compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
@@ -169,7 +170,7 @@ for km in viopp visual; do
 	for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
 		bindkey -M $km -- $c select-quoted
 	done
-	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+	for c in {a,i}${(s..)^:-"()[]{}<>bB"}; do
 		bindkey -M $km -- $c select-bracketed
 	done
 done
@@ -259,7 +260,7 @@ function fif() {
 		echo "Need a string to search for!";
 		return 1;
 	fi
-	rg --files-with-matches --no-messages "$1" | fzf --header='[find in file]' --preview "rg --pretty --context 10 '$1' {}"
+	rg --files-with-matches --no-messages "$1" | fzf --header="[find in file]" --preview "rg --pretty --context 10 '$1' {}"
 }
 
 # [K]ill [P]rocess
@@ -283,23 +284,31 @@ function x() {
 
 # Fzf {{{
 if (( $+commands[fzf] )); then
-	FZF_KEYBINDS=/usr/share/fzf/key-bindings.zsh
-	FZF_COMPLETION=/usr/share/fzf/completion.zsh
+	local FZF_KEYBINDS=/usr/share/fzf/key-bindings.zsh
+	local FZF_COMPLETION=/usr/share/fzf/completion.zsh
 	source $FZF_KEYBINDS
 	source $FZF_COMPLETION
 
-	# Make fzf completion trigger not collide with zsh glob operator
-	export FZF_COMPLETION_TRIGGER='++'
+	# Stop fzf completion trigger from colliding with zsh glob operator
+	export FZF_COMPLETION_TRIGGER="++"
 
-	# Default options
-	fzf_options=(
-		--color='fg+:#ebdbb2'
+	# Fzf options
+	local fzf_options=(
 		--height=30%
 		--layout=reverse
 		--info=inline
 		--multi
-		--bind '?:toggle-preview,ctrl-a:toggle-all'
+		--bind "?:toggle-preview,ctrl-a:toggle-all"
 	)
+
+	# Colorscheme overrides
+	local colors=(
+		--color="fg+:#ebdbb2"
+	)
+
+	fzf_options+=(${colors[@]})
+
+	# Variables and functions for fzf operation
 	export FZF_DEFAULT_OPTS=${fzf_options[@]}
 
 	if (( $+commands[fd] )); then
@@ -319,7 +328,7 @@ fi
 # }}}
 
 # Plugins {{{
-FORGIT_PLUGIN=/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh
+local FORGIT_PLUGIN=/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh
 [ -f $FORGIT_PLUGIN ] && source $FORGIT_PLUGIN
 
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh --cmd j)"
