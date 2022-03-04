@@ -433,7 +433,7 @@ if executable("fzf")
 	tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
 	tnoremap <expr> <C-v><Esc> (&filetype == "fzf") ? "<C-v><Esc>" : "<Esc>"
 
-	" Find files
+	" Mappings
 	nnoremap <silent> <Leader>f <Cmd>Files<CR>
 	nnoremap <silent> <Leader><Leader>f <Cmd>Files $HOME<CR>
 	nnoremap <silent> <Leader>F :Files <C-r>=substitute(expand("%:p:h"), " ", "\\\\ ", "g")<CR><CR>
