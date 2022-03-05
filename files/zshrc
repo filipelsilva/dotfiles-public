@@ -76,8 +76,6 @@ fi
 
 # Prompt (replace %# with %(!.#.$) for bash-like prompt)
 export PROMPT="%n@%M:%1~%# "
-# export PROMPT="%B%F{green}%n@%M%f:%F{blue}%1~%f%#%b "
-# export PROMPT="%B%F{red}[%F{yellow}%n%F{green}@%F{blue}%M %F{magenta}%~%F{red}]%f%#%b "
 
 # Directory stack {{{
 setopt auto_pushd

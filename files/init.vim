@@ -81,6 +81,9 @@ telescope.setup({
 			width = 0.90,
 			height = 0.60,
 		},
+		path_display = {
+			"smart",
+		},
 		mappings = {
 			i = {
 				["<c-s>"] = actions.select_horizontal,
