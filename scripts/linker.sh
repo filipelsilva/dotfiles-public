@@ -11,7 +11,7 @@ ln -nsf $HOME/dotfiles/files/tmux.conf $HOME/.tmux.conf
 ln -nsf $HOME/dotfiles/files/vimrc $HOME/.vimrc
 ln -nsf $HOME/dotfiles/files/zshrc $HOME/.zshrc
 
-if [ $1 = "full" ]; then
+if [[ $1 = "full" ]]; then
 	mkdir -p $HOME/.config/i3
 	mkdir -p $HOME/.config/i3status
 	mkdir -p $HOME/.config/zathura
