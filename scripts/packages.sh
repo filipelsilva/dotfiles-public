@@ -37,6 +37,7 @@ packages=(
 	indent
 	gcc
 	gdb
+	jdk-openjdk
 	pwndbg
 	valgrind
 	cloc
@@ -67,8 +68,6 @@ packages=(
 	ascii
 	go
 	rustup
-	nodejs
-	npm
 	jq
 	nmap
 	sysstat
@@ -130,7 +129,7 @@ desktop_packages=(
 	ttf-hack
 )
 
-if [[ $1 = "full" ]]; then
+if [ $1 = "full" ]; then
 	packages+=(${desktop_packages[@]})
 fi
 

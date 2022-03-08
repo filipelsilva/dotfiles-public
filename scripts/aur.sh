@@ -22,7 +22,7 @@ desktop_packages=(
 	cpufreqctl
 )
 
-if [[ $1 = "full" ]]; then
+if [ $1 = "full" ]; then
 	packages+=(${desktop_packages[@]})
 fi
 
