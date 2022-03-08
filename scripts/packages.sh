@@ -137,4 +137,4 @@ sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm ${packages[@]}
 
 # For the rustup package, so that rustc and cargo work out of the box
-rustup self update
+rustup default stable
