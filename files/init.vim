@@ -75,6 +75,7 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 telescope.setup({
 	defaults = {
+		sorting_strategy = "ascending",
 		layout_strategy = "flex",
 		layout_config = {
 			prompt_position = "top",
