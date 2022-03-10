@@ -322,9 +322,10 @@ if (( $+commands[fzf] )); then
 	export FZF_DEFAULT_OPTS=${fzf_options[@]}
 
 	if (( $+commands[fd] )); then
-		export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
-		export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-		export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+		local FD_DEFAULT_OPTS="--hidden --exclude .git"
+		export FZF_DEFAULT_COMMAND="fd --type f $FD_DEFAULT_OPTS"
+		export FZF_CTRL_T_COMMAND="fd --type f $FD_DEFAULT_OPTS"
+		export FZF_ALT_C_COMMAND="fd --type d $FD_DEFAULT_OPTS"
 
 		_fzf_compgen_path() {
 			fd --hidden --exclude ".git" . "$1"
