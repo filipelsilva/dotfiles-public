@@ -299,6 +299,9 @@ nnoremap ]l :lnext<CR>
 nnoremap [L :lfirst<CR>
 nnoremap ]L :llast<CR>
 
+" Reselect pasted text
+nnoremap gV `[v`]
+
 " Like o and O but stays on cursor
 nnoremap <silent> ]<Space> :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
 nnoremap <silent> [<Space> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>

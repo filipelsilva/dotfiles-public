@@ -25,6 +25,8 @@ fi
 # }}}
 export PATH
 
+(( $+commands[python] )) && export PYTHONDONTWRITEBYTECODE=1
+
 if (( $+commands[bat] )); then
 	export BAT_THEME="ansi"
 	export BAT_STYLE="auto"
