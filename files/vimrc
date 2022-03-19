@@ -6,7 +6,7 @@ if &compatible
 	set nocompatible
 endif
 set omnifunc=syntaxcomplete#Complete
-set nomodeline hidden confirm noerrorbells visualbell
+set nomodeline nohidden confirm noerrorbells visualbell
 set encoding=utf-8 fileformats=unix,dos,mac
 set updatetime=100 ttimeoutlen=0 mouse=a
 
