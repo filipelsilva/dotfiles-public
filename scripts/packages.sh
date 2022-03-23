@@ -22,6 +22,7 @@ packages=(
 	unzip
 	curl
 	wget
+	netcat
 	aria2
 	htop
 	btop

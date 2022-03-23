@@ -78,9 +78,9 @@ endif
 
 " Save vim variables between sessions
 if has("nvim")
-	set shada=%,'50,<1000,s1000,\"100,:100,n$HOME/.nvim-tmp/shada
+	set shada='50,<1000,s1000,\"100,:100,n$HOME/.nvim-tmp/shada
 else
-	set viminfo=%,'50,<1000,s1000,\"100,:100,n$HOME/.vim-tmp/viminfo
+	set viminfo='50,<1000,s1000,\"100,:100,n$HOME/.vim-tmp/viminfo
 endif
 
 " Undo/swap/backup files
