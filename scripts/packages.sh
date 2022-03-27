@@ -5,6 +5,7 @@ packages=(
 	linux-firmware
 	util-linux
 	pacman-contrib
+	pkgfile
 	base
 	base-devel
 	zsh
@@ -24,6 +25,7 @@ packages=(
 	wget
 	netcat
 	aria2
+	net-tools
 	htop
 	btop
 	glances
@@ -139,3 +141,6 @@ sudo pacman -S --noconfirm ${packages[@]}
 
 # For the rustup package, so that rustc and cargo work out of the box
 rustup default stable
+
+# For pkgfile package, in order to search packages
+sudo pkgfile --update

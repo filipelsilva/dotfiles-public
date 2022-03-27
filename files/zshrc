@@ -51,7 +51,7 @@ if (( $+commands[nvim] )); then
 fi
 
 # Ls aliases
-alias lt="tree --dirsfirst -FL 2" # -C"
+alias lt="tree --dirsfirst -F" # -C"
 alias lta="lt -a"
 alias ls="ls -hCF --group-directories-first" # --color=auto"
 alias lsa="ls -A"
@@ -223,8 +223,8 @@ bindkey -M vicmd "/" history-incremental-search-backward
 
 # Options {{{
 
-setopt hash_list_all
-setopt long_list_jobs
+setopt hashlistall
+setopt longlistjobs
 setopt nobeep
 setopt noglobdots
 setopt nohup
