@@ -88,8 +88,23 @@ if [ -f $HOME/.gdbinit ]; then
 fi
 # }}}
 
-# Prompt (replace %# with %(!.#.$) for bash-like prompt)
-export PROMPT="%n@%M:%1~%# "
+# Prompt {{{
+setopt prompt_subst
+
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' formats '%b%m%u%c'
+
+export RPROMPT='${vcs_info_msg_0_}'
+
+# Replace %# with %(!.#.$) for bash-like prompt
+export PROMPT="%n@%M:%~%# "
+# }}}
 
 # Directory stack {{{
 setopt auto_pushd
@@ -104,7 +119,6 @@ add-zsh-hook chpwd chpwd_recent_dirs
 # }}}
 
 # Completion/Correction {{{
-
 zmodload zsh/complist
 
 # Vi mode for selecting completion
@@ -158,7 +172,6 @@ zstyle ':completion:*:*:*:*:corrections' format '-- %d (errors: %e) --'
 zstyle ':completion:*:*:*:*:descriptions' format '-- %d --'
 zstyle ':completion:*:*:*:*:messages' format '-- %d --'
 zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
-
 # }}}
 
 # Vi-mode and keybinds {{{
@@ -222,7 +235,6 @@ bindkey -M vicmd "/" history-incremental-search-backward
 # }}}
 
 # Options {{{
-
 setopt hashlistall
 setopt longlistjobs
 setopt nobeep
@@ -230,7 +242,6 @@ setopt noglobdots
 setopt nohup
 setopt noshwordsplit
 setopt notify
-
 # }}}
 
 # Functions {{{
