@@ -1,5 +1,6 @@
 [core]
 	editor = nvim
+	autocrlf = input
 
 [alias]
 	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
