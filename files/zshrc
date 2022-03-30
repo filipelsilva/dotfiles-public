@@ -235,12 +235,12 @@ bindkey -M vicmd "/" history-incremental-search-backward
 # }}}
 
 # Options {{{
-setopt hashlistall
-setopt longlistjobs
-setopt nobeep
-setopt noglobdots
-setopt nohup
-setopt noshwordsplit
+setopt hash_list_all
+setopt long_list_jobs
+setopt no_beep
+setopt no_glob_dots
+setopt no_hup
+setopt no_sh_word_split
 setopt notify
 # }}}
 
