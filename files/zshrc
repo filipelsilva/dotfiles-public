@@ -103,7 +103,7 @@ zstyle ':vcs_info:*' formats '%b%m%u%c'
 export RPROMPT='${vcs_info_msg_0_}'
 
 # Replace %# with %(!.#.$) for bash-like prompt
-export PROMPT="%n@%M:%~%# "
+export PROMPT="%n@%M:%1~%# "
 # }}}
 
 # Directory stack {{{
