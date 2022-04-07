@@ -9,7 +9,7 @@
 	cma = "commit -a"
 	cob = "checkout -b"
 	co = "checkout"
-	lg = "log --graph --oneline --decorate"
+	tree = "log --graph --oneline --decorate"
 	st = "status"
 
 [diff]
