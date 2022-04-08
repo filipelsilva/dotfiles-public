@@ -180,12 +180,25 @@ zle -N edit-command-line
 
 KEYTIMEOUT=1
 
+# Set vi-mode in Zsh
 bindkey -v
+
+# Shift + Tab to reverse cycling order on completion
 bindkey "^[[Z" reverse-menu-complete
+
+# Delete characters with Delete and Backspace, respectively
 bindkey "^[[3~" delete-char
 bindkey "^?" backward-delete-char
+
+# Alt + . to insert last word, as in Emacs mode
 bindkey "\e." insert-last-word
+
+# Ctrl-e to edit command line in $EDITOR
 bindkey "^E" edit-command-line
+
+# Ctrl-r (or / in normal mode of vi-mode) to search commands
+bindkey "^R" history-incremental-search-backward
+bindkey -M vicmd "/" history-incremental-search-backward
 
 # Add text objects to command line
 autoload -Uz select-bracketed select-quoted
@@ -216,23 +229,9 @@ setopt hist_reduce_blanks
 setopt hist_save_no_dups
 setopt hist_verify
 setopt inc_append_history_time
-
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-# Keybinds
-bindkey "^R" history-incremental-search-backward
-bindkey "^[[A" up-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
-bindkey "^P" up-line-or-beginning-search
-bindkey "^N" down-line-or-beginning-search
-bindkey -M vicmd "k" up-line-or-beginning-search
-bindkey -M vicmd "j" down-line-or-beginning-search
 # }}}
 
-# Options {{{
+# Other options {{{
 setopt hash_list_all
 setopt long_list_jobs
 setopt no_beep
