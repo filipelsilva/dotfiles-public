@@ -175,71 +175,9 @@ lsp_installer.on_server_ready(function(server)
 end)
 -- }}}
 
--- LuaSnip {{{
-local ls = require("luasnip")
--- Requirements {{{
-local s = ls.snippet
-local sn = ls.snippet_node
-local isn = ls.indent_snippet_node
-local t = ls.text_node
-local i = ls.insert_node
-local f = ls.function_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-local events = require("luasnip.util.events")
-local ai = require("luasnip.nodes.absolute_indexer")
-local types = require("luasnip.util.types")
-local fmt = require("luasnip.extras.fmt").fmt
-local rep = require("luasnip.extras").rep
--- }}}
-
-ls.config.setup({
-	history = true,
-	enable_autosnippets = true,
-	updateevents = "TextChanged,TextChangedI",
-})
-
--- Templates {{{
-c_template = [[
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(int argc, char *argv[]) {
-	$0
-}
-]]
-
-cpp_template = [[
-#include <bits/stdc++.h>
-
-using namespace std;
-
-int main(int argc, char *argv[]) {
-	ios_base::sync_with_stdio(false);
-	cin.tie(nullptr); cout.tie(nullptr);
-
-	$0
-}
-]]
--- }}}
-
-ls.snippets = {
-	all = {
-	},
-	c = {
-		ls.parser.parse_snippet("init", c_template),
-	},
-	cpp = {
-		ls.parser.parse_snippet("init", cpp_template),
-	},
-}
--- }}}
-
 -- Nvim-cmp {{{
 local cmp = require("cmp")
+local ls = require("luasnip")
 
 -- Helper functions {{{
 local has_words_before = function()
@@ -270,12 +208,6 @@ local complete_or_snippet_prev = function(fallback)
 		fallback()
 	end
 end
-
-local luasnip_option_forward = function()
-	if ls.choice_active() then
-		ls.change_choice(1)
-	end
-end
 -- }}}
 
 cmp.setup({
@@ -293,7 +225,6 @@ cmp.setup({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
 		}),
-		["<C-l>"] = cmp.mapping(luasnip_option_forward, { "i" }),
 		["<C-n>"] = cmp.mapping(complete_or_snippet_next, { "i", "s" }),
 		["<C-p>"] = cmp.mapping(complete_or_snippet_prev, { "i", "s" }),
 		["<Tab>"] = cmp.mapping(complete_or_snippet_next, { "i", "s" }),
