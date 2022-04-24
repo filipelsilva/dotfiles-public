@@ -331,9 +331,6 @@ nnoremap <Leader>F :edit <C-r>=expand("%:p:h") . "/"<CR>
 nnoremap Y y$
 xnoremap Y <Esc>y$gv
 
-" Clear highlighted search and run diffupdate
-nnoremap <C-l> <Cmd>nohlsearch<Bar>diffupdate<CR><C-l>
-
 " Undo break points (add or remove more, according to needs)
 for char in [".", ",", "!", "?"]
 	call CreateUndoBreakPoint(char)

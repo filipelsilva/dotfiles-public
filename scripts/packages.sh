@@ -40,6 +40,7 @@ packages=(
 	indent
 	gcc
 	gdb
+	perf
 	jdk-openjdk
 	pwndbg
 	valgrind

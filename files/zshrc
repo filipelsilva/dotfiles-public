@@ -108,8 +108,12 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushd_silent
 
-alias d="dirs -v"
-for index ({1..9}); alias "$index"="cd +${index}"; unset index
+function jd() {
+	dirs -v
+	vared -p "> " -c tmp
+	cd +${tmp}
+	unset tmp
+}
 
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
