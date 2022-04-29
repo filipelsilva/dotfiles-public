@@ -52,7 +52,7 @@ set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 " Visual settings
 set ruler showcmd linebreak wrap
 set laststatus=1 signcolumn=number display=truncate
-set shortmess=atTO fillchars+=vert:│ guicursor=
+set shortmess=tTO fillchars+=vert:│ guicursor=
 set listchars=tab:<->,trail:-,nbsp:+,eol:$
 
 " Motions keep cursor on the same column
@@ -68,7 +68,7 @@ set diffopt=internal,filler,closeoff,indent-heuristic,algorithm:histogram
 set isfname-==
 
 " Don't use octal for <C-x> and <C-a>
-set nrformats=alpha,hex,bin
+set nrformats=bin,hex
 
 " Language may disable some keybinds, stop that
 set nolangremap
@@ -138,27 +138,10 @@ endfunction
 
 " CreateTextObject {{{
 function! CreateTextObject(char) abort
-	execute "onoremap <silent> i" . a:char . " :<C-u>normal! T" . a:char . "vt" . a:char . "<CR>"
-	execute "xnoremap <silent> i" . a:char . " :<C-u>normal! T" . a:char . "vt" . a:char . "<CR>"
-	execute "onoremap <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
-	execute "xnoremap <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
-endfunction
-" }}}
-
-" ToggleSearchHighlight {{{
-function! StartSearchHighlight() abort
-	let s:pos = match(getline('.'), @/, col('.') - 1) + 1
-	if s:pos != col('.')
-		call StopSearchHighlight()
-	endif
-endfunction
-
-function! StopSearchHighlight() abort
-	if !v:hlsearch || mode() isnot 'n'
-		return
-	else
-		silent call feedkeys("\<Plug>(StopSearchHighlight)", 'm')
-	endif
+	for mode in ['xnoremap', 'onoremap']
+		execute mode . " <silent> i" . a:char . " :<C-u>normal! T" . a:char . "vt" . a:char . "<CR>"
+		execute mode . " <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
+	endfor
 endfunction
 " }}}
 
@@ -231,15 +214,6 @@ augroup ColorschemeOverrides
 	autocmd Colorscheme * highlight! link Character80 ColorColumn
 
 augroup END
-
-augroup ToggleSearchHighlight
-	autocmd!
-
-	" After some cursor movement, remove highlighting from text
-	autocmd CursorMoved * call StartSearchHighlight()
-	autocmd InsertEnter * call StopSearchHighlight()
-
-augroup END
 " }}}
 
 " Keymaps {{{
@@ -263,6 +237,10 @@ tnoremap <C-j> <C-\><C-n><C-w><C-j>
 tnoremap <C-k> <C-\><C-n><C-w><C-k>
 tnoremap <C-l> <C-\><C-n><C-w><C-l>
 
+" Zoom and unzoom pane
+noremap <Leader>z <C-w>_<Bar><C-w>\|
+noremap <Leader>Z <C-w>=
+
 " Change binds for Esc inside terminal
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
@@ -272,6 +250,9 @@ nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
 " Toggle spell
 nnoremap <silent> <Leader>l :set invspell invlist<CR>
+
+" Disable highlighting
+nnoremap <Leader>, <Cmd>nohlsearch<CR>
 
 " File jumping
 nnoremap [a :previous<CR>
@@ -395,10 +376,6 @@ vnoremap <Leader>P "+P
 " Copy the whole working file to the clipboard
 nnoremap <Leader><Leader>y :%yank+<CR>
 
-" Disable hlsearch right after moving
-noremap <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
-noremap! <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
-
 " }}}
 
 " Colorscheme {{{
@@ -455,6 +432,36 @@ if executable("fzf")
 		\ "ctrl-v": "vsplit" }
 	let g:fzf_buffers_jump = 1
 endif
+" }}}
+
+" ToggleSearchHighlight {{{
+function! StartSearchHighlight() abort
+	let s:pos = match(getline('.'), @/, col('.') - 1) + 1
+	if s:pos != col('.')
+		call StopSearchHighlight()
+	endif
+endfunction
+
+function! StopSearchHighlight() abort
+	if !v:hlsearch || mode() isnot 'n'
+		return
+	else
+		silent call feedkeys("\<Plug>(StopSearchHighlight)", 'm')
+	endif
+endfunction
+
+augroup ToggleSearchHighlight
+	autocmd!
+
+	" After some cursor movement, remove highlighting from text
+	autocmd CursorMoved * call StartSearchHighlight()
+	autocmd InsertEnter * call StopSearchHighlight()
+
+augroup END
+
+" Disable hlsearch right after moving
+noremap <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
+noremap! <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
 " }}}
 
 " Plugins {{{
