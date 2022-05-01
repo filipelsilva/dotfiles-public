@@ -3,25 +3,28 @@
 	autocrlf = input
 
 [alias]
-	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
 	ac = "!f() { git add -A && git commit -m \"$*\"; }; f"
-	cm = "commit"
+	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
 	cma = "commit -a"
+	cm = "commit"
 	cob = "checkout -b"
 	co = "checkout"
-	tree = "log --graph --oneline --decorate"
+	difft = "difftool --tool=difft"
 	st = "status"
+	tree = "log --graph --oneline --decorate"
 
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
 [difftool "vimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE
+	cmd = nvim -d "$LOCAL" "$REMOTE"
+[difftool "difft"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
 [merge]
 	tool = vimdiff
 [mergetool]
 	prompt = true
 [mergetool "vimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvim -d "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'

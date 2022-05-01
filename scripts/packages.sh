@@ -17,6 +17,8 @@ packages=(
 	neovim
 	tmux
 	tmuxp
+	diffutils
+	difftastic
 	git
 	zoxide
 	zip

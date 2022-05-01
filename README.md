@@ -56,6 +56,15 @@ Aliases and some settings to do diffs and merges using `nvim` are defined in
 here. I recommend putting your name and email in here, to ease the commit/push
 process.
 
+```
+[user]
+	email = <your email here>
+	name = <your name here>
+```
+
+Also, using `difftastic`, there are diffs using syntax trees with the alias `git
+difft`.
+
 ### i3config and i3statusconfig
 
 Using Gruvbox colors, the keybinds have been defined so that even people with
