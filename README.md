@@ -62,9 +62,6 @@ process.
 	name = <your name here>
 ```
 
-Also, using `difftastic`, there are diffs using syntax trees with the alias `git
-difft`.
-
 ### i3config and i3statusconfig
 
 Using Gruvbox colors, the keybinds have been defined so that even people with
