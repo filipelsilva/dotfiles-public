@@ -4,13 +4,11 @@ if (( $+commands[nvim] )); then
 	export MANPAGER="nvim +Man!"
 
 	# Use neovim in diffs and merges
-	if (( $+commands[git] )); then
-		export GIT_CONFIG_COUNT=2
-		export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
-		export GIT_CONFIG_VALUE_0="$EDITOR -d \$LOCAL \$REMOTE"
-		export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
-		export GIT_CONFIG_VALUE_1="$EDITOR -d \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
-	fi
+	export GIT_CONFIG_COUNT=2
+	export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
+	export GIT_CONFIG_VALUE_0="$EDITOR -d \$LOCAL \$REMOTE"
+	export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
+	export GIT_CONFIG_VALUE_1="$EDITOR -d \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
 else
 	export EDITOR="vim"
 	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
