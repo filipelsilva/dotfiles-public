@@ -2,6 +2,15 @@
 if (( $+commands[nvim] )); then
 	export EDITOR="nvim"
 	export MANPAGER="nvim +Man!"
+
+	# Use neovim in diffs and merges
+	if (( $+commands[git] )); then
+		export GIT_CONFIG_COUNT=2
+		export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
+		export GIT_CONFIG_VALUE_0="$EDITOR -d \$LOCAL \$REMOTE"
+		export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
+		export GIT_CONFIG_VALUE_1="$EDITOR -d \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
+	fi
 else
 	export EDITOR="vim"
 	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
@@ -72,6 +81,9 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
 alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
 
+# Git configuration
+alias gitconfig="$EDITOR $HOME/.gitconfig"
+
 # i3 configuration and reload
 if (( $+commands[i3] )); then
 	alias i3source="i3-msg restart"
@@ -95,7 +107,7 @@ precmd_functions+=( precmd_vcs_info )
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '+'
 zstyle ':vcs_info:*' unstagedstr '*'
-zstyle ':vcs_info:*' formats '%c%u%m%b'
+zstyle ':vcs_info:*' formats '%c%u%b'
 
 export RPROMPT='${vcs_info_msg_0_}'
 
