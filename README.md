@@ -52,15 +52,18 @@ but this solution is way cleaner.
 
 ### gitconfig
 
-Aliases and some settings to do diffs and merges using `nvim` are defined in
-here. I recommend putting your name and email in here, to ease the commit/push
-process.
+Aliases and some settings to do diffs and merges are defined in here. I
+recommend putting your name and email in here, to ease the commit/push process.
 
 ```
 [user]
 	email = <your email here>
 	name = <your name here>
 ```
+
+The editor used for the difftool and mergetool is your $EDITOR. In the file
+itself, only Vim is defined, but in .zshrc, if your editor is Neovim the options
+are overwritten to accomodate that.
 
 ### i3config and i3statusconfig
 
@@ -89,8 +92,9 @@ and some plugins were added on order to improve the experience (mostly surround
 words with characters, comment stuff quickly, and change indentation settings
 according to the file that is being edited). If ripgrep (`rg`) is installed, it
 will be used as the grep program, and if `fzf` is installed, it will be used
-for the functions to edit files (mapped to \<Leader\>[f,ff,F]). Otherwise,
-normal Vim methods will be used.
+for the functions to edit files (mapped to \<Leader\>[f,ff,F]), and the fzf-vim
+plugin will be installed to have some easier use cases. Otherwise, normal Vim
+methods will be used.
 
 It automatically installs a simple plugin manager (minpac) that uses Vim's
 runtimepath, if the system has `git` (well, if it hadn't, the probability you
