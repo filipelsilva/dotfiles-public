@@ -82,6 +82,11 @@ alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
 # Git configuration
 alias gitconfig="$EDITOR $HOME/.gitconfig"
 
+# Edit PKGFILE option in yay
+if (( $+commands[yay] )); then
+	alias yay="yay --editmenu"
+fi
+
 # i3 configuration and reload
 if (( $+commands[i3] )); then
 	alias i3source="i3-msg restart"
@@ -106,6 +111,7 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '+'
 zstyle ':vcs_info:*' unstagedstr '*'
 zstyle ':vcs_info:*' formats '%c%u%b'
+zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 
 export RPROMPT='${vcs_info_msg_0_}'
 

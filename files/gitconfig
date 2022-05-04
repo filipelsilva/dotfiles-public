@@ -2,10 +2,8 @@
 	autocrlf = input
 
 [alias]
-	ac = "!f() { git add -A && git commit -m \"$*\"; }; f"
-	acm = "!f() { git add -A && git commit; }; f"
-	acp = "!f() { git add -A && git commit -m \"$*\" && git push; }; f"
-	acmp = "!f() { git add -A && git commit && git push; }; f"
+	ac = "!f() { git add -A && git commit; }; f"
+	acp = "!f() { git add -A && git commit && git push; }; f"
 	cm = "commit"
 	cma = "commit -a"
 	co = "checkout"
