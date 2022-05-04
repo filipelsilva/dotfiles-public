@@ -82,11 +82,6 @@ alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
 # Git configuration
 alias gitconfig="$EDITOR $HOME/.gitconfig"
 
-# Edit PKGFILE option in yay
-if (( $+commands[yay] )); then
-	alias yay="yay --editmenu"
-fi
-
 # i3 configuration and reload
 if (( $+commands[i3] )); then
 	alias i3source="i3-msg restart"
