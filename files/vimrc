@@ -48,7 +48,6 @@ set backspace=indent,eol,start
 " Indentation settings
 set autoindent copyindent shiftround smarttab breakindent
 set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
-set cinoptions+=g0
 
 " Visual settings
 set ruler showcmd linebreak wrap
