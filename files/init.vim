@@ -159,18 +159,9 @@ lsp_installer.setup({
 })
 
 local lspconfig = require("lspconfig")
-local servers = {
-	"bashls",
-	"clangd",
-	"pyright",
-	"rust_analyzer",
-	"sumneko_lua",
-	"tsserver",
-	"vimls",
-}
-
+local servers = require("nvim-lsp-installer.servers").get_installed_servers()
 for _, server in pairs(servers) do
-	lspconfig[server].setup({
+	lspconfig[server.name].setup({
 		on_attach = custom_on_attach,
 		capabilities = new_capabilities,
 	})
