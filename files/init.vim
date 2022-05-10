@@ -1,4 +1,4 @@
-source $HOME/dotfiles/files/vimrc
+source $HOME/.vimrc
 
 " Plugins {{{
 function! PackInit() abort
@@ -148,7 +148,7 @@ local new_capabilities = vim.lsp.protocol.make_client_capabilities()
 new_capabilities = require("cmp_nvim_lsp").update_capabilities(new_capabilities)
 
 local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.settings({
+lsp_installer.setup({
 	ui = {
 		icons = {
 			server_installed = "->",
@@ -157,13 +157,24 @@ lsp_installer.settings({
 		},
 	},
 })
-lsp_installer.on_server_ready(function(server)
-	local opts = {
+
+local lspconfig = require("lspconfig")
+local servers = {
+	"bashls",
+	"clangd",
+	"pyright",
+	"rust_analyzer",
+	"sumneko_lua",
+	"tsserver",
+	"vimls",
+}
+
+for _, server in pairs(servers) do
+	lspconfig[server].setup({
 		on_attach = custom_on_attach,
 		capabilities = new_capabilities,
-	}
-	server:setup(opts)
-end)
+	})
+end
 -- }}}
 
 -- Nvim-cmp {{{

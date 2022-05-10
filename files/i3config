@@ -238,7 +238,7 @@ bar {
 	tray_padding 0
 	position bottom
 
-	status_command i3status # config at $HOME/dotfiles/files/i3statusconfig
+	status_command i3status # config at $HOME/.config/i3status/config
 
 	colors {
 		background $brightblack

@@ -82,6 +82,7 @@ packages=(
 	tk
 	time
 	words
+	asciiquarium
 )
 
 desktop_packages=(
