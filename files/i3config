@@ -99,7 +99,7 @@ bindsym $mod+Shift+Mod1+r restart
 bindsym $mod+Shift+q kill
 
 # Start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec i3-sensible-terminal
 
 # Start a file manager
 bindsym $mod+e exec thunar

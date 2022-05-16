@@ -38,6 +38,8 @@ if (( $+commands[bat] )); then
 	export BAT_THEME="ansi"
 	export BAT_STYLE="auto"
 fi
+
+(( $+commands[alacritty] )) && export TERMINAL="alacritty"
 # }}}
 
 # Aliases {{{
@@ -45,31 +47,30 @@ fi
 # Basic commands
 alias ..="cd .."
 alias -- -="cd -"
-alias cp="cp -r"
-alias bc="bc -l"
-alias mkdir="mkdir -p"
-alias wget="wget -c"
-alias ip="ip --color=auto"
-alias diff="diff --color=auto"
-alias grep="grep --color=auto"
+alias cp="cp --recursive"
+alias bc="bc --mathlib"
+alias mkdir="mkdir --parents"
+alias wget="wget --continue"
+alias ip="ip --color"
+alias diff="diff --color"
+alias grep="grep --color"
+alias info="info --vi-keys"
 alias v="$EDITOR"
 if (( $+commands[nvim] )); then
 	alias vimdiff="nvim -d"
 fi
 
 # Ls aliases
-alias lt="tree --dirsfirst -F" # -C"
-alias lta="lt -a"
-alias ls="ls -hCF --group-directories-first" # --color=auto"
+# alias ls="ls --color"
 alias lsa="ls -A"
-alias l="ls -l"
-alias la="ls -lA"
-alias lx="ls -lisa"
-alias lr="ls -lR"
-alias lrs="ls -R"
-alias lra="ls -lAR"
+alias lsr="ls -R"
+alias l="ls -lh"
+alias la="ls -lhA"
+alias lr="ls -lhR"
+alias lar="ls -lhAR"
+alias lx="ls -lhAFis"
 
-# Ssh with xterm, for targets without alacritty
+# Ssh with xterm, for compatibility
 alias ssh="TERM=xterm-256color ssh"
 
 # Search for processes
@@ -297,15 +298,6 @@ function linkdump() {
 	lynx -dump -listonly -nonumbers $1 | grep .pdf > dump.txt
 	wget -i dump.txt
 	rm dump.txt
-}
-
-# [F]ind-[I]n-[F]ile
-function fif() {
-	if [ ! "$#" -gt 0 ]; then
-		echo "Need a string to search for!";
-		return 1;
-	fi
-	rg --files-with-matches --no-messages "$1" | fzf --header="[find in file]" --preview "rg --pretty --context 10 '$1' {}"
 }
 
 # [K]ill [P]rocess

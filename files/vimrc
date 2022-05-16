@@ -170,7 +170,6 @@ command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
 " }}}
 
 " Autocommands {{{
-
 augroup Vimrc
 	autocmd!
 
