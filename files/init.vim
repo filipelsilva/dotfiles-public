@@ -238,14 +238,14 @@ treesitter.setup({
 	ensure_installed = "all",
 	sync_install = true,
 	highlight = {
-		enable = true,
+		enable = false,
 		additional_vim_regex_highlighting = true,
 	},
 	incremental_selection = {
-		enable = true,
+		enable = false,
 	},
 	indent = {
-		enable = true,
+		enable = false,
 	},
 	playground = {
 		enable = true,

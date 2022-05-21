@@ -16,7 +16,6 @@ desktop_packages=(
 	onedrive-abraunegg-git
 	discord_arch_electron
 	zoom
-	noisetorch
 	ventoy-bin
 	optimus-manager
 	optimus-manager-qt
