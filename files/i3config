@@ -19,6 +19,18 @@ set $mode_printscreen "[printscreen] (s)election, (a)ctive window, (w)hole scree
 set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
 set $mode_resize "resize"
 
+# Colors
+set $brightblack #1d2021
+set $brightwhite #ebdbb2
+set $black       #282828
+set $red         #cc241d
+set $green       #98971a
+set $yellow      #d79921
+set $blue        #458588
+set $magenta     #b16286
+set $cyan        #689d6a
+set $white       #a89984
+
 # Workspaces
 set $ws1 "1"
 set $ws2 "2"
@@ -122,7 +134,7 @@ bindsym $mod+w layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 bindsym $mod+Shift+Mod1+w layout stacked
 
-# Toggle tiling / floating
+# Toggle tiling/floating
 bindsym $mod+space floating toggle
 
 # No window names
@@ -187,10 +199,6 @@ bindsym $mod+p workspace prev
 # Use $mod+<current workspace number> to switch back to previous workspace
 workspace_auto_back_and_forth yes
 
-# Switch between the current and the previously focused one
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth
-
 # Move the whole workspace to the next output
 bindsym $mod+x move workspace to output right
 
@@ -219,20 +227,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 # }}}
 
-# Theme {{{
-
-# Colors
-set $brightblack #1d2021
-set $brightwhite #ebdbb2
-set $black       #282828
-set $red         #cc241d
-set $green       #98971a
-set $yellow      #d79921
-set $blue        #458588
-set $magenta     #b16286
-set $cyan        #689d6a
-set $white       #a89984
-
+# Bar and Colors {{{
 bar {
 	tray_output primary
 	tray_padding 0

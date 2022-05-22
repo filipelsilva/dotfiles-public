@@ -343,7 +343,9 @@ if (( $+commands[fzf] )); then
 		--color="fg+:#ebdbb2"
 	)
 
-	fzf_options+=(${colors[@]})
+	if [ "$TERM" = "alacritty" ]; then
+		fzf_options+=(${colors[@]})
+	fi
 
 	# Variables and functions for fzf operation
 	export FZF_DEFAULT_OPTS=${fzf_options[@]}
