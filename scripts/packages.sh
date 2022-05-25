@@ -104,7 +104,7 @@ desktop_packages=(
 	arandr
 	autorandr
 	feh
-	nomacs
+	gthumb
 	perl-image-exiftool
 	maim
 	pavucontrol
