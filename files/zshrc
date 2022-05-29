@@ -16,7 +16,7 @@ fi
 export VISUAL="$EDITOR"
 
 # Adding folders to PATH {{{
-PATH=$HOME/.local/bin:$PATH
+local PATH=$HOME/.local/bin:$PATH
 
 (( $+commands[cargo] )) && PATH=$HOME/.cargo/bin:$PATH
 
@@ -109,10 +109,13 @@ zstyle ':vcs_info:*' unstagedstr '*'
 zstyle ':vcs_info:*' formats '%c%u%b'
 zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 
-export RPROMPT='${vcs_info_msg_0_}'
-
 # Replace %# with %(!.#.$) for bash-like prompt
-export PROMPT="%n@%M:%1~%# "
+local PROMPT_ERROR_HANDLING="%(?..%F{red}%?%f )"
+local PROMPT_INFO="%n@%M:%1~%#"
+local PROMPT_GIT_INFO='${vcs_info_msg_0_}'
+
+export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
+export RPROMPT="${PROMPT_GIT_INFO}"
 # }}}
 
 # Directory stack {{{
@@ -272,14 +275,6 @@ setopt notify
 # [Take]: mkdir directory and cd to it
 function take() {
 	mkdir -p $@ && cd ${@:$#}
-}
-
-# [Checksum] files
-function checksum() {
-	if [ "$#" -ne 2 ]; then
-		echo "Usage: checksum <file> <intended result>"
-	fi
-	echo "$2  $1" | shasum -a 256 -c
 }
 
 # [Open] files
