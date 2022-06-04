@@ -2,6 +2,7 @@
 if (( $+commands[nvim] )); then
 	export EDITOR="nvim"
 	export MANPAGER="nvim +Man!"
+	(( $+commands[pacdiff] )) && export DIFFPROG="nvim -d"
 
 	# Use neovim in diffs and merges
 	export GIT_CONFIG_COUNT=2
@@ -12,6 +13,7 @@ if (( $+commands[nvim] )); then
 else
 	export EDITOR="vim"
 	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
+	(( $+commands[pacdiff] )) && export DIFFPROG="vimdiff"
 fi
 export VISUAL="$EDITOR"
 

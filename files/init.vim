@@ -82,7 +82,7 @@ telescope.setup({
 			height = 0.60,
 		},
 		path_display = {
-			"smart",
+			"truncate",
 		},
 		mappings = {
 			i = {
