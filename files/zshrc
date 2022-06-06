@@ -114,6 +114,7 @@ zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 # Replace %# with %(!.#.$) for bash-like prompt
 local PROMPT_ERROR_HANDLING="%(?..%F{red}%?%f )"
 local PROMPT_INFO="%n@%M:%1~%#"
+# local PROMPT_INFO="%F{green}%n@%M%f:%F{blue}%1~%f%#"
 local PROMPT_GIT_INFO='${vcs_info_msg_0_}'
 
 export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
@@ -160,6 +161,8 @@ setopt glob_complete
 setopt list_types
 unsetopt flow_control
 
+# eval "$(dircolors)"
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' add-space true
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' cache-path $HOME/.zcompcache
