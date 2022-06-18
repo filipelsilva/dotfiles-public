@@ -288,7 +288,7 @@ function take() {
 
 # [Colors]: print colors and corresponding codes
 function colors() {
-	for c in {0..7}; do 
+	for c in {0..7}; do
 		b=$((c+8))
 		print -P - "%F{$c}$c%f -> %F{$b}$b%f"
 	done
