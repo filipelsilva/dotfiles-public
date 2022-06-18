@@ -2,20 +2,22 @@
 if (( $+commands[nvim] )); then
 	export EDITOR="nvim"
 	export MANPAGER="nvim +Man!"
-	(( $+commands[pacdiff] )) && export DIFFPROG="nvim -d"
-
-	# Use neovim in diffs and merges
-	export GIT_CONFIG_COUNT=2
-	export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
-	export GIT_CONFIG_VALUE_0="$EDITOR -d \$LOCAL \$REMOTE"
-	export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
-	export GIT_CONFIG_VALUE_1="$EDITOR -d \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
 else
 	export EDITOR="vim"
 	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
-	(( $+commands[pacdiff] )) && export DIFFPROG="vimdiff"
 fi
 export VISUAL="$EDITOR"
+export DIFFPROG="$EDITOR -d"
+
+# Override git diff and merge tools
+export GIT_CONFIG_COUNT=2
+export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
+export GIT_CONFIG_VALUE_0="$DIFFPROG \$LOCAL \$REMOTE"
+export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
+export GIT_CONFIG_VALUE_1="$DIFFPROG \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
+
+# Distro name
+export DISTRONAME=$(cat /etc/os-release | grep "NAME" | head -n 1 | cut -d'=' -f2 | tr -d '"')
 
 # Adding folders to PATH {{{
 local PATH=$HOME/.local/bin:$PATH
@@ -112,10 +114,12 @@ zstyle ':vcs_info:*' formats '%c%u%b'
 zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 
 # Replace %# with %(!.#.$) for bash-like prompt
+local NEWLINE=$'\n'
 local PROMPT_ERROR_HANDLING="%(?..%F{red}%?%f )"
+local PROMPT_GIT_INFO='${vcs_info_msg_0_}'
+
 local PROMPT_INFO="%n@%M:%1~%#"
 # local PROMPT_INFO="%F{green}%n@%M%f:%F{blue}%1~%f%#"
-local PROMPT_GIT_INFO='${vcs_info_msg_0_}'
 
 export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
 export RPROMPT="${PROMPT_GIT_INFO}"
@@ -282,6 +286,14 @@ function take() {
 	mkdir -p $@ && cd ${@:$#}
 }
 
+# [Colors]: print colors and corresponding codes
+function colors() {
+	for c in {0..7}; do 
+		b=$((c+8))
+		print -P - "%F{$c}$c%f -> %F{$b}$b%f"
+	done
+}
+
 # [Open] files
 function open() {
 	if [ "$#" -ne 0 ]; then
@@ -323,8 +335,8 @@ function x() {
 if (( $+commands[fzf] )); then
 	local FZF_KEYBINDS=/usr/share/fzf/key-bindings.zsh
 	local FZF_COMPLETION=/usr/share/fzf/completion.zsh
-	source $FZF_KEYBINDS
-	source $FZF_COMPLETION
+	[ -f $FZF_KEYBINDS ] && source $FZF_KEYBINDS
+	[ -f $FZF_COMPLETION ] && source $FZF_COMPLETION
 
 	# Stop fzf completion trigger from colliding with zsh glob operator
 	export FZF_COMPLETION_TRIGGER="++"
@@ -351,17 +363,21 @@ if (( $+commands[fzf] )); then
 	export FZF_DEFAULT_OPTS=${fzf_options[@]}
 
 	if (( $+commands[fd] )); then
-		local FD_DEFAULT_OPTS="--hidden --exclude .git"
+		local FD_DEFAULT_OPTS=(
+			--hidden
+			--exclude .git
+		)
+
 		export FZF_DEFAULT_COMMAND="fd --type f $FD_DEFAULT_OPTS"
 		export FZF_CTRL_T_COMMAND="fd --type f $FD_DEFAULT_OPTS"
 		export FZF_ALT_C_COMMAND="fd --type d $FD_DEFAULT_OPTS"
 
 		_fzf_compgen_path() {
-			fd --hidden --exclude ".git" . "$1"
+			fd $FD_DEFAULT_OPTS . "$1"
 		}
 
 		_fzf_compgen_dir() {
-			fd --type d --hidden --exclude ".git" . "$1"
+			fd --type d $FD_DEFAULT_OPTS . "$1"
 		}
 	fi
 fi

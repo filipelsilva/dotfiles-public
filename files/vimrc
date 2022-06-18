@@ -145,13 +145,6 @@ function! CreateTextObject(char) abort
 endfunction
 " }}}
 
-" ChangeFileByExtension {{{
-function! ChangeFileByExtension() abort
-	let l:filename = fnameescape(expand("%:.:r"))
-	call feedkeys(":edit " . l:filename . ".")
-endfunction
-" }}}
-
 " HeaderToDefinition (c/cpp only) {{{
 function! HeaderToDefinition() abort
 	let l:filename = fnameescape(expand("%:.:r"))
@@ -196,9 +189,6 @@ command! -nargs=1 CreateUndoBreakPoint call CreateUndoBreakPoint(<f-args>)
 
 " CreateTextObject
 command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
-
-" ChangeFileByExtension
-command! ChangeFileByExtension call ChangeFileByExtension()
 
 " HeaderToDefinition
 command! HeaderToDefinition call HeaderToDefinition()
@@ -290,7 +280,7 @@ nnoremap <silent> <Leader>l :set invspell invlist<CR>
 nnoremap <Leader>, <Cmd>nohlsearch<CR>
 
 " Jump to file with same name but another extension
-nnoremap <Leader>h :ChangeFileByExtension<CR>
+nnoremap <Leader>h :edit <C-r>=fnameescape(expand("%:.:r"))<CR>.
 
 " Jump to header file and back (only works in c/cpp files)
 nnoremap <silent> <Leader><Leader>h :HeaderToDefinition<CR>
@@ -424,7 +414,7 @@ nnoremap <Leader><Leader>y :%yank+<CR>
 colorscheme default
 
 " Vim does not set the background correctly
-if !has("nvim") && !has("gui_running")
+if !has("nvim")
 	set background=dark
 endif
 

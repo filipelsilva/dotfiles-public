@@ -238,7 +238,7 @@ treesitter.setup({
 	ensure_installed = "all",
 	sync_install = true,
 	highlight = {
-		enable = false,
+		enable = true,
 		additional_vim_regex_highlighting = true,
 	},
 	incremental_selection = {

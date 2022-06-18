@@ -4,6 +4,8 @@ packages=(
 	linux
 	linux-firmware
 	util-linux
+	binutils
+	coreutils
 	pacman-contrib
 	pkgfile
 	base
@@ -22,6 +24,7 @@ packages=(
 	zoxide
 	zip
 	unzip
+	p7zip
 	curl
 	wget
 	netcat
@@ -37,6 +40,7 @@ packages=(
 	python-keystone
 	ropper
 	pypy
+	pypy3
 	bpython
 	indent
 	gcc
@@ -133,6 +137,8 @@ desktop_packages=(
 	ttc-iosevka
 	ttc-iosevka-ss12
 	ttf-hack
+	steam
+	lutris
 )
 
 if [[ $1 = "full" ]]; then

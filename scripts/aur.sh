@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 packages=(
-	7-zip-full
 	rar
 	atool
 	forgit-git
@@ -15,6 +14,8 @@ packages=(
 desktop_packages=(
 	onedrive-abraunegg-git
 	discord_arch_electron
+	spotify
+	slack
 	zoom
 	ventoy-bin
 	optimus-manager
