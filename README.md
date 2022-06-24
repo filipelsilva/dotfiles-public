@@ -24,8 +24,8 @@ These consist of configurations for the following:
 ## 2. Installers
 
 Scripts made by me, in order to link the dotfiles to their places and install
-all needed packages. Keep in mind: these are **very likely to break**,
-therefore **use them at your own risk**.
+all needed packages. Keep in mind: these are **very likely to break**, therefore
+**use them at your own risk**.
 
 Usage:
 
@@ -40,15 +40,15 @@ cd $HOME/dotfiles
 
 ### alacritty.yml
 
-Only changing colors and font, to Gruvbox and Iosevka Term, respectively. There
-are other settings, but nothing of great importance.
+Only changing colors and font, to Gruvbox and Iosevka, respectively. There are
+other settings, but nothing of great importance.
 
 ### gdbinit
 
-If the packages for pwndbg and gef are installed, the aliases in zsh will
-source the files defined in there. This way, you can run default `gdb`,
-`pwndbg`, and `gef`, all separated. Before, I had a git repo dedicated to this,
-but this solution is way cleaner.
+If the packages for pwndbg and gef are installed, the aliases in zsh will source
+the files defined in there. This way, you can run default `gdb`, `pwndbg`, and
+`gef`, all separated. Before, I had a git repo dedicated to this, but this
+solution is way cleaner. This only works with Arch Linux.
 
 ### gitconfig
 
@@ -62,17 +62,17 @@ recommend putting your name and email in here, to ease the commit/push process.
 ```
 
 The editor used for the difftool and mergetool is your $EDITOR. In the file
-itself, only Vim is defined, but in .zshrc, if your editor is Neovim the options
-are overwritten to accomodate that.
+itself, only Vim is defined, but in .zshrc the options are overwritten to
+accomodate the possible (and likely) using of Neovim.
 
 ### i3config and i3statusconfig
 
 Using Gruvbox colors, the keybinds have been defined so that even people with
-60% keyboards can do things such as play/pause audio, change brightness,
-volume, etc. However, the keybind placement is quite subjective (as is the case
-with all config files, actually, but I feel this one might be even less
-intuitive to those first seeing it), so I recommend seeing what you like and
-changing what you don't.
+60% keyboards can do things such as play/pause audio, change brightness, volume,
+etc. However, the keybind placement is quite subjective (as is the case with all
+config files, actually, but I feel this one might be even less intuitive to
+those first seeing it), so I recommend seeing what you like and changing what
+you don't.
 
 ### tmux.conf
 
@@ -91,10 +91,11 @@ recent version of Vim). All keybinds and functions are documented fairly well,
 and some plugins were added on order to improve the experience (mostly surround
 words with characters, comment stuff quickly, and change indentation settings
 according to the file that is being edited). If ripgrep (`rg`) is installed, it
-will be used as the grep program, and if `fzf` is installed, it will be used
-for the functions to edit files (mapped to \<Leader\>[f,ff,F]), and the fzf-vim
-plugin will be installed to have some easier use cases. Otherwise, normal Vim
-methods will be used.
+will be used as the grep program, and if `fzf` is installed, it will be used for
+the functions to edit files (mapped to \<Leader\>[f,ff,F]), and the fzf-vim
+plugin will be installed, which adds integration with ripgrep and some other
+packages, to provide some quite useful functions. Otherwise, normal Vim methods
+will be used.
 
 It automatically installs a simple plugin manager (minpac) that uses Vim's
 runtimepath, if the system has `git` (well, if it hadn't, the probability you
@@ -106,12 +107,11 @@ described in the paragraph above).
 This is the part of the config that I don't consider very portable. It
 piggybacks on the vimrc described above, and adds many plugins, in order to
 leverage Neovim's LSP capabilities. I include a colorscheme as well (Gruvbox
-really is the best), and `fzf` is joined by another plugin, fzf.vim, that
-adds integration with ripgrep and some other packages, to provide some quite
-useful functions.
-
-The plugin declarations are in the function PackInit (that already existed in
-the vimrc file but is overwritten here).
+really is the best), and `fzf` is joined by Telescope, which is Neovim only and
+also works really well (warning: it is slower with large folders, e.g. your home
+folder). The plugins are manager using packer.nvim instead of minpac (a variable
+is declared before sourcing .vimrc to stop minpac from installing itself on
+Neovim).
 
 ### zathurarc
 
@@ -133,12 +133,13 @@ repos, instead of using a plugin manager.
 The "Functions" section of this file has multiple functions that depend on
 certain non default packages and have not been guarded, as I found no clean way
 to do this, preferring to not use them or have them break if used. You can
-safely delete that section, apart from the first function, "take", which I
-consider quite useful, and only uses `cd` and `mkdir`.
+safely delete that section, apart from the first two functions: "take", which I
+consider quite useful, and only uses `cd` and `mkdir`; and "colors", which is
+only for seeing color codes..
 
-The completion system is done "by hand", instead of using some package to
-manage it. This assures that it works the way I expect it to work always (or
-*almost* always), but it might not be your preferred way of using completion.
-If you don't like it, i suggest using a package that provides completion, or
-running the completion assistant and defining the settings yourself: `autoload
--U zsh-newuser-install && zsh-newuser-install -f`.
+The completion system is done "by hand", instead of using some package to manage
+it. This assures that it works the way I expect it to work always (or *almost*
+always), but it might not be your preferred way of using completion. If you
+don't like it, i suggest using a package that provides completion, or running
+the completion assistant and defining the settings yourself: `autoload -U
+zsh-newuser-install && zsh-newuser-install -f`.
