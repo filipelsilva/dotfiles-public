@@ -5,7 +5,7 @@ mkdir -p $HOME/.config/nvim
 
 ln -nsf $HOME/dotfiles/files/gdbinit $HOME/.gdbinit
 ln -nsf $HOME/dotfiles/files/gitconfig $HOME/.gitconfig
-ln -nsf $HOME/dotfiles/files/init.vim $HOME/.config/nvim/init.vim
+ln -nsf $HOME/dotfiles/files/init.lua $HOME/.config/nvim/init.lua
 ln -nsf $HOME/dotfiles/files/inputrc $HOME/.inputrc
 ln -nsf $HOME/dotfiles/files/tmux.conf $HOME/.tmux.conf
 ln -nsf $HOME/dotfiles/files/vimrc $HOME/.vimrc

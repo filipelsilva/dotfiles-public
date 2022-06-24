@@ -496,36 +496,37 @@ noremap! <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
 " }}}
 
 " Plugins {{{
-let s:plugin_folder = substitute(&packpath, ",.*", "", "")
-let s:plugin_folder .= "/pack/minpac/opt/minpac"
+if !exists("g:no_vim_plugins")
+	let s:plugin_folder = substitute(&packpath, ",.*", "", "")
+	let s:plugin_folder .= "/pack/minpac/opt/minpac"
+	if empty(glob(s:plugin_folder))
+		call system("git clone https://github.com/k-takata/minpac " . s:plugin_folder)
+		autocmd VimEnter * silent! source $MYVIMRC | PackUpdate
+	else
+		function! PackInit() abort
+			packadd minpac
 
-if empty(glob(s:plugin_folder))
-	call system("git clone https://github.com/k-takata/minpac " . s:plugin_folder)
-	autocmd VimEnter * silent! source $MYVIMRC | PackUpdate
-else
-	function! PackInit() abort
-		packadd minpac
+			call minpac#init()
+			call minpac#add("k-takata/minpac", {"type": "opt"})
 
-		call minpac#init()
-		call minpac#add("k-takata/minpac", {"type": "opt"})
+			" Indentation detector
+			call minpac#add("tpope/vim-sleuth")
 
-		" Indentation detector
-		call minpac#add("tpope/vim-sleuth")
+			" Surround stuff
+			call minpac#add("tpope/vim-surround")
 
-		" Surround stuff
-		call minpac#add("tpope/vim-surround")
+			" Comment stuff
+			call minpac#add("tpope/vim-commentary")
 
-		" Comment stuff
-		call minpac#add("tpope/vim-commentary")
+			" If fzf is installed, add companion commands
+			if executable("fzf")
+				call minpac#add("junegunn/fzf.vim")
+			endif
+		endfunction
 
-		" If fzf is installed, add companion commands
-		if executable("fzf")
-			call minpac#add("junegunn/fzf.vim")
-		endif
-	endfunction
-
-	command! PackUpdate call PackInit() | call minpac#update()
-	command! PackClean  call PackInit() | call minpac#clean()
-	command! PackStatus call PackInit() | call minpac#status()
+		command! PackUpdate call PackInit() | call minpac#update()
+		command! PackClean  call PackInit() | call minpac#clean()
+		command! PackStatus call PackInit() | call minpac#status()
+	endif
 endif
 " }}}
