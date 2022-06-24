@@ -217,7 +217,7 @@ augroup PlainTextWidth
 	autocmd!
 
 	" On plain text files, set textwidth to something other than 0
-	autocmd FileType text,markdown,rst,tex,latex,context,plaintex setlocal textwidth=80
+	autocmd FileType text,markdown,rst,tex,latex,context,plaintex,gitcommit setlocal textwidth=80 spell
 
 augroup END
 
@@ -274,7 +274,7 @@ tnoremap <C-v><Esc> <Esc>
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
 " Toggle spell
-nnoremap <silent> <Leader>l :set invspell invlist<CR>
+nnoremap <silent> <Leader>l :set invlist<CR>
 
 " Disable highlighting
 nnoremap <Leader>, <Cmd>nohlsearch<CR>

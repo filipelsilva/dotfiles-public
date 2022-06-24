@@ -115,10 +115,11 @@ zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 
 # Replace %# with %(!.#.$) for bash-like prompt
 local NEWLINE=$'\n'
-local PROMPT_ERROR_HANDLING="%(?..%F{red}%?%f )"
-local PROMPT_GIT_INFO='${vcs_info_msg_0_}'
+local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
+local PROMPT_GIT_INFO='%(!..${vcs_info_msg_0_})'
 
-local PROMPT_INFO="%n@%M:%1~%#"
+# local PROMPT_INFO="%n@%M:%1~%#"
+local PROMPT_INFO="%M%S%n%s%1~ %#"
 # local PROMPT_INFO="%F{green}%n@%M%f:%F{blue}%1~%f%#"
 
 export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
@@ -219,6 +220,7 @@ bindkey "^[[Z" reverse-menu-complete
 # Delete characters with Delete and Backspace, respectively
 bindkey "^[[3~" delete-char
 bindkey "^?" backward-delete-char
+bindkey "^H" backward-kill-word
 
 # Alt + . to insert last word, as in Emacs mode
 bindkey "\e." insert-last-word

@@ -289,9 +289,9 @@ bindsym $mod+i mode $mode_layout
 
 # MODE: Printscreen {{{
 mode $mode_printscreen {
-	bindsym s exec --no-startup-id maim --select "$HOME/Pictures/$(date).png"; mode "default"
-	bindsym a exec --no-startup-id maim --window $(xdotool getactivewindow) "$HOME/Pictures/$(date).png"; mode "default"
-	bindsym w exec --no-startup-id maim "$HOME/Pictures/$(date).png"; mode "default"
+	bindsym s exec --no-startup-id maim --select "$HOME/Pictures/$(date +%F_%T).png"; mode "default"
+	bindsym a exec --no-startup-id maim --window $(xdotool getactivewindow) "$HOME/Pictures/$(date +%F_%T).png"; mode "default"
+	bindsym w exec --no-startup-id maim "$HOME/Pictures/$(date +%F_%T).png"; mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
