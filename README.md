@@ -135,7 +135,7 @@ certain non default packages and have not been guarded, as I found no clean way
 to do this, preferring to not use them or have them break if used. You can
 safely delete that section, apart from the first two functions: "take", which I
 consider quite useful, and only uses `cd` and `mkdir`; and "colors", which is
-only for seeing color codes..
+only for seeing color codes.
 
 The completion system is done "by hand", instead of using some package to manage
 it. This assures that it works the way I expect it to work always (or *almost*
