@@ -8,6 +8,7 @@ vim.cmd("source $HOME/.vimrc")
 local install_path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	PACKER_BOOTSTRAP = vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
+	vim.api.nvim_create_autocmd("VimEnter", { command = "silent! source $MYVIMRC | PackerComplete" })
 end
 
 local packer = require("packer")
@@ -112,8 +113,8 @@ _G.TELESCOPE_FUZZY_FILE = function()
 	end
 end
 
-vim.keymap.set("n", "<Leader>f", [[<CMD>lua TELESCOPE_FUZZY_FILE()<CR>]], telescope_keybind_options)
-vim.keymap.set("n", "<Leader><Leader>f", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = require("telescope.utils").buffer_dir(), hidden = true })<CR>]], telescope_keybind_options)
+vim.keymap.set("n", "<Leader>f", [[<Cmd>lua TELESCOPE_FUZZY_FILE()<CR>]], telescope_keybind_options)
+vim.keymap.set("n", "<Leader><Leader>f", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = "$HOME", hidden = true })<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>F", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = require("telescope.utils").buffer_dir(), hidden = true })<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>r", [[<Cmd>lua require("telescope.builtin").live_grep()<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>j", [[<Cmd>lua require("telescope.builtin").buffers()<CR>]], telescope_keybind_options)
@@ -313,10 +314,10 @@ treesitter.setup({
 		additional_vim_regex_highlighting = false,
 	},
 	incremental_selection = {
-		enable = false,
+		enable = true,
 	},
 	indent = {
-		enable = false,
+		enable = true,
 	},
 	playground = {
 		enable = true,
