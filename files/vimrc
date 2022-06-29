@@ -236,7 +236,7 @@ augroup ColorschemeOverrides
 	autocmd!
 
 	" Colorscheme changes
-	autocmd Colorscheme * highlight! link Character80 ColorColumn
+	autocmd VimEnter,Colorscheme * call clearmatches() | highlight! link Character80 ColorColumn | call matchadd("Character80", '\%80v.')
 
 augroup END
 " }}}
@@ -417,10 +417,6 @@ colorscheme default
 if !has("nvim")
 	set background=dark
 endif
-
-" Highlight 80th character (cleaner alternative to colorcolumn)
-call matchadd("Character80", '\%80v.')
-highlight! link Character80 ColorColumn
 
 " }}}
 

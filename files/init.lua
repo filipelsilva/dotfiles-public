@@ -16,9 +16,6 @@ local packer = require("packer")
 -- Packer settings {{{
 packer.init({
 	display = {
-		open_fn = function()
-			return require("packer.util").float({ border = "single" })
-		end,
 		working_sym = "[WORKING]",
 		error_sym = "[ERROR]",
 		done_sym = "[DONE]",
@@ -82,7 +79,7 @@ packer.startup(function(use)
 	-- Treesitter
 	use {
 		"nvim-treesitter/nvim-treesitter",
-		run = "TSUpdate",
+		run = ":TSUpdate",
 		requires = {
 			"nvim-treesitter/playground"
 		}
