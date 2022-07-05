@@ -168,6 +168,15 @@ function! HeaderToDefinition() abort
 endfunction
 " }}}
 
+" OSC52Yank {{{
+function! OSC52Yank() abort
+	let buffer=system("base64 | tr -d '\n'", @0)
+	let buffer='\033]52;c;' . buffer . '\033\'
+	silent exe "!echo -ne " . shellescape(buffer) . " > " . (exists("g:tty") ? shellescape(g:tty) : "/dev/tty")
+	redraw!
+endfunction
+" }}}
+
 " }}}
 
 " Commands {{{
@@ -192,6 +201,9 @@ command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
 
 " HeaderToDefinition
 command! HeaderToDefinition call HeaderToDefinition()
+
+" OSC52Yank
+command! OSC52Yank call OSC52Yank()
 
 " }}}
 

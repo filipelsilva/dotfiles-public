@@ -110,6 +110,7 @@ _G.TELESCOPE_FUZZY_FILE = function()
 	end
 end
 
+vim.keymap.set("n", "<Leader>a", [[<Cmd>Telescope<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>f", [[<Cmd>lua TELESCOPE_FUZZY_FILE()<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader><Leader>f", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = "$HOME", hidden = true })<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>F", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = require("telescope.utils").buffer_dir(), hidden = true })<CR>]], telescope_keybind_options)
@@ -180,11 +181,12 @@ local custom_on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", bufopts)
-	vim.keymap.set("n", "<Leader>a", "<Cmd>lua vim.lsp.buf.code_action()<CR>", bufopts)
-	vim.keymap.set("n", "<Leader>k", "<Cmd>lua vim.lsp.buf.hover()<CR>", bufopts)
-	vim.keymap.set("n", "[e", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", bufopts)
-	vim.keymap.set("n", "]e", "<Cmd>lua vim.diagnostic.goto_next()<CR>", bufopts)
+	vim.keymap.set("n", "gd", [[<Cmd>lua vim.lsp.buf.definition()<CR>]], bufopts)
+	vim.keymap.set("n", "<Leader><Leader>a", [[<Cmd>lua vim.lsp.buf.code_action()<CR>]], bufopts)
+	vim.keymap.set("n", "<Leader>k", [[<Cmd>lua vim.lsp.buf.hover()<CR>]], bufopts)
+	vim.keymap.set("n", "<Leader>s", [[<Cmd>lua vim.lsp.buf.rename()<CR>]], bufopts)
+	vim.keymap.set("n", "[e", [[<Cmd>lua vim.diagnostic.goto_prev()<CR>]], bufopts)
+	vim.keymap.set("n", "]e", [[<Cmd>lua vim.diagnostic.goto_next()<CR>]], bufopts)
 end
 
 local new_capabilities = vim.lsp.protocol.make_client_capabilities()
