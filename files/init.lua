@@ -8,10 +8,13 @@ vim.cmd("source $HOME/.vimrc")
 local install_path = vim.fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	PACKER_BOOTSTRAP = vim.fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
-	vim.api.nvim_create_autocmd("VimEnter", { command = "silent! source $MYVIMRC | PackerComplete" })
+	vim.cmd("packadd packer.nvim")
 end
 
-local packer = require("packer")
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+	return
+end
 
 -- Packer settings {{{
 packer.init({
@@ -27,63 +30,63 @@ packer.init({
 -- }}}
 
 packer.startup(function(use)
-	use "wbthomason/packer.nvim"
+	use("wbthomason/packer.nvim")
 
 	-- Indentation detector
-	use "tpope/vim-sleuth"
+	use("tpope/vim-sleuth")
 
 	-- Surround stuff
-	use "tpope/vim-surround"
+	use("tpope/vim-surround")
 
 	-- Comment stuff
-	use "numToStr/Comment.nvim"
+	use("numToStr/Comment.nvim")
 
 	-- Colorscheme
-	use "gruvbox-community/gruvbox"
+	use("gruvbox-community/gruvbox")
 
 	-- Fzf
-	use "junegunn/fzf.vim"
+	use("junegunn/fzf.vim")
 
 	-- Telescope
-	use {
+	use({
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim"
 		}
-	}
+	})
 
 	-- Lsp
-	use {
+	use({
 		"neovim/nvim-lspconfig",
 		requires = {
 			-- Auto installer
 			"williamboman/nvim-lsp-installer"
 		}
-	}
+	})
 
 	-- Completion
-	use {
+	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
 			-- Snippets
 			"L3MON4D3/LuaSnip",
 			-- Completion sources
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline"
+			"hrsh7th/cmp-path"
 		}
-	}
+	})
 
 	-- Treesitter
-	use {
+	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 		requires = {
 			"nvim-treesitter/playground"
 		}
-	}
+	})
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
@@ -177,6 +180,17 @@ comment.setup({
 -- }}}
 
 -- LSP {{{
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({
+	ui = {
+		icons = {
+			server_installed = "[INSTALLED]",
+			server_pending = "[PENDING]",
+			server_uninstalled = "[UNINSTALLED]",
+		},
+	},
+})
+
 local custom_on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -191,17 +205,6 @@ end
 
 local new_capabilities = vim.lsp.protocol.make_client_capabilities()
 new_capabilities = require("cmp_nvim_lsp").update_capabilities(new_capabilities)
-
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({
-	ui = {
-		icons = {
-			server_installed = "[INSTALLED]",
-			server_pending = "[PENDING]",
-			server_uninstalled = "[UNINSTALLED]",
-		},
-	},
-})
 
 local lspconfig = require("lspconfig")
 local servers = require("nvim-lsp-installer.servers").get_installed_servers()
@@ -275,6 +278,7 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },

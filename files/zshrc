@@ -49,7 +49,6 @@ fi
 # Aliases {{{
 
 # Basic commands
-alias ..="cd .."
 alias -- -="cd -"
 alias cp="cp --recursive"
 alias bc="bc --mathlib"
@@ -282,6 +281,12 @@ setopt notify
 # }}}
 
 # Functions {{{
+
+# [..]: go back directories
+function ..() {
+	local num=$((${1:-1} * 3))
+	cd ${(l:num::../:)}
+}
 
 # [Take]: mkdir directory and cd to it
 function take() {

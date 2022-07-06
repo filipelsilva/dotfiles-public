@@ -25,6 +25,7 @@ endif
 
 " Embed language syntax support
 let g:vimsyn_embed="lmpPrt"
+let g:markdown_fenced_languages = ["bash", "zsh", "python", "lua", "go", "ruby", "perl"]
 
 " K under cursor uses :Man
 set keywordprg=:Man
