@@ -32,8 +32,12 @@ Usage:
 ```bash
 git clone https://github.com/filipelsilva/dotfiles-public $HOME/dotfiles
 cd $HOME/dotfiles
-./run.sh        # If terminal is all you need
-./run.sh full   # If you want to install i3 and desktop packages
+stow headless
+# If terminal is all you need
+./run.sh
+# If you want to install i3 and desktop packages
+stow desktop
+./run.sh full
 ```
 
 ## 3. Rationale behind the config files
@@ -133,9 +137,10 @@ repos, instead of using a plugin manager.
 The "Functions" section of this file has multiple functions that depend on
 certain non default packages and have not been guarded, as I found no clean way
 to do this, preferring to not use them or have them break if used. You can
-safely delete that section, apart from the first two functions: "take", which I
-consider quite useful, and only uses `cd` and `mkdir`; and "colors", which is
-only for seeing color codes.
+safely delete that section, apart from the first three functions: "..", to go
+back in directories (can take an argument to go more than one folder up at
+once), "take", which I consider quite useful, and only uses `cd` and `mkdir`;
+and "colors", which is only for seeing color codes.
 
 The completion system is done "by hand", instead of using some package to manage
 it. This assures that it works the way I expect it to work always (or *almost*

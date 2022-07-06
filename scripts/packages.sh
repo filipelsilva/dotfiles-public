@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 packages=(
 	linux
@@ -10,6 +10,7 @@ packages=(
 	pkgfile
 	base
 	base-devel
+	stow
 	zsh
 	zsh-completions
 	bash

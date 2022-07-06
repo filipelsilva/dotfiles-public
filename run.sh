@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 echo "#########################"
 echo "# Beggining instalation #"
@@ -12,8 +12,5 @@ echo "# 1. Pacman"
 echo "# 2. AUR"
 ./scripts/aur.sh $1
 
-echo "# 3. Linking dotfiles..."
-./scripts/linker.sh $1
-
-echo "# 4. Post instalation things..."
+echo "# 3. Post instalation things..."
 ./scripts/post.sh $1
