@@ -30,16 +30,10 @@ all needed packages. Keep in mind: these are **very likely to break**, therefore
 Usage:
 
 ```bash
-git clone https://github.com/filipelsilva/dotfiles-public $HOME/dotfiles # Clone the repository
-cd $HOME/dotfiles # Cd into the resulting folder
-stow headless # Symlink headless config files
-
-# If terminal is all you need
-./run.sh
-
-# If you want to install i3 and desktop packages
-stow desktop # Symlink desktop config files
-./run.sh full
+git clone https://github.com/filipelsilva/dotfiles-public $HOME/dotfiles
+cd $HOME/dotfiles
+./run.sh			# If terminal is all you need
+./run.sh full		# If you want to install i3 and desktop packages
 ```
 
 ## 3. Rationale behind the config files

@@ -10,8 +10,9 @@ local telescope_keybind_options = { noremap = true, silent = true }
 
 vim.keymap.set("n", "<Leader>a", [[<Cmd>Telescope<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>f", [[<Cmd>lua TELESCOPE_FUZZY_FILE()<CR>]], telescope_keybind_options)
-vim.keymap.set("n", "<Leader><Leader>f", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = "$HOME", hidden = true })<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>F", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = require("telescope.utils").buffer_dir(), hidden = true })<CR>]], telescope_keybind_options)
+vim.keymap.set("n", "<Leader><Leader>f", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = "$HOME", hidden = true })<CR>]], telescope_keybind_options)
+vim.keymap.set("n", "<Leader><Leader>e", [[<Cmd>lua require("telescope.builtin").find_files({ cwd = "$HOME/.config/nvim/lua/user", hidden = true, follow = true })<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>r", [[<Cmd>lua require("telescope.builtin").live_grep()<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>j", [[<Cmd>lua require("telescope.builtin").buffers()<CR>]], telescope_keybind_options)
 
