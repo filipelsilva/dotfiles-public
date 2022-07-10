@@ -5,6 +5,7 @@ packages=(
 	atool
 	forgit-git
 	gef-git
+	reple
 	cht.sh-git
 	downgrade
 	vimv-git
@@ -18,9 +19,10 @@ desktop_packages=(
 	slack
 	zoom
 	ventoy-bin
+	cpufreqctl
+	gdb-frontend-bin
 	optimus-manager
 	optimus-manager-qt
-	cpufreqctl
 )
 
 if [[ $1 = "full" ]]; then

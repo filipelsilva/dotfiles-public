@@ -42,13 +42,9 @@ end
 local servers = require("nvim-lsp-installer.servers").get_installed_servers()
 
 for _, server in pairs(servers) do
-	local settings = nil
-	if server.name == "sumneko_lua" then
-		settings = { Lua = { diagnostics = { globals = { "vim" } } } }
-	end
 	lspconfig[server.name].setup({
 		on_attach = custom_on_attach,
 		capabilities = new_capabilities,
-		settings = settings,
+		settings = (server.name == "sumneko_lua" and { Lua = { diagnostics = { globals = { "vim" } } } } or nil),
 	})
 end
