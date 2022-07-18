@@ -79,6 +79,7 @@ packages=(
 	go
 	rustup
 	jq
+	jc
 	nmap
 	sysstat
 	iftop
@@ -88,6 +89,8 @@ packages=(
 	time
 	words
 	asciiquarium
+	datamash
+	lnav
 )
 
 desktop_packages=(
@@ -98,6 +101,7 @@ desktop_packages=(
 	handbrake
 	vlc
 	mpv
+	streamlink
 	transmission-cli
 	transmission-gtk
 	torbrowser-launcher
@@ -132,6 +136,9 @@ desktop_packages=(
 	tesseract
 	tesseract-data-por
 	tesseract-data-eng
+	sox
+	pandoc
+	imagemagick
 	noto-fonts
 	noto-fonts-emoji
 	noto-fonts-cjk

@@ -10,16 +10,18 @@ There are two sections:
 
 ## 1. Dotfiles (*per se*)
 
-These consist of configurations for the following:
+These consist of configurations for some programs, split into two folders:
 
-* Alacritty
-* GDB
-* Git
-* i3
-* (Neo)Vim
-* Tmux
-* Zathura
-* Zsh
+* headless
+	* GDB
+	* Git
+	* (Neo)Vim
+	* Tmux
+	* Zsh
+* desktop
+	* Alacritty
+	* i3
+	* Zathura
 
 ## 2. Installers
 
@@ -133,10 +135,12 @@ repos, instead of using a plugin manager.
 The "Functions" section of this file has multiple functions that depend on
 certain non default packages and have not been guarded, as I found no clean way
 to do this, preferring to not use them or have them break if used. You can
-safely delete that section, apart from the first three functions: "..", to go
-back in directories (can take an argument to go more than one folder up at
-once), "take", which I consider quite useful, and only uses `cd` and `mkdir`;
-and "colors", which is only for seeing color codes.
+safely delete that section, apart from the following functions:
+* "..", to go back in directories (can take an argument to go more than one
+  folder up at once);
+* "take", which I consider quite useful, and only uses `cd` and `mkdir`;
+* "calc", which runs `python3` to do some quick maths;
+* "colors", which is only for seeing color codes.
 
 The completion system is done "by hand", instead of using some package to manage
 it. This assures that it works the way I expect it to work always (or *almost*

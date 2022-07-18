@@ -1,6 +1,8 @@
 #!/bin/bash
 
 packages=(
+	mprocs-bin
+	yank
 	rar
 	atool
 	forgit-git
@@ -20,7 +22,9 @@ desktop_packages=(
 	zoom
 	ventoy-bin
 	cpufreqctl
+	dragon-drop
 	gdb-frontend-bin
+	ocrmypdf
 	optimus-manager
 	optimus-manager-qt
 )
