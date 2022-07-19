@@ -1,3 +1,10 @@
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+	return
+end
+
+local actions = require("telescope.actions")
+
 _G.TELESCOPE_FUZZY_FILE = function()
 	if vim.fn.len(vim.fn.system("git rev-parse")) == 0 then
 		require("telescope.builtin").git_files({ hidden = true })
@@ -16,13 +23,6 @@ vim.keymap.set("n", "<Leader><Leader>e", [[<Cmd>lua require("telescope.builtin")
 vim.keymap.set("n", "<Leader>r", [[<Cmd>lua require("telescope.builtin").live_grep()<CR>]], telescope_keybind_options)
 vim.keymap.set("n", "<Leader>j", [[<Cmd>lua require("telescope.builtin").buffers()<CR>]], telescope_keybind_options)
 
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-	return
-end
-
-local actions = require("telescope.actions")
-
 telescope.setup({
 	defaults = {
 		sorting_strategy = "ascending",
@@ -37,14 +37,14 @@ telescope.setup({
 		},
 		mappings = {
 			i = {
-				["<c-s>"] = actions.select_horizontal,
-				["<c-x>"] = false,
-				["<c-a>"] = actions.select_all,
+				["<C-s>"] = actions.select_horizontal,
+				["<C-x>"] = false,
+				["<C-a>"] = actions.select_all,
 			},
 			n = {
-				["<c-s>"] = actions.select_horizontal,
-				["<c-x>"] = false,
-				["<c-a>"] = actions.select_all,
+				["<C-s>"] = actions.select_horizontal,
+				["<C-x>"] = false,
+				["<C-a>"] = actions.select_all,
 			},
 		},
 	},

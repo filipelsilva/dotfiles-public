@@ -18,6 +18,7 @@ if not status_ok then
 	return
 end
 
+-- Settings
 packer.init({
 	display = {
 		working_sym = "[WORKING]",
@@ -29,6 +30,7 @@ packer.init({
 	}
 })
 
+-- Plugins
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 

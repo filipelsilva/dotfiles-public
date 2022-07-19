@@ -39,6 +39,7 @@ local complete_or_snippet_prev = function(fallback)
 end
 -- }}}
 
+-- Settings
 cmp.setup({
 	snippet = {
 		expand = function(args)
