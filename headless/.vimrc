@@ -75,8 +75,10 @@ set nolangremap
 
 " If rg exists, use it
 if executable("rg")
-	set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+	set grepprg=rg\ --hidden\ --vimgrep\ --no-heading\ --smart-case
 	set grepformat=%f:%l:%c:%m,%f:%l:%m
+else
+	set grepprg=grep\ --recursive\ --line-number\ --ignore-case
 endif
 
 " Save vim variables between sessions
@@ -217,7 +219,7 @@ augroup Vimrc
 	" Go to last edited position on open file
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype !~# "commit" | execute "normal! g'\"" | endif
 
-	" If vim window is resized, resize the splits within
+	" If window is resized, resize the splits within
 	autocmd VimResized * wincmd =
 
 	" Change formatoptions everywhere
@@ -268,7 +270,11 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
-" Easier navigation in splits for the integrated terminal
+" Change binds for Esc inside the terminal
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+
+" Easier navigation in splits for the terminal
 tnoremap <C-h> <C-\><C-n><C-w><C-h>
 tnoremap <C-j> <C-\><C-n><C-w><C-j>
 tnoremap <C-k> <C-\><C-n><C-w><C-k>
@@ -277,10 +283,6 @@ tnoremap <C-l> <C-\><C-n><C-w><C-l>
 " Zoom and unzoom pane
 noremap <Leader>z <C-w>_<Bar><C-w>\|
 noremap <Leader>Z <C-w>=
-
-" Change binds for Esc inside terminal
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
 
 " Toggle numbers
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>

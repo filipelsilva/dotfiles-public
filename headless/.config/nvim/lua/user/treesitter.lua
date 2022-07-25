@@ -1,16 +1,16 @@
-local treesitter = require("nvim-treesitter.configs")
+local treesitter = REQUIRE("nvim-treesitter.configs")
+
 treesitter.setup({
+	-- Enabled languages {{{
 	ensure_installed = {
 		"bash",
 		"c",
 		"cpp",
 		"dockerfile",
 		"go",
-		"go",
 		"html",
 		"java",
 		"javascript",
-		"json",
 		"json",
 		"lua",
 		"make",
@@ -22,6 +22,7 @@ treesitter.setup({
 		"typescript",
 		"vim"
 	},
+	-- }}}
 	sync_install = true,
 	highlight = {
 		enable = true,

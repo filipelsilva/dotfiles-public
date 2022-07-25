@@ -8,6 +8,7 @@ packages=(
 	forgit-git
 	gef-git
 	reple
+	inxi
 	cht.sh-git
 	downgrade
 	vimv-git

@@ -1,3 +1,3 @@
 require("user.lsp.lsp_signature")
-require("user.lsp.lsp_installer")
+require("user.lsp.mason")
 require("user.lsp.handlers")

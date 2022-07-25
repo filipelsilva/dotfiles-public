@@ -13,9 +13,9 @@ echo "# 2. AUR"
 ./scripts/aur.sh $1
 
 echo "# 3. Linker"
-stow headless
+stow --restow headless
 if [[ $1 = "full" ]]; then
-	stow desktop
+	stow --restow desktop
 fi
 
 echo "# 4. Post instalation things..."

@@ -5,6 +5,7 @@ vim.g.no_vim_plugins = 1
 vim.cmd("source $HOME/.vimrc")
 
 -- Modules
+require("user.functions")
 require("user.plugins")
 require("user.colorscheme")
 require("user.telescope")

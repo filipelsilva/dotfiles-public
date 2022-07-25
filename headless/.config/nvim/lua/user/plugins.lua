@@ -14,10 +14,7 @@ end
 -- }}}
 
 -- Protected call so that first use does not result in error
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-	return
-end
+local packer = REQUIRE("packer")
 
 -- Settings {{{
 packer.init({
@@ -60,12 +57,17 @@ return packer.startup(function(use)
 		}
 	})
 
-	-- Lsp
+	-- LSP
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
 			-- Auto installer
-			"williamboman/nvim-lsp-installer",
+			{
+				"williamboman/mason.nvim",
+				requires = {
+					"williamboman/mason-lspconfig.nvim",
+				}
+			},
 			-- Signatures
 			"ray-x/lsp_signature.nvim"
 		}
@@ -96,6 +98,6 @@ return packer.startup(function(use)
 	})
 
 	if PACKER_BOOTSTRAP then
-		require("packer").sync()
+		packer.sync()
 	end
 end)
