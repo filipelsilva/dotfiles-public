@@ -13,6 +13,7 @@ packages=(
 	downgrade
 	vimv-git
 	rr-bin
+	lurk
 )
 
 desktop_packages=(
@@ -24,6 +25,7 @@ desktop_packages=(
 	ventoy-bin
 	cpufreqctl
 	dragon-drop
+	ttf-ms-win11-auto
 	gdb-frontend-bin
 	ocrmypdf
 	optimus-manager

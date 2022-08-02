@@ -2,6 +2,7 @@
 
 env:
   TERM: alacritty
+  COLORTERM: truecolor
   WINIT_X11_SCALE_FACTOR: "1"
 
 window:

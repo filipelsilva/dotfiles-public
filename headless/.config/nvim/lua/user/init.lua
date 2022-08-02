@@ -1,0 +1,8 @@
+require("user.functions")
+require("user.plugins")
+require("user.colorscheme")
+require("user.telescope")
+require("user.comment")
+require("user.lsp")
+require("user.cmp")
+require("user.treesitter")

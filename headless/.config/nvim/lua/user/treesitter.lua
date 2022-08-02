@@ -17,6 +17,7 @@ treesitter.setup({
 		"markdown",
 		"nix",
 		"python",
+		"query",
 		"rust",
 		"toml",
 		"typescript",

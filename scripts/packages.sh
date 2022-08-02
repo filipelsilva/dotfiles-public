@@ -94,6 +94,7 @@ packages=(
 	asciiquarium
 	datamash
 	lnav
+	strace
 )
 
 desktop_packages=(
