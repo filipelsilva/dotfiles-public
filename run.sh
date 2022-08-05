@@ -12,8 +12,6 @@ while getopts "f" opt; do
 	esac
 done
 
-export DOTFILES_FULL
-
 echo "#########################"
 echo "# Beggining instalation #"
 echo "#########################"
