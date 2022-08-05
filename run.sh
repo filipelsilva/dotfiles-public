@@ -1,22 +1,38 @@
 #!/bin/bash
 
+while getopts "f" opt; do
+	case "$opt" in
+		"f")
+			export DOTFILES_FULL=1
+			;;
+		*)
+			echo "Unsupported option. Exiting."
+			exit 1
+			;;
+	esac
+done
+
+export DOTFILES_FULL
+
 echo "#########################"
 echo "# Beggining instalation #"
 echo "#########################"
 
 sudo echo "# Getting password..."
 
-echo "# 1. Pacman"
-./scripts/packages.sh $1
+echo "# Pacman"
+./scripts/packages.sh
 
-echo "# 2. AUR"
-./scripts/aur.sh $1
+echo "# AUR"
+./scripts/aur.sh
 
-echo "# 3. Linker"
+echo "# Linker"
 stow --restow headless
-if [[ $1 = "full" ]]; then
+if [[ -n "$DOTFILES_FULL" ]]; then
 	stow --restow desktop
 fi
 
-echo "# 4. Post instalation things..."
-./scripts/post.sh $1
+echo "# Post instalation things..."
+./scripts/post.sh
+
+unset DOTFILES_FULL

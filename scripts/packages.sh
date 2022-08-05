@@ -153,7 +153,7 @@ desktop_packages=(
 	lutris
 )
 
-if [[ $1 = "full" ]]; then
+if [[ -n "$DOTFILES_FULL" ]]; then
 	packages+=(${desktop_packages[@]})
 fi
 
