@@ -46,8 +46,8 @@ set completeopt=menuone,noinsert,noselect
 " Backspace settings
 set backspace=indent,eol,start
 
-" Indentation settings
-set autoindent copyindent shiftround smarttab breakindent
+" Text formatting settings
+set autoindent copyindent shiftround smarttab breakindent nofixendofline
 set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 
 " Visual settings
