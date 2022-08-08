@@ -30,6 +30,7 @@ desktop_packages=(
 	ocrmypdf
 	optimus-manager
 	optimus-manager-qt
+	spek
 )
 
 if [[ -n "$DOTFILES_FULL" ]]; then

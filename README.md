@@ -46,6 +46,10 @@ Usage:
 ./scripts/stow -d	# Symlinks by folder
 ```
 
+**A word of caution:** it `stow` is installed, use it. This is a basic script,
+assumes that --no-folding is always on, and it might backfire horribly on you
+due to some bug.
+
 ## Rationale behind the config files
 
 ### alacritty.yml

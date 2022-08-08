@@ -37,7 +37,7 @@ return packer.startup(function(use)
 	use("tpope/vim-sleuth")
 
 	-- Surround stuff
-	use("tpope/vim-surround")
+	use("kylechui/nvim-surround")
 
 	-- Comment stuff
 	use("numToStr/Comment.nvim")

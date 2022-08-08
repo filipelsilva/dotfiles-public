@@ -18,6 +18,7 @@ packages=(
 	zsh-completions
 	bash
 	bash-completion
+	ed
 	vi
 	gvim
 	neovim
@@ -151,6 +152,8 @@ desktop_packages=(
 	ttf-hack
 	steam
 	lutris
+	kid3
+	kid3-common
 )
 
 if [[ -n "$DOTFILES_FULL" ]]; then
