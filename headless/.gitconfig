@@ -10,7 +10,7 @@
 	cob = "checkout -b"
 	dif = "!f() { git diff | $EDITOR \"+set filetype=diff\" -; }; f"
 	st = "status"
-	tree = "log --graph --oneline --decorate"
+	tree = "log --graph --oneline --decorate --all"
 
 [diff]
 	tool = vimdiff

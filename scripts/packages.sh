@@ -34,7 +34,7 @@ packages=(
 	wget
 	netcat
 	aria2
-	net-tools
+	traceroute
 	htop
 	btop
 	glances
@@ -89,6 +89,7 @@ packages=(
 	iftop
 	lynx
 	dnsutils
+	tcpdump
 	tk
 	time
 	words

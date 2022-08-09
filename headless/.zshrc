@@ -1,51 +1,3 @@
-# Variables {{{
-if (( $+commands[nvim] )); then
-	export EDITOR="nvim"
-	export MANPAGER="nvim +Man!"
-else
-	export EDITOR="vim"
-	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
-fi
-export VISUAL="$EDITOR"
-export DIFFPROG="$EDITOR -d"
-
-# Override git diff and merge tools
-export GIT_CONFIG_COUNT=2
-export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
-export GIT_CONFIG_VALUE_0="$DIFFPROG \$LOCAL \$REMOTE"
-export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
-export GIT_CONFIG_VALUE_1="$DIFFPROG \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
-
-# Distro name
-export DISTRONAME=$(cat /etc/os-release | grep "NAME" | head -n 1 | cut -d'=' -f2 | tr -d '"')
-
-# Adding folders to PATH {{{
-local PATH=$HOME/.local/bin:$PATH
-
-(( $+commands[cargo] )) && PATH=$HOME/.cargo/bin:$PATH
-
-if (( $+commands[go] )); then
-	export GOPATH=$HOME/go
-	PATH=$GOPATH/bin:$PATH
-fi
-
-if (( $+commands[java] )); then
-	export JAVA_HOME=/usr/lib/jvm/default
-	PATH=$JAVA_HOME/bin:$PATH
-fi
-# }}}
-export PATH
-
-(( $+commands[python] )) && export PYTHONDONTWRITEBYTECODE=1
-
-if (( $+commands[bat] )); then
-	export BAT_THEME="ansi"
-	export BAT_STYLE="auto"
-fi
-
-(( $+commands[alacritty] )) && export TERMINAL="alacritty"
-# }}}
-
 # Aliases {{{
 
 # Basic commands
@@ -99,6 +51,127 @@ if [ -f $HOME/.gdbinit ]; then
 fi
 # }}}
 
+# Functions {{{
+
+# [..]: go back directories
+function ..() {
+	local num=$((${1:-1} * 3))
+	cd ${(l:num::../:)}
+}
+
+# [Take]: mkdir directory and cd to it
+function take() {
+	mkdir -p $@ && cd ${@:$#}
+}
+
+# [J]ump [D]irectories: poor man's autojump
+function jd() {
+	dirs -v
+	vared -p "> " -c tmp
+	cd +${tmp}
+	unset tmp
+}
+
+# [Calc]: run calculations quickly
+function calc() {
+	python3 -c "from math import *; print($*)"
+}
+
+# [Colors]: print colors and corresponding codes
+function colors() {
+	for c in {0..7}; do
+		b=$((c+8))
+		print -P - "%F{$c}$c%f -> %F{$b}$b%f"
+	done
+}
+
+# [Open] files
+function open() {
+	if [ "$#" -ne 0 ]; then
+		for arg in $@; do
+			(xdg-open $arg > /dev/null 2>&1 &)
+		done
+	else
+		(fzf --multi | xargs -I {} sh -c "xdg-open '{}' > /dev/null 2>&1 &")
+	fi
+}
+
+# [Linkdump]
+function linkdump() {
+	lynx -dump -listonly -nonumbers $1 | grep .pdf > dump.txt
+	wget -i dump.txt
+	rm dump.txt
+}
+
+# [K]ill [P]rocess
+function kp() {
+	local pid=$(ps -ef | sed 1d | eval "fzf --header='[kill:process]'" | awk '{print $2}')
+	if [ "x$pid" != "x" ]; then
+		echo $pid | xargs kill -${1:-9}
+		kp
+	fi
+}
+
+# Start[x]: to use with optimus-manager, instead of default startx
+function x() {
+	if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]];
+	then
+		sudo /usr/bin/prime-switch
+		exec startx
+	fi
+}
+# }}}
+
+# Variables {{{
+if (( $+commands[nvim] )); then
+	export EDITOR="nvim"
+	export MANPAGER="nvim +Man!"
+else
+	export EDITOR="vim"
+	export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
+fi
+export VISUAL="$EDITOR"
+export DIFFPROG="$EDITOR -d"
+
+# Override git diff and merge tools {{{
+export GIT_CONFIG_COUNT=2
+export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
+export GIT_CONFIG_VALUE_0="$DIFFPROG \$LOCAL \$REMOTE"
+export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
+export GIT_CONFIG_VALUE_1="$DIFFPROG \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
+# }}}
+
+# Distro name
+export DISTRONAME=$(cat /etc/os-release | grep "NAME" | head -n 1 | cut -d'=' -f2 | tr -d '"')
+
+export PATH
+typeset -U PATH
+# Adding folders to PATH {{{
+PATH=$HOME/.local/bin:$PATH
+
+(( $+commands[cargo] )) && PATH=$HOME/.cargo/bin:$PATH
+
+if (( $+commands[go] )); then
+	export GOPATH=$HOME/go
+	PATH=$GOPATH/bin:$PATH
+fi
+
+if (( $+commands[java] )); then
+	export JAVA_HOME=/usr/lib/jvm/default
+	PATH=$JAVA_HOME/bin:$PATH
+fi
+# }}}
+
+(( $+commands[python] )) && export PYTHONDONTWRITEBYTECODE=1
+
+if (( $+commands[bat] )); then
+	export BAT_THEME="ansi"
+	export BAT_STYLE="auto"
+fi
+
+(( $+commands[alacritty] )) && export TERMINAL="alacritty"
+# }}}
+
 # Prompt {{{
 setopt prompt_subst
 
@@ -129,13 +202,6 @@ export RPROMPT="${PROMPT_GIT_INFO}"
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushd_silent
-
-function jd() {
-	dirs -v
-	vared -p "> " -c tmp
-	cd +${tmp}
-	unset tmp
-}
 
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
@@ -278,69 +344,6 @@ setopt no_glob_dots
 setopt no_hup
 setopt no_sh_word_split
 setopt notify
-# }}}
-
-# Functions {{{
-
-# [..]: go back directories
-function ..() {
-	local num=$((${1:-1} * 3))
-	cd ${(l:num::../:)}
-}
-
-# [Take]: mkdir directory and cd to it
-function take() {
-	mkdir -p $@ && cd ${@:$#}
-}
-
-# [Calc]: run calculations quickly
-function calc() {
-	python3 -c "from math import *; print($*)"
-}
-
-# [Colors]: print colors and corresponding codes
-function colors() {
-	for c in {0..7}; do
-		b=$((c+8))
-		print -P - "%F{$c}$c%f -> %F{$b}$b%f"
-	done
-}
-
-# [Open] files
-function open() {
-	if [ "$#" -ne 0 ]; then
-		for arg in $@; do
-			(xdg-open $arg > /dev/null 2>&1 &)
-		done
-	else
-		(fzf --multi | xargs -I {} sh -c "xdg-open '{}' > /dev/null 2>&1 &")
-	fi
-}
-
-# [Linkdump]
-function linkdump() {
-	lynx -dump -listonly -nonumbers $1 | grep .pdf > dump.txt
-	wget -i dump.txt
-	rm dump.txt
-}
-
-# [K]ill [P]rocess
-function kp() {
-	local pid=$(ps -ef | sed 1d | eval "fzf --header='[kill:process]'" | awk '{print $2}')
-	if [ "x$pid" != "x" ]; then
-		echo $pid | xargs kill -${1:-9}
-		kp
-	fi
-}
-
-# Start[x]: to use with optimus-manager, instead of default startx
-function x() {
-	if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]];
-	then
-		sudo /usr/bin/prime-switch
-		exec startx
-	fi
-}
 # }}}
 
 # Fzf {{{
