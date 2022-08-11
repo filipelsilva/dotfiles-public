@@ -45,7 +45,7 @@ if (( $+commands[i3] )); then
 fi
 
 # GDB aliases
-if [ -f $HOME/.gdbinit ]; then
+if [[ -f "$HOME/.gdbinit" ]]; then
 	alias pwndbg="gdb -quiet -ex init-pwndbg"
 	alias gef="gdb -quiet -ex init-gef"
 fi
@@ -87,7 +87,7 @@ function colors() {
 
 # [Open] files
 function open() {
-	if [ "$#" -ne 0 ]; then
+	if [[ "$#" -ne 0 ]]; then
 		for arg in $@; do
 			(xdg-open $arg > /dev/null 2>&1 &)
 		done
@@ -106,7 +106,7 @@ function linkdump() {
 # [K]ill [P]rocess
 function kp() {
 	local pid=$(ps -ef | sed 1d | eval "fzf --header='[kill:process]'" | awk '{print $2}')
-	if [ "x$pid" != "x" ]; then
+	if [[ "x$pid" != "x" ]]; then
 		echo $pid | xargs kill -${1:-9}
 		kp
 	fi
@@ -187,12 +187,11 @@ zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 
 # Replace %# with %(!.#.$) for bash-like prompt
 local NEWLINE=$'\n'
-local PROMPT_ERROR_HANDLING="%(?..%F{red}%?%f )"
+local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
 local PROMPT_GIT_INFO='%(!..${vcs_info_msg_0_})'
 
 # local PROMPT_INFO="%n@%M:%1~%#"
 local PROMPT_INFO="%M%S%n%s%1~ %#"
-# local PROMPT_INFO="%F{green}%n@%M%f:%F{blue}%1~%f%#"
 
 export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
 export RPROMPT="${PROMPT_GIT_INFO}"
@@ -366,12 +365,13 @@ if (( $+commands[fzf] )); then
 	)
 
 	# Colorscheme overrides
-	local colors=(
-		--color="fg+:#ebdbb2"
-	)
-
-	if [ "$TERM" = "alacritty" ]; then
-		fzf_options+=(${colors[@]})
+	if [[ "$TERM" = "alacritty" ]]; then
+		local foreground=$(grep "foreground" $HOME/.alacritty.yml | cut -d: -f2 | tr -d " |'")
+		if [[ ! -z "$foreground" ]]; then
+			fzf_options+=(
+				--color="fg+:$foreground"
+			)
+		fi
 	fi
 
 	# Variables and functions for fzf operation
@@ -380,7 +380,7 @@ if (( $+commands[fzf] )); then
 	if (( $+commands[fd] )); then
 		local FD_DEFAULT_OPTS=(
 			--hidden
-			--exclude .git
+			--exclude ".git"
 		)
 
 		export FZF_DEFAULT_COMMAND="fd --type f $FD_DEFAULT_OPTS"
