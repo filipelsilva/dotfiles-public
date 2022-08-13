@@ -147,18 +147,18 @@ export DISTRONAME=$(cat /etc/os-release | grep "NAME" | head -n 1 | cut -d'=' -f
 export PATH
 typeset -U PATH
 # Adding folders to PATH {{{
-PATH=$HOME/.local/bin:$PATH
+PATH="$HOME/.local/bin:$PATH"
 
-(( $+commands[cargo] )) && PATH=$HOME/.cargo/bin:$PATH
+(( $+commands[cargo] )) && PATH="$HOME/.cargo/bin:$PATH"
 
 if (( $+commands[go] )); then
-	export GOPATH=$HOME/go
-	PATH=$GOPATH/bin:$PATH
+	export GOPATH="$HOME/go"
+	PATH="$GOPATH/bin:$PATH"
 fi
 
 if (( $+commands[java] )); then
-	export JAVA_HOME=/usr/lib/jvm/default
-	PATH=$JAVA_HOME/bin:$PATH
+	export JAVA_HOME="/usr/lib/jvm/default"
+	PATH="$JAVA_HOME/bin:$PATH"
 fi
 # }}}
 
@@ -234,7 +234,7 @@ unsetopt flow_control
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' add-space true
 zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' cache-path $HOME/.zcompcache
+zstyle ':completion:*' cache-path "$HOME/.zcompcache"
 zstyle ':completion:*' completer _expand _complete _ignored _expand_alias _extensions _match _correct _approximate _prefix
 zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort name
@@ -319,7 +319,7 @@ done
 # }}}
 
 # Command history {{{
-HISTFILE=$HOME/.zhistory
+HISTFILE="$HOME/.zhistory"
 HISTSIZE=100000
 SAVEHIST=100000
 
@@ -347,8 +347,8 @@ setopt notify
 
 # Fzf {{{
 if (( $+commands[fzf] )); then
-	local FZF_KEYBINDS=/usr/share/fzf/key-bindings.zsh
-	local FZF_COMPLETION=/usr/share/fzf/completion.zsh
+	local FZF_KEYBINDS="/usr/share/fzf/key-bindings.zsh"
+	local FZF_COMPLETION="/usr/share/fzf/completion.zsh"
 	[ -f $FZF_KEYBINDS ] && source $FZF_KEYBINDS
 	[ -f $FZF_COMPLETION ] && source $FZF_COMPLETION
 
@@ -366,7 +366,8 @@ if (( $+commands[fzf] )); then
 
 	# Colorscheme overrides
 	if [[ "$TERM" = "alacritty" ]]; then
-		local foreground=$(grep "foreground" $HOME/.alacritty.yml | cut -d: -f2 | tr -d " |'")
+		local config_file="$HOME/.config/alacritty/alacritty.yml" 
+		local foreground=$(grep "foreground" "$config_file" | cut -d: -f2 | tr -d " |'")
 		if [[ ! -z "$foreground" ]]; then
 			fzf_options+=(
 				--color="fg+:$foreground"
@@ -399,7 +400,7 @@ fi
 # }}}
 
 # Plugins {{{
-local FORGIT_PLUGIN=/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh
+local FORGIT_PLUGIN="/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh"
 [ -f $FORGIT_PLUGIN ] && source $FORGIT_PLUGIN
 
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh --cmd j)"
