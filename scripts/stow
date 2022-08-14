@@ -2,7 +2,8 @@
 
 function link_file() {
 	file="${1#*/}"
-	new_file="$HOME/${file#*/}"
+	new_file="${file#*/}"
+	new_file="$HOME/${new_file#*/}"
 	new_file_dirname="$(dirname "$new_file")"
 	echo "$file -> $new_file"
 	if [[ ! -d "$new_file_dirname" ]]; then

@@ -287,8 +287,11 @@ noremap <Leader>Z <C-w>=
 " Toggle numbers
 nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
 
-" Toggle spell
+" Toggle list
 nnoremap <silent> <Leader>l :set invlist<CR>
+
+" Toggle spell
+nnoremap <silent> <Leader><Leader>l :set invspell<CR>
 
 " Disable highlighting
 nnoremap <Leader>, <Cmd>nohlsearch<CR>

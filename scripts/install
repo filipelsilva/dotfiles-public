@@ -19,18 +19,29 @@ echo "#########################"
 sudo echo "# Getting password..."
 
 echo "# Pacman"
-./scripts/packages.sh
+./packages.sh
 
 echo "# AUR"
-./scripts/aur.sh
+./aur.sh
 
 echo "# Linker"
-stow --restow headless
+if [[ "$(basename $PWD)" != "dotfiles" ]]; then
+	cd ..
+fi
+
+(cd headless
+for folder in **; do
+	stow --restow "$folder"
+done)
+
 if [[ -n "$DOTFILES_FULL" ]]; then
-	stow --restow desktop
+	(cd desktop
+	for folder in **; do
+		stow --restow "$folder"
+	done)
 fi
 
 echo "# Post instalation things..."
-./scripts/post.sh
+./post.sh
 
 unset DOTFILES_FULL

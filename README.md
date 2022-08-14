@@ -8,20 +8,24 @@ version way earlier, and might still be trying out new things over there.
 
 ## Dotfiles (*per se*)
 
-These consist of configurations for some programs, split into two folders:
+These consist of configurations for some programs:
 
-* headless
-	* (Neo)Vim
-	* GDB
-	* Git
-	* Tmux
-	* Zsh
-* desktop
-	* Alacritty
-	* Zathura
-	* i3
+### Headless
 
-## Installers
+* gdb
+* git
+* nvim
+* tmux
+* vim
+* zsh
+
+### Desktop
+
+* alacritty
+* i3
+* zathura
+
+## Installer scripts
 
 Scripts made by me, in order to link the dotfiles to their places and install
 all needed packages. Keep in mind: these are **very likely to break**, therefore
@@ -30,8 +34,8 @@ all needed packages. Keep in mind: these are **very likely to break**, therefore
 Usage:
 
 ```bash
-./run.sh		# If terminal is all you need
-./run.sh -f		# If you want to install the desktop packages as well
+./scripts/install		# If terminal is all you need
+./scripts/install -f	# If you want to install the desktop packages as well
 ```
 
 **Note:** this repo is now using `stow` for linking dotfiles, but a script
@@ -42,8 +46,8 @@ it might be useful.
 Usage:
 
 ```bash
-./scripts/stow		# Symlinks by file
-./scripts/stow -d	# Symlinks by folder
+./scripts/stow			# Symlinks by file
+./scripts/stow -d		# Symlinks by folder
 ```
 
 **A word of caution:** it `stow` is installed, use it. This is a basic script,
