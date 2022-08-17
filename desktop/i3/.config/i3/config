@@ -6,11 +6,8 @@
 
 # Variables {{{
 
-# Modifier key
-set $mod Mod4
-
 # Rofi theme and font options
-set $rofi_options  -theme gruvbox-dark-hard -font "Iosevka 14"
+set $rofi_options -theme gruvbox-dark-hard -font "Iosevka 14"
 
 # Modes
 set $mode_loginopts "(e)xit i3, (l)ock, (r)eboot, (s)hutdown"
@@ -30,6 +27,9 @@ set $blue        #458588
 set $magenta     #b16286
 set $cyan        #689d6a
 set $white       #a89984
+
+# Modifier key
+set $mod Mod4
 
 # Workspaces
 set $ws1 "1"
@@ -51,7 +51,7 @@ set $ws10 "10"
 exec_always --no-startup-id autorandr --change --skip-options crtc
 
 # Apply wallpaper (feh --bg-fill <wallpaper>)
-exec_always --no-startup-id $HOME/.fehbg
+exec_always --no-startup-id "$HOME/.fehbg"
 
 # Redshift (f.lux alike)
 exec_always --no-startup-id pkill -9 redshift; redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
@@ -66,7 +66,7 @@ exec --no-startup-id optimus-manager-qt
 exec --no-startup-id xset s off && xset -b -dpms
 
 # Lock screen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork --color=$brightblack
+exec --no-startup-id xss-lock -- i3lock --nofork --color=$brightblack
 
 # NetworkManager
 exec --no-startup-id nm-applet

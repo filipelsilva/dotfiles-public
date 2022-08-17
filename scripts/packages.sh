@@ -1,161 +1,252 @@
 #!/bin/bash
 
-packages=(
+packages=( # {{{
+	# Linux kernel, base packages
+	base
+	base-devel
 	linux
 	linux-firmware
 	util-linux
+
+	# Other basic utilities
 	binutils
 	coreutils
 	diffutils
 	findutils
+	pciutils
+
+	# Find filenames quickly
 	mlocate
+
+	# Pacman scripts
 	pacman-contrib
+
+	# Find packages associated with program
 	pkgfile
-	base
-	base-devel
-	stow
-	zsh
-	zsh-completions
+
+	# Shells and respective completions
 	bash
 	bash-completion
+	zsh
+	zsh-completions
+
+	# Dotfile manager
+	stow
+
+	# Text editors
 	ed
 	vi
-	gvim
+	gvim # why gvim and not vim? Clipboard support
 	neovim
+
+	# Terminal multiplexer
 	tmux
-	tmuxp
+	tmuxp # automatically create tmux session with layouts
+
+	# VCS
 	git
-	zoxide
+	tk # gitk dependency
+
+	# Archive management
+	atool
 	gzip
 	zip
 	unzip
 	p7zip
+
+	# Network stuff
 	curl
 	wget
-	netcat
 	aria2
+	lynx
+	socat
+	openbsd-netcat
+	nmap
 	traceroute
+	dnsutils
+	tcpdump
+
+	# System monitoring
 	htop
 	btop
 	glances
-	tree
+	sysstat
+	iftop
+
+	# Python and related packages (some of them used for gdb/gef/pwndbg)
 	python
 	python-pip
-	python-pynvim
-	python-keystone
-	ropper
 	pypy
 	pypy3
 	bpython
-	indent
+	python-pynvim
+	python-keystone
+	python-capstone
+
+	# C/Cpp and related packages
 	gcc
 	gdb
-	perf
-	jdk-openjdk
 	pwndbg
+	indent
 	valgrind
+	ctags
+	nmap
+
+	# Java
+	jdk-openjdk
+
+	# Go
+	go
+
+	# Rust
+	rustup
+
+	# JSON
+	jq
+	jc
+
+	# Shell script static analysis
+	shellcheck
+
+	# Auto builder
+	make
+	cmake
+
+	# Code counter
 	cloc
 	tokei
+
+	# Profile and benchmark programs
+	time
+	hyperfine
+	perf
+	strace
+
+	# Finders
 	fzf
 	fd
 	the_silver_searcher
 	ripgrep
 	ripgrep-all
-	gping
+
+	# Memory management
 	duf
 	dust
 	diskus
+
+	# Information fetchers
 	neofetch
 	onefetch
-	terminus-font
-	pkg-config
-	shellcheck
-	make
-	cmake
-	ctags
-	entr
-	rlwrap
-	hexyl
-	bat
-	hyperfine
-	tealdeer
-	ascii
-	go
-	rustup
-	jq
-	jc
-	nmap
-	sysstat
-	iftop
-	lynx
-	dnsutils
-	tcpdump
-	tk
-	time
-	words
-	asciiquarium
-	datamash
-	lnav
-	strace
-)
 
-desktop_packages=(
-	alacritty
-	firefox
-	yt-dlp
-	ffmpeg
-	handbrake
-	vlc
-	mpv
-	streamlink
-	transmission-cli
-	transmission-gtk
-	torbrowser-launcher
+	# Fonts
+	terminus-font
+
+	# Other packages
+	entr				# Run commands when files change
+	rlwrap				# Readline wrapper
+	bat					# Cat with syntax highlighting
+	hexyl				# Hex viewer
+	tealdeer			# Cheat sheet for common programs
+	ascii				# Show character codes
+	words				# Populate /usr/share/dict with list of words
+	datamash			# Manipulate data in textual format
+	lnav				# Logfile Navigator
+	zoxide				# Autojump to recent folders
+	tree				# List files in tree format
+	pipe-rename			# Rename files in your $EDITOR
+) # }}}
+
+desktop_packages=( # {{{
+	# Display management
+	arandr
+	autorandr
+	brightnessctl
+	redshift
+	xdotool	# X11 automation tool
+
+	# Window manager
 	i3
 	i3status
 	i3lock
 	xss-lock
 	rofi
-	arandr
-	autorandr
+
+	# Terminal emulator
+	alacritty
+
+	# Browser
+	firefox
+	torbrowser-launcher
+
+	# Video/Audio management
+	vlc
+	mpv
+	yt-dlp
+	sox
+	ffmpeg
+	handbrake
+	kid3
+	kid3-common
+	playerctl
+	streamlink	# Pipe streams into a video player
+	pavucontrol	# Control audio sources/sinks
+
+	# Torrent management
+	transmission-cli
+	transmission-gtk
+
+	# Image management
 	feh
 	gthumb
 	perl-image-exiftool
-	maim
-	pavucontrol
-	xdotool
-	xclip
+	imagemagick
+	gimp
+	inkscape
+	maim # Screenshot utility
+
+	# Theme management
 	arc-gtk-theme
 	lxappearance
+
+	# File management
 	xdg-user-dirs
 	thunar
 	thunar-archive-plugin
 	file-roller
+
+	# PDF management
+	pandoc
+	pdftk
 	okular
 	zathura
 	zathura-djvu
 	zathura-pdf-mupdf
 	zathura-ps
-	redshift
-	playerctl
-	brightnessctl
+
+	# OCR
 	tesseract
 	tesseract-data-por
 	tesseract-data-eng
-	sox
-	pandoc
-	imagemagick
+
+	# Clipboard management
+	xclip
+	xsel
+
+	# Games and WINE
+	steam
+	lutris
+
+	# Fonts
 	noto-fonts
 	noto-fonts-emoji
 	noto-fonts-cjk
 	ttc-iosevka
 	ttc-iosevka-ss12
 	ttf-hack
-	steam
-	lutris
-	kid3
-	kid3-common
-)
+
+	# Other packages
+	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
+) # }}}
 
 if [[ -n "$DOTFILES_FULL" ]]; then
 	packages+=(${desktop_packages[@]})
