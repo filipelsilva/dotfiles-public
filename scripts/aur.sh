@@ -16,6 +16,9 @@ packages=( # {{{
 ) # }}}
 
 desktop_packages=( # {{{
+	# PDF management
+	cpdf
+	diff-pdf
 
 	# Other packages
 	zoom
@@ -25,7 +28,6 @@ desktop_packages=( # {{{
 	onedrive-abraunegg-git	# OneDrive client
 	ventoy-bin				# Make multiboot USB drives
 	dragon-drop				# Drag-and-drop source/sink
-	cpdf					# PDF management
 	spek					# Audio inspector
 	cpufreqctl				# [FIXME OUTDATED] CPU Power Manager
 

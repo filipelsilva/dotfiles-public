@@ -65,6 +65,7 @@ packages=( # {{{
 	traceroute
 	dnsutils
 	tcpdump
+	bind
 
 	# System monitoring
 	htop
@@ -119,8 +120,9 @@ packages=( # {{{
 	# Profile and benchmark programs
 	time
 	hyperfine
-	perf
 	strace
+	perf
+	cargo-flamegraph
 
 	# Finders
 	fzf
@@ -162,10 +164,10 @@ desktop_packages=( # {{{
 	autorandr
 	brightnessctl
 	redshift
-	xdotool	# X11 automation tool
+	xdotool # X11 automation tool
 
 	# Window manager
-	i3
+	i3-wm
 	i3status
 	i3lock
 	xss-lock
@@ -241,8 +243,8 @@ desktop_packages=( # {{{
 	noto-fonts-emoji
 	noto-fonts-cjk
 	ttc-iosevka
-	ttc-iosevka-ss12
 	ttf-hack
+	ttf-jetbrains-mono
 
 	# Other packages
 	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
