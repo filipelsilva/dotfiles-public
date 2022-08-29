@@ -1,19 +1,12 @@
 #!/bin/bash
 
-while getopts "f" opt; do
-	case "$opt" in
-		"f")
-			export DOTFILES_FULL=1
-			;;
-		*)
-			echo "Unsupported option. Exiting."
-			exit 1
-			;;
-	esac
-done
-
 if [[ "$(basename $PWD)" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles"
+fi
+
+if [[ -z "$DOTFILES_FULL" ]]; then
+	source scripts/argparse.sh
+	parse_arguments "$@"
 fi
 
 echo "#########################"
@@ -29,19 +22,7 @@ echo "# AUR"
 ./scripts/aur.sh
 
 echo "# Linker"
-(cd headless
-for folder in *; do
-	stow --restow "$folder"
-done)
-
-if [[ -n "$DOTFILES_FULL" ]]; then
-	(cd desktop
-	for folder in *; do
-		stow --restow "$folder"
-	done)
-fi
+./scripts/linker.sh
 
 echo "# Post instalation things..."
 ./scripts/post.sh
-
-unset DOTFILES_FULL

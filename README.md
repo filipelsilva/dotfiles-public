@@ -34,8 +34,8 @@ all needed packages. Keep in mind: these are **very likely to break**, therefore
 Usage:
 
 ```bash
-./scripts/install		# If terminal is all you need
-./scripts/install -f	# If you want to install the desktop packages as well
+./scripts/install.sh		# If terminal is all you need
+./scripts/install.sh -f		# If you want to install the desktop packages as well
 ```
 
 **Note:** this repo is now using `stow` for linking dotfiles, but a script

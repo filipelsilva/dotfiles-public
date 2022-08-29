@@ -112,12 +112,15 @@ function kp() {
 	fi
 }
 
-# Start[x]: to use with optimus-manager, instead of default startx
+# Start[x]: wrapper around startx to use optimus-manager if needed
 function x() {
-	if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]];
-	then
-		sudo /usr/bin/prime-switch
-		exec startx
+	if (( $+commands[prime-switch] )); then
+		if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+			sudo /usr/bin/prime-switch
+			exec startx
+		fi
+	else
+		startx
 	fi
 }
 # }}}

@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [[ "$(basename $PWD)" != "dotfiles" ]]; then
+	cd "$HOME/dotfiles"
+fi
+
+if [[ -z "$DOTFILES_FULL" ]]; then
+	source scripts/argparse.sh
+	parse_arguments "$@"
+fi
+
 # Set default shell
 chsh -s "$(command -v zsh)"
 

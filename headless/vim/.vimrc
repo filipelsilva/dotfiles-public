@@ -531,6 +531,9 @@ if !exists("g:no_vim_plugins")
 			" Surround stuff
 			call minpac#add("tpope/vim-surround")
 
+			" Enable dot-repeat for vim-surround
+			call minpac#add("tpope/vim-repeat")
+
 			" Comment stuff
 			call minpac#add("tpope/vim-commentary")
 

@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [[ "$(basename $PWD)" != "dotfiles" ]]; then
+	cd "$HOME/dotfiles"
+fi
+
+if [[ -z "$DOTFILES_FULL" ]]; then
+	source scripts/argparse.sh
+	parse_arguments "$@"
+fi
+
 packages=( # {{{
 	# Linux kernel, base packages
 	base
@@ -53,6 +62,7 @@ packages=( # {{{
 	zip
 	unzip
 	p7zip
+	fastjar
 
 	# Network stuff
 	curl
@@ -156,6 +166,7 @@ packages=( # {{{
 	zoxide				# Autojump to recent folders
 	tree				# List files in tree format
 	pipe-rename			# Rename files in your $EDITOR
+	magic-wormhole		# Send/Receive files
 ) # }}}
 
 desktop_packages=( # {{{
@@ -184,6 +195,7 @@ desktop_packages=( # {{{
 	vlc
 	mpv
 	yt-dlp
+	flac
 	sox
 	ffmpeg
 	handbrake
@@ -202,9 +214,10 @@ desktop_packages=( # {{{
 	gthumb
 	perl-image-exiftool
 	imagemagick
-	gimp
-	inkscape
 	maim # Screenshot utility
+	gimp
+	krita
+	inkscape
 
 	# Theme management
 	arc-gtk-theme
@@ -234,10 +247,6 @@ desktop_packages=( # {{{
 	xclip
 	xsel
 
-	# Games and WINE
-	steam
-	lutris
-
 	# Fonts
 	noto-fonts
 	noto-fonts-emoji
@@ -245,6 +254,8 @@ desktop_packages=( # {{{
 	ttc-iosevka
 	ttf-hack
 	ttf-jetbrains-mono
+	ttf-input
+	ttf-monoid
 
 	# Other packages
 	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
