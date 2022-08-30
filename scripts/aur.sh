@@ -17,7 +17,7 @@ packages=( # {{{
 	gef-git			# GDB Enhanced Features
 	inxi			# System information
 	lurk			# Alternative to strace
-	mprocs-bin		# Run multiple commands in parallel
+	mprocs			# Run multiple commands in parallel
 	rar				# Archive management
 	reple			# REPL for compiled languages
 	rr-bin			# Record process to debug
@@ -33,12 +33,10 @@ desktop_packages=( # {{{
 	zoom
 	spotify
 	slack-desktop
-	discord_arch_electron	# Discord that uses native electron
 	onedrive-abraunegg-git	# OneDrive client
 	ventoy-bin				# Make multiboot USB drives
 	dragon-drop				# Drag-and-drop source/sink
 	spek					# Audio inspector
-	cpufreqctl				# [FIXME OUTDATED] CPU Power Manager
 
 	# Fonts
 	ttf-ms-fonts
@@ -47,6 +45,7 @@ desktop_packages=( # {{{
 # Switchable graphics in laptops
 if [[ laptop-detect ]] && [[ ! -z $(lspci | grep -i "nvidia") ]]; then
 	desktop_packages+=(
+		auto-cpufreq
 		optimus-manager
 		optimus-manager-qt
 	)

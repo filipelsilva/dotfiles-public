@@ -13,7 +13,7 @@ echo "#########################"
 echo "# Beggining instalation #"
 echo "#########################"
 
-sudo echo "# Getting password..."
+sudo -v; sudo echo "# Getting password..."
 
 echo "# Pacman"
 ./scripts/packages.sh

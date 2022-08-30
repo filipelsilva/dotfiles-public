@@ -47,6 +47,9 @@ set $ws10 "10"
 
 # System startup and other configs {{{
 
+# Authentication agent
+exec_always --no-startup-id lxpolkit
+
 # Detect monitors
 exec_always --no-startup-id autorandr --change --skip-options crtc
 

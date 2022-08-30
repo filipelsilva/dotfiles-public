@@ -17,6 +17,11 @@ packages=( # {{{
 	linux-firmware
 	util-linux
 
+	# Man pages and info
+	man-db
+	man-pages
+	texinfo
+
 	# Other basic utilities
 	binutils
 	coreutils
@@ -175,7 +180,7 @@ desktop_packages=( # {{{
 	autorandr
 	brightnessctl
 	redshift
-	xdotool # X11 automation tool
+	xdotool	# X11 automation tool
 
 	# Window manager
 	i3-wm
@@ -189,6 +194,7 @@ desktop_packages=( # {{{
 
 	# Browser
 	firefox
+	chromium
 	torbrowser-launcher
 
 	# Video/Audio management
@@ -227,7 +233,10 @@ desktop_packages=( # {{{
 	xdg-user-dirs
 	thunar
 	thunar-archive-plugin
-	file-roller
+	file-roller	# Archive manager for thunar
+	gvfs		# Enables things like trashing files in Thunar
+	ntfs-3g		# Support for NTFS drives
+	lxsession	# This includes lxpolkit, in order to be able to mount some drives
 
 	# PDF management
 	pandoc
@@ -258,6 +267,7 @@ desktop_packages=( # {{{
 	ttf-monoid
 
 	# Other packages
+	discord
 	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 
@@ -265,11 +275,11 @@ if [[ -n "$DOTFILES_FULL" ]]; then
 	packages+=(${desktop_packages[@]})
 fi
 
-sudo pacman -Syu --noconfirm
-sudo pacman -S --noconfirm ${packages[@]}
+sudo -v; sudo pacman -Syu --noconfirm
+sudo -v; sudo pacman -S --noconfirm ${packages[@]}
 
 # For the rustup package, so that rustc and cargo work out of the box
 rustup default stable
 
 # For pkgfile package, in order to search packages
-sudo pkgfile --update
+sudo -v; sudo pkgfile --update

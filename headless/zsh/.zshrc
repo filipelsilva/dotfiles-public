@@ -2,9 +2,7 @@
 
 # Basic commands
 alias -- -="cd -"
-alias cp="cp --recursive"
 alias bc="bc --mathlib"
-alias mkdir="mkdir --parents"
 alias wget="wget --continue"
 alias ip="ip --color"
 alias diff="diff --color"
@@ -194,7 +192,8 @@ local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
 local PROMPT_GIT_INFO='%(!..${vcs_info_msg_0_})'
 
 # local PROMPT_INFO="%n@%M:%1~%#"
-local PROMPT_INFO="%M%S%n%s%1~ %#"
+local PROMPT_INFO="[%n@%M %1~]%#"
+# local PROMPT_INFO="%M%S%n%s%1~ %#"
 
 export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
 export RPROMPT="${PROMPT_GIT_INFO}"
