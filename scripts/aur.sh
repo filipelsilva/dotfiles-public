@@ -4,7 +4,7 @@ if [[ "$(basename $PWD)" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles"
 fi
 
-if [[ -z "$DOTFILES_FULL" ]]; then
+if [[ -z $DOTFILES_FULL ]]; then
 	source scripts/argparse.sh
 	parse_arguments "$@"
 fi
@@ -15,7 +15,6 @@ packages=( # {{{
 	downgrade		# Downgrade packages
 	forgit-git		# Git aliases with fzf
 	gef-git			# GDB Enhanced Features
-	inxi			# System information
 	lurk			# Alternative to strace
 	mprocs			# Run multiple commands in parallel
 	rar				# Archive management
@@ -39,7 +38,7 @@ desktop_packages=( # {{{
 	spek					# Audio inspector
 
 	# Fonts
-	ttf-ms-fonts
+	ttf-ms-win11-auto
 )
 
 # Switchable graphics in laptops
@@ -52,7 +51,7 @@ if [[ laptop-detect ]] && [[ ! -z $(lspci | grep -i "nvidia") ]]; then
 fi
 # }}}
 
-if [[ -n "$DOTFILES_FULL" ]]; then
+if [[ -n $DOTFILES_FULL ]]; then
 	packages+=(${desktop_packages[@]})
 fi
 

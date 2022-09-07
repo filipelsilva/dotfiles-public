@@ -1,6 +1,8 @@
 M = {}
 
-local cmp_nvim_lsp = REQUIRE("cmp_nvim_lsp")
+local cmp_nvim_lsp = REQUIRE({
+	"cmp_nvim_lsp"
+})
 
 -- Update capabilities of LSP to support snippets
 M.capabilities = vim.lsp.protocol.make_client_capabilities()

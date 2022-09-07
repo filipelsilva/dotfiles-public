@@ -4,7 +4,7 @@ if [[ "$(basename $PWD)" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles"
 fi
 
-if [[ -z "$DOTFILES_FULL" ]]; then
+if [[ -z $DOTFILES_FULL ]]; then
 	source scripts/argparse.sh
 	parse_arguments "$@"
 fi
@@ -16,7 +16,7 @@ chsh -s "$(command -v zsh)"
 echo "FONT=ter-v20b" | sudo tee -a /etc/vconsole.conf
 
 # Desktop stuff
-if [[ -n "$DOTFILES_FULL" ]]; then
+if [[ -n $DOTFILES_FULL ]]; then
 	# Create user directories
 	xdg-user-dirs-update
 

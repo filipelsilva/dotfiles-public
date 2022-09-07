@@ -1,4 +1,6 @@
-local signature = REQUIRE("lsp_signature")
+local signature = REQUIRE({
+	"lsp_signature"
+})
 
 signature.setup({
 	bind = true,

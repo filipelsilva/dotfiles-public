@@ -1,4 +1,7 @@
-local cmp, luasnip = REQUIRE("cmp", "luasnip")
+local cmp, luasnip = REQUIRE({
+	"cmp",
+	"luasnip"
+})
 
 -- Helper functions {{{
 local has_words_before = function()

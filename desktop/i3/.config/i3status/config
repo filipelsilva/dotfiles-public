@@ -10,11 +10,12 @@ general {
 	output_format = "i3bar"
 	colors = true
 	interval = 1
-	color_good ="#98971a"
+	color_good = "#98971a"
 	color_degraded = "#d79921"
 	color_bad = "#cc241d"
 }
 
+order += "load"
 order += "cpu_usage"
 order += "memory"
 order += "disk /"
@@ -22,48 +23,38 @@ order += "battery all"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "tztime local"
-# order += "ipv6"
-# order += "volume master"
+
+load {
+	format = "%1min"
+	format_above_threshold = "%1min %5min %15min"
+}
 
 cpu_usage {
-	format= "CPU %usage"
-	max_threshold= 75
+	format = "%usage"
 }
 
 memory {
-	format = "RAM %available (%percentage_used)"
+	format = "%used/%available"
 }
 
 disk "/" {
-	format = "DISK %avail (%percentage_used)"
+	format = "%avail"
 }
 
 battery all {
 	format = "%status %percentage %remaining"
 	format_down = ""
-	status_chr = "CHR"
-	status_bat = "BAT"
-	status_unk = "UNK"
-	status_full = "FULL"
-	path = "/sys/class/power_supply/BAT%d/uevent"
-	low_threshold = 10
+	low_threshold = 20
 }
 
 wireless _first_ {
-	format_up = "W %ip (%quality \"%essid\" %bitrate)"
+	format_up = "%ip (\"%essid\" %bitrate)"
 	format_down = ""
 }
 
 ethernet _first_ {
-	format_up = "E %ip (%speed)"
+	format_up = "%ip (%speed)"
 	format_down = ""
-}
-
-volume master {
-	format = "VOL %volume"
-	format_muted = "VOL muted (%volume)"
-	device = "default"
-	mixer = "Master"
 }
 
 tztime local {

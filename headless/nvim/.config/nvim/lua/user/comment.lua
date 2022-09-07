@@ -1,3 +1,5 @@
-local comment = REQUIRE("Comment")
+local comment = REQUIRE({
+	"Comment"
+})
 
 comment.setup()

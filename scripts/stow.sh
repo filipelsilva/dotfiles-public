@@ -6,7 +6,7 @@ function link_file() {
 	new_file="$HOME/${new_file#*/}"
 	new_file_dirname="$(dirname "$new_file")"
 	echo "$file -> $new_file"
-	if [[ ! -d "$new_file_dirname" ]]; then
+	if [[ ! -d $new_file_dirname ]]; then
 		mkdir --parents "$new_file_dirname"
 	fi
 	ln -s "$PWD/$file" "$new_file"

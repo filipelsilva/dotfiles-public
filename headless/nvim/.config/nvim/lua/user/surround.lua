@@ -1,3 +1,5 @@
-local surround = REQUIRE("nvim-surround")
+local surround = REQUIRE({
+	"nvim-surround"
+})
 
 surround.setup()

@@ -1,4 +1,8 @@
-local telescope_builtin, telescope_utils = REQUIRE("telescope.builtin", "telescope.utils")
+local telescope_builtin, telescope_utils = REQUIRE({
+	"telescope.builtin",
+	"telescope.utils"
+})
+
 local opts = { noremap = true, silent = true }
 
 -- Telescope keybinds

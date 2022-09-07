@@ -1,4 +1,6 @@
-local treesitter = REQUIRE("nvim-treesitter.configs")
+local treesitter = REQUIRE({
+	"nvim-treesitter.configs"
+})
 
 treesitter.setup({
 	-- Enabled languages {{{

@@ -1,7 +1,6 @@
-REQUIRE = function(...)
-	local args = {...}
+REQUIRE = function(requirements)
 	local ret = {}
-	for _, requirement in ipairs(args) do
+	for _, requirement in ipairs(requirements) do
 		local status_ok, tmp = pcall(require, requirement)
 		if not status_ok then
 			error("Error requiring " .. requirement)

@@ -1,4 +1,8 @@
-local mason, mason_lspconfig, lspconfig = REQUIRE("mason", "mason-lspconfig", "lspconfig")
+local mason, mason_lspconfig, lspconfig = REQUIRE({
+	"mason",
+	"mason-lspconfig",
+	"lspconfig"
+})
 
 -- Settings {{{
 mason.setup({

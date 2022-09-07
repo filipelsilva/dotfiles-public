@@ -14,7 +14,9 @@ end
 -- }}}
 
 -- Protected call so that first use does not result in error
-local packer = REQUIRE("packer")
+local packer = REQUIRE({
+	"packer"
+})
 
 -- Settings {{{
 packer.init({

@@ -4,7 +4,7 @@ if [[ "$(basename $PWD)" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles"
 fi
 
-if [[ -z "$DOTFILES_FULL" ]]; then
+if [[ -z $DOTFILES_FULL ]]; then
 	source scripts/argparse.sh
 	parse_arguments "$@"
 fi
@@ -54,6 +54,7 @@ packages=( # {{{
 	neovim
 
 	# Terminal multiplexer
+	screen
 	tmux
 	tmuxp # automatically create tmux session with layouts
 
@@ -159,6 +160,7 @@ packages=( # {{{
 	terminus-font
 
 	# Other packages
+	parallel			# Xargs alternative
 	entr				# Run commands when files change
 	rlwrap				# Readline wrapper
 	bat					# Cat with syntax highlighting
@@ -233,10 +235,11 @@ desktop_packages=( # {{{
 	xdg-user-dirs
 	thunar
 	thunar-archive-plugin
-	file-roller	# Archive manager for thunar
-	gvfs		# Enables things like trashing files in Thunar
-	ntfs-3g		# Support for NTFS drives
-	lxsession	# This includes lxpolkit, in order to be able to mount some drives
+	file-roller		# Archive manager for thunar
+	gvfs			# Enables things like trashing files in Thunar
+	ntfs-3g			# Support for NTFS drives
+	lxsession		# This includes lxpolkit, in order to be able to mount some drives
+	perl-file-mime	# Detect MIME type of files
 
 	# PDF management
 	pandoc
@@ -257,6 +260,7 @@ desktop_packages=( # {{{
 	xsel
 
 	# Fonts
+	font-manager
 	noto-fonts
 	noto-fonts-emoji
 	noto-fonts-cjk
@@ -268,10 +272,11 @@ desktop_packages=( # {{{
 
 	# Other packages
 	discord
+	texlive-most
 	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 
-if [[ -n "$DOTFILES_FULL" ]]; then
+if [[ -n $DOTFILES_FULL ]]; then
 	packages+=(${desktop_packages[@]})
 fi
 

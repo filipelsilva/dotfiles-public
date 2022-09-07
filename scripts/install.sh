@@ -4,7 +4,7 @@ if [[ "$(basename $PWD)" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles"
 fi
 
-if [[ -z "$DOTFILES_FULL" ]]; then
+if [[ -z $DOTFILES_FULL ]]; then
 	source scripts/argparse.sh
 	parse_arguments "$@"
 fi

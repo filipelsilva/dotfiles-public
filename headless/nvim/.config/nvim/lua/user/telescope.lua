@@ -1,4 +1,7 @@
-local telescope, actions = REQUIRE("telescope", "telescope.actions")
+local telescope, actions = REQUIRE({
+	"telescope",
+	"telescope.actions"
+})
 
 telescope.setup({
 	defaults = {
