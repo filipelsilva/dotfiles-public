@@ -15,6 +15,7 @@ These consist of configurations for some programs:
 * gdb
 * git
 * nvim
+* screen
 * tmux
 * vim
 * zsh
@@ -101,6 +102,11 @@ to use it when needed, as I feel it's better to separate those clipboards).
 The theme is the default one, with a slight modification to the right side of
 the status bar. Also, it only appears if more than one tab is open. The pane
 border status only appears if there is more than one pane.
+
+### screenrc
+
+Just a basic config to support 256 colors. Honestly, this file was just the
+excuse I made to try out screen, in the case I someday need to use it.
 
 ### vimrc
 

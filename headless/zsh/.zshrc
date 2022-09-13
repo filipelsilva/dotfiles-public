@@ -51,12 +51,6 @@ fi
 
 # Functions {{{
 
-# [..]: go back directories
-function ..() {
-	local num=$((${1:-1} * 3))
-	cd ${(l:num::../:)}
-}
-
 # [J]ump [D]irectories: poor man's autojump
 function jd() {
 	dirs -v
@@ -172,11 +166,10 @@ fi
 # }}}
 
 # Prompt {{{
-setopt prompt_subst
+setopt PROMPT_SUBST
 
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
+precmd_functions+=( vcs_info )
 
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '+'
@@ -186,28 +179,54 @@ zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
 
 # Replace %# with %(!.#.$) for bash-like prompt
 local NEWLINE=$'\n'
-local PROMPT_GIT_INFO='${vcs_info_msg_0_}'
+local PROMPT_GIT_INFO='${vcs_info_msg_0_:- }'
 local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
 
-# local PROMPT_INFO="[%n@%M %1~]%#"
-# local PROMPT_INFO="%n@%M:%1~%#"
-# local PROMPT_INFO="%n@%M %1~ %#"
-local PROMPT_INFO="%M%S%n%s%1~ %#"
+# local PROMPT_INFO="[%n@%m %1~]%#"
+# local PROMPT_INFO="%n@%m:%1~%#"
+# local PROMPT_INFO="%n@%m %1~ %#"
+local PROMPT_INFO="%m%S%n%s%1~ %#"
 
 export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
 export RPROMPT="${PROMPT_GIT_INFO}"
 # }}}
 
 # Directory stack {{{
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushd_silent
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
 
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 # }}}
 
 # Completion/Correction {{{
+
+# Expand multiple dots {{{
+function expand-dots() {
+	local MATCH
+	if [[ $LBUFFER =~ "(^| )\.\.\.+" ]]; then
+		LBUFFER="$LBUFFER:fs%\.\.\.%../..%"
+	fi
+}
+
+function expand-dots-then-expand-or-complete() {
+	zle expand-dots
+	zle expand-or-complete
+}
+
+function expand-dots-then-accept-line() {
+	zle expand-dots
+	zle accept-line
+}
+
+zle -N expand-dots
+zle -N expand-dots-then-expand-or-complete
+zle -N expand-dots-then-accept-line
+bindkey '^I' expand-dots-then-expand-or-complete
+bindkey '^M' expand-dots-then-accept-line
+# }}}
+
 zmodload zsh/complist
 
 # Vi mode for selecting completion
@@ -220,16 +239,16 @@ autoload -U compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 _comp_options+=(globdots)
 
-setopt always_to_end
-setopt auto_cd
-setopt auto_list
-setopt auto_menu
-setopt auto_param_slash
-setopt complete_in_word
-setopt extended_glob
-setopt glob_complete
-setopt list_types
-unsetopt flow_control
+setopt ALWAYS_TO_END
+setopt AUTO_CD
+setopt AUTO_LIST
+setopt AUTO_MENU
+setopt AUTO_PARAM_SLASH
+setopt COMPLETE_IN_WORD
+setopt EXTENDED_GLOB
+setopt GLOB_COMPLETE
+setopt LIST_TYPES
+unsetopt FLOW_CONTROL
 
 # eval "$(dircolors)"
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -324,26 +343,26 @@ HISTFILE="$HOME/.zhistory"
 HISTSIZE=100000
 SAVEHIST=100000
 
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_find_no_dups
-setopt hist_ignore_all_dups
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt hist_reduce_blanks
-setopt hist_save_no_dups
-setopt hist_verify
-setopt inc_append_history_time
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt INC_APPEND_HISTORY_TIME
 # }}}
 
 # Other options {{{
-setopt hash_list_all
-setopt long_list_jobs
-setopt no_beep
-setopt no_glob_dots
-setopt no_hup
-setopt no_sh_word_split
-setopt notify
+setopt HASH_LIST_ALL
+setopt LONG_LIST_JOBS
+setopt NO_BEEP
+setopt NO_GLOB_DOTS
+setopt NO_HUP
+setopt NO_SH_WORD_SPLIT
+setopt NOTIFY
+setopt CORRECT_ALL
 # }}}
 
 # Fzf {{{

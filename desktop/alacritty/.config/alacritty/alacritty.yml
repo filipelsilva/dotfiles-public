@@ -9,6 +9,9 @@ window:
   dimensions:
     columns: 120
     lines: 30
+  padding:
+    x: 0
+    y: 0
 
 scrolling:
   history: 10000

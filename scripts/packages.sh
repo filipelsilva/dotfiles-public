@@ -273,6 +273,7 @@ desktop_packages=( # {{{
 	# Other packages
 	discord
 	texlive-most
+	libreoffice-still
 	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 
