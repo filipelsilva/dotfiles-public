@@ -14,7 +14,7 @@ function link_file() {
 
 function link_folder() {
 	folder=$1
-	for file in $(find "$folder" -type f -not -path '*.git*'); do
+	for file in $(find "$folder" -type f -not -path '*/\.git/*'); do
 		link_file "$file"
 	done
 }
@@ -42,7 +42,7 @@ if [[ "$(basename $PWD)" != "dotfiles" ]]; then
 fi
 
 PS3="Select $NAME to link: "
-select linkee in $(find $ARG -not -path '*.git*'); do
+select linkee in $(find $ARG -not -path '*/\.git/*'); do
 	if [[ "$FOLDER" = 1 ]]; then
 		link_folder "$linkee"
 	else

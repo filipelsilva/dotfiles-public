@@ -96,6 +96,7 @@ packages=( # {{{
 	pypy
 	pypy3
 	bpython
+	python-pyperclip
 	python-pynvim
 	python-keystone
 	python-capstone
@@ -202,6 +203,7 @@ desktop_packages=( # {{{
 	# Video/Audio management
 	vlc
 	mpv
+	rhythmbox
 	yt-dlp
 	flac
 	sox

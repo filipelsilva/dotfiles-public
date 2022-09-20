@@ -51,8 +51,8 @@ set autoindent copyindent shiftround smarttab breakindent nofixendofline
 set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 
 " Visual settings
-set ruler showcmd linebreak wrap
-set laststatus=1 signcolumn=number display=truncate
+set ruler showcmd linebreak wrap number relativenumber
+set laststatus=2 signcolumn=auto display=truncate
 set listchars=tab:<->,trail:-,nbsp:+,eol:$ shortmess=OtTF
 
 " Motions keep cursor on the same column
@@ -458,7 +458,8 @@ if executable("fzf")
 	tnoremap <expr> <C-v><Esc> (&filetype == "fzf") ? "<C-v><Esc>" : "<Esc>"
 
 	" Mappings
-	nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles")."\<CR>"
+	nnoremap <silent> <Leader>f <Cmd>Files<CR>
+	nnoremap <silent> <Leader>g <Cmd>GitFiles<CR>
 	nnoremap <silent> <Leader>F :Files <C-r>=substitute(expand("%:p:h"), " ", "\\\\ ", "g")<CR><CR>
 	nnoremap <silent> <Leader><Leader>f <Cmd>Files $HOME<CR>
 	if executable("rg")

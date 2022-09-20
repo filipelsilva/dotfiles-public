@@ -32,6 +32,7 @@ desktop_packages=( # {{{
 	zoom
 	spotify
 	slack-desktop
+	visual-studio-code-bin
 	onedrive-abraunegg-git	# OneDrive client
 	ventoy-bin				# Make multiboot USB drives
 	dragon-drop				# Drag-and-drop source/sink

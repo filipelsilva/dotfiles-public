@@ -1,5 +1,6 @@
-local treesitter = REQUIRE({
-	"nvim-treesitter.configs"
+local treesitter, context = REQUIRE({
+	"nvim-treesitter.configs",
+	"treesitter-context"
 })
 
 treesitter.setup({
@@ -40,4 +41,11 @@ treesitter.setup({
 	playground = {
 		enable = true,
 	},
+})
+
+context.setup({
+	enable = true,
+	max_lines = 0,
+	trim_scope = "outer",
+	min_window_height = 0,
 })
