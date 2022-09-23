@@ -141,8 +141,12 @@ bindsym $mod+Shift+Mod1+w layout stacked
 # Toggle tiling/floating
 bindsym $mod+space floating toggle
 
-# No window names
-default_border pixel 2
+# No title bar on non tabbed mode
+default_border pixel 1
+default_floating_border normal 1
+
+# Title bar text alignment
+title_align center
 
 # Hide borders if only one window is visible
 hide_edge_borders smart
@@ -256,7 +260,7 @@ bar {
 # border|background|text|indicator|child_border
 client.focused          $blue $blue $black $black $blue
 client.focused_inactive $white $white $black $black $white
-client.unfocused        $black $black $white $black $black
+client.unfocused        $brightblack $black $white $black $black
 client.urgent           $red $red $black $black $red
 # }}}
 

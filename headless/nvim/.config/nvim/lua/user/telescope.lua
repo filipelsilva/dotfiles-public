@@ -9,8 +9,8 @@ telescope.setup({
 		layout_strategy = "flex",
 		layout_config = {
 			prompt_position = "top",
-			width = 0.90,
-			height = 0.60,
+			width = 0.80,
+			height = 0.90,
 		},
 		path_display = {
 			"truncate",

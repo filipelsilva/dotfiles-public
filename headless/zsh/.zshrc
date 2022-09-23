@@ -163,6 +163,7 @@ if (( $+commands[bat] )); then
 fi
 
 (( $+commands[alacritty] )) && export TERMINAL="alacritty"
+
 # }}}
 
 # Prompt {{{
@@ -377,21 +378,22 @@ if (( $+commands[fzf] )); then
 
 	# Fzf options
 	local fzf_options=(
-		--height=30%
-		--layout=reverse
-		--info=inline
-		--multi
-		--bind "?:toggle-preview,ctrl-a:toggle-all"
+		"--height 30%"
+		"--layout reverse"
+		"--info inline"
+		"--multi"
+		"--bind '?:toggle-preview,ctrl-a:toggle-all'"
+		"--preview-window 'right,50%,<50(up,50%)'"
 	)
 
 	# Colorscheme overrides
 	if [[ $TERM = "alacritty" ]]; then
-		local config_file="$HOME/.config/alacritty/alacritty.yml" 
+		local config_file="$HOME/.config/alacritty/alacritty.yml"
 		if [[ -f $config_file ]]; then
 			local foreground=$(grep "foreground" "$config_file" | cut -d: -f2 | tr -d " |'")
 			if [[ -n $foreground ]]; then
 				fzf_options+=(
-					--color="fg+:$foreground"
+					"--color='fg+:$foreground'"
 				)
 			fi
 		fi

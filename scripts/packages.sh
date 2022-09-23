@@ -161,20 +161,20 @@ packages=( # {{{
 	terminus-font
 
 	# Other packages
-	parallel			# Xargs alternative
-	entr				# Run commands when files change
-	rlwrap				# Readline wrapper
-	bat					# Cat with syntax highlighting
-	hexyl				# Hex viewer
-	tealdeer			# Cheat sheet for common programs
-	ascii				# Show character codes
-	words				# Populate /usr/share/dict with list of words
-	datamash			# Manipulate data in textual format
-	lnav				# Logfile Navigator
-	zoxide				# Autojump to recent folders
-	tree				# List files in tree format
-	pipe-rename			# Rename files in your $EDITOR
-	magic-wormhole		# Send/Receive files
+	parallel       # Xargs alternative
+	entr           # Run commands when files change
+	rlwrap         # Readline wrapper
+	bat            # Cat with syntax highlighting
+	hexyl          # Hex viewer
+	tealdeer       # Cheat sheet for common programs
+	ascii          # Show character codes
+	words          # Populate /usr/share/dict with list of words
+	datamash       # Manipulate data in textual format
+	lnav           # Logfile Navigator
+	zoxide         # Autojump to recent folders
+	tree           # List files in tree format
+	pipe-rename    # Rename files in your $EDITOR
+	magic-wormhole # Send/Receive files
 ) # }}}
 
 desktop_packages=( # {{{
@@ -212,8 +212,8 @@ desktop_packages=( # {{{
 	kid3
 	kid3-common
 	playerctl
-	streamlink	# Pipe streams into a video player
-	pavucontrol	# Control audio sources/sinks
+	streamlink  # Pipe streams into a video player
+	pavucontrol # Control audio sources/sinks
 
 	# Torrent management
 	transmission-cli
@@ -224,10 +224,11 @@ desktop_packages=( # {{{
 	gthumb
 	perl-image-exiftool
 	imagemagick
-	maim # Screenshot utility
 	gimp
 	krita
 	inkscape
+	maim     # Screenshot utility
+	guvcview # Camera
 
 	# Theme management
 	arc-gtk-theme
@@ -237,11 +238,11 @@ desktop_packages=( # {{{
 	xdg-user-dirs
 	thunar
 	thunar-archive-plugin
-	file-roller		# Archive manager for thunar
-	gvfs			# Enables things like trashing files in Thunar
-	ntfs-3g			# Support for NTFS drives
-	lxsession		# This includes lxpolkit, in order to be able to mount some drives
-	perl-file-mime	# Detect MIME type of files
+	file-roller    # Archive manager for thunar
+	gvfs           # Enables things like trashing files in Thunar
+	ntfs-3g        # Support for NTFS drives
+	lxsession      # This includes lxpolkit, in order to be able to mount some drives
+	perl-file-mime # Detect MIME type of files
 
 	# PDF management
 	pandoc
@@ -276,7 +277,7 @@ desktop_packages=( # {{{
 	discord
 	texlive-most
 	libreoffice-still
-	laptop-detect		# Returns 0 if host is laptop, 1 otherwise
+	laptop-detect # Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 
 if [[ -n $DOTFILES_FULL ]]; then

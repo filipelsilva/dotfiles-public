@@ -467,11 +467,6 @@ if executable("fzf")
 	endif
 	nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
 
-	" Environment variable
-	if empty($FZF_DEFAULT_OPTS)
-		let $FZF_DEFAULT_OPTS = "--layout=reverse --info=inline --bind 'ctrl-a:toggle-all'"
-	endif
-
 	" Settings
 	let g:fzf_action = {
 		\ "alt-q": function("s:build_quickfix_list"),
@@ -479,37 +474,8 @@ if executable("fzf")
 		\ "ctrl-s": "split",
 		\ "ctrl-v": "vsplit" }
 	let g:fzf_buffers_jump = 1
+	let g:fzf_layout = { "window": { "width": 0.80, "height": 0.90 } }
 endif
-" }}}
-
-" ToggleSearchHighlight {{{
-function! StartSearchHighlight() abort
-	let s:pos = match(getline('.'), @/, col('.') - 1) + 1
-	if s:pos != col('.')
-		call StopSearchHighlight()
-	endif
-endfunction
-
-function! StopSearchHighlight() abort
-	if !v:hlsearch || mode() isnot 'n'
-		return
-	else
-		silent call feedkeys("\<Plug>(StopSearchHighlight)", 'm')
-	endif
-endfunction
-
-augroup ToggleSearchHighlight
-	autocmd!
-
-	" After some cursor movement, remove highlighting from text
-	autocmd CursorMoved * call StartSearchHighlight()
-	autocmd InsertEnter * call StopSearchHighlight()
-
-augroup END
-
-" Disable hlsearch right after moving
-noremap <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
-noremap! <expr> <Plug>(StopSearchHighlight) execute("nohlsearch")[-1]
 " }}}
 
 " Plugins {{{

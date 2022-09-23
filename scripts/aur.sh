@@ -10,17 +10,17 @@ if [[ -z $DOTFILES_FULL ]]; then
 fi
 
 packages=( # {{{
-	igrep			# Interactive grep using ripgrep
-	cht.sh-git		# Cheat sheet
-	downgrade		# Downgrade packages
-	forgit-git		# Git aliases with fzf
-	gef-git			# GDB Enhanced Features
-	lurk			# Alternative to strace
-	mprocs			# Run multiple commands in parallel
-	rar				# Archive management
-	reple			# REPL for compiled languages
-	rr-bin			# Record process to debug
-	yank			# Read input from stdin, select field to copy
+	igrep      # Interactive grep using ripgrep
+	cht.sh-git # Cheat sheet
+	downgrade  # Downgrade packages
+	forgit-git # Git aliases with fzf
+	gef-git    # GDB Enhanced Features
+	lurk       # Alternative to strace
+	mprocs     # Run multiple commands in parallel
+	rar        # Archive management
+	reple      # REPL for compiled languages
+	rr-bin     # Record process to debug
+	yank       # Read input from stdin, select field to copy
 ) # }}}
 
 desktop_packages=( # {{{
@@ -33,10 +33,11 @@ desktop_packages=( # {{{
 	spotify
 	slack-desktop
 	visual-studio-code-bin
-	onedrive-abraunegg-git	# OneDrive client
-	ventoy-bin				# Make multiboot USB drives
-	dragon-drop				# Drag-and-drop source/sink
-	spek					# Audio inspector
+	onedrive-abraunegg-git # OneDrive client
+	ventoy-bin             # Make multiboot USB drives
+	dragon-drop            # Drag-and-drop source/sink
+	spek                   # Audio inspector
+	openasar-bin           # Make Discord faster
 
 	# Fonts
 	ttf-ms-win11-auto
