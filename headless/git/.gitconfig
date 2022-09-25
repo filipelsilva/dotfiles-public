@@ -1,6 +1,9 @@
 [core]
 	autocrlf = input
 
+[init]
+	defaultBranch = main
+
 [alias]
 	ac = "!f() { git add -A && git commit; }; f"
 	acp = "!f() { git add -A && git commit && git push; }; f"

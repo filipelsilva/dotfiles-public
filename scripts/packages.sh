@@ -227,6 +227,7 @@ desktop_packages=( # {{{
 	gimp
 	krita
 	inkscape
+	mediainfo
 	maim     # Screenshot utility
 	guvcview # Camera
 

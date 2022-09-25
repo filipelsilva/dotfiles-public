@@ -11,7 +11,7 @@ set $rofi_options -theme gruvbox-dark-hard -font "Iosevka 14"
 
 # Modes
 set $mode_loginopts "(e)xit i3, (l)ock, (r)eboot, (s)hutdown"
-set $mode_layout "[layout] (p)t, (u)s, us-(i)ntl, us-(a)ltgr-intl"
+set $mode_layout "[layout] (p)t, (u)s-altgr-intl"
 set $mode_printscreen "[printscreen] (s)election, (a)ctive window, (w)hole screen"
 set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
 set $mode_resize "resize"
@@ -146,7 +146,7 @@ default_border pixel 1
 default_floating_border normal 1
 
 # Title bar text alignment
-title_align center
+title_align left
 
 # Hide borders if only one window is visible
 hide_edge_borders smart
@@ -282,9 +282,7 @@ bindsym $mod+q mode $mode_loginopts
 # MODE: Change keyboard layout {{{
 mode $mode_layout {
 	bindsym p exec --no-startup-id setxkbmap -layout pt -option ctrl:swapcaps; mode "default"
-	bindsym u exec --no-startup-id setxkbmap -layout us -option ctrl:swapcaps; mode "default"
-	bindsym i exec --no-startup-id setxkbmap -layout us -variant intl -option ctrl:swapcaps; mode "default"
-	bindsym a exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps; mode "default"
+	bindsym u exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps; mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
