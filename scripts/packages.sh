@@ -96,6 +96,7 @@ packages=( # {{{
 	pypy
 	pypy3
 	bpython
+	python-pwntools
 	python-pyperclip
 	python-pynvim
 	python-keystone
@@ -118,6 +119,10 @@ packages=( # {{{
 
 	# Rust
 	rustup
+
+	# Ruby
+	ruby
+	rubygems
 
 	# JSON
 	jq
@@ -278,6 +283,7 @@ desktop_packages=( # {{{
 	discord
 	texlive-most
 	libreoffice-still
+	bless         # Hex editor
 	laptop-detect # Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 

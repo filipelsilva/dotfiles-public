@@ -21,6 +21,7 @@ treesitter.setup({
 		"nix",
 		"python",
 		"query",
+		"ruby",
 		"rust",
 		"toml",
 		"typescript",

@@ -37,7 +37,7 @@ desktop_packages=( # {{{
 	ventoy-bin             # Make multiboot USB drives
 	dragon-drop            # Drag-and-drop source/sink
 	spek                   # Audio inspector
-	openasar-bin           # Make Discord faster
+	openasar-git           # Make Discord faster
 
 	# Fonts
 	ttf-ms-win11-auto

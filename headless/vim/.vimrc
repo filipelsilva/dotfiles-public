@@ -40,8 +40,14 @@ set splitright splitbelow
 set ignorecase smartcase incsearch hlsearch
 
 " Completion menu settings
-set wildmenu wildmode=longest:full,full
 set completeopt=menuone,noinsert,noselect
+set wildmenu wildmode=longest:full,full
+set wildignore+=*.o,*.obj,*~,*.pyc
+if has("win16") || has("win32") || has("win64")
+	set wildignore+=.git\*,.hg\*,.svn\*
+else
+	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/CVS/*,*/.DS_Store
+endif
 
 " Backspace settings
 set backspace=indent,eol,start
