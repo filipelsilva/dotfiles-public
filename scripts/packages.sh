@@ -84,9 +84,8 @@ packages=( # {{{
 	bind
 
 	# System monitoring
+	procps-ng
 	htop
-	btop
-	glances
 	sysstat
 	iftop
 
@@ -95,7 +94,6 @@ packages=( # {{{
 	python-pip
 	pypy
 	pypy3
-	bpython
 	python-pwntools
 	python-pyperclip
 	python-pynvim
@@ -109,7 +107,6 @@ packages=( # {{{
 	indent
 	valgrind
 	ctags
-	nmap
 
 	# Java
 	jdk-openjdk
@@ -179,6 +176,7 @@ packages=( # {{{
 	zoxide         # Autojump to recent folders
 	tree           # List files in tree format
 	pipe-rename    # Rename files in your $EDITOR
+	perl-rename    # Rename files using Perl regex
 	magic-wormhole # Send/Receive files
 ) # }}}
 
@@ -244,6 +242,7 @@ desktop_packages=( # {{{
 	xdg-user-dirs
 	thunar
 	thunar-archive-plugin
+	thunar-volman
 	file-roller    # Archive manager for thunar
 	gvfs           # Enables things like trashing files in Thunar
 	ntfs-3g        # Support for NTFS drives

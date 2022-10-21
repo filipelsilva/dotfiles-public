@@ -6,28 +6,6 @@
 
 # Variables {{{
 
-# Rofi theme and font options
-set $rofi_options -theme gruvbox-dark-hard -font "Iosevka 14"
-
-# Modes
-set $mode_loginopts "(e)xit i3, (l)ock, (r)eboot, (s)hutdown"
-set $mode_layout "[layout] (p)t, (u)s-altgr-intl"
-set $mode_printscreen "[printscreen] (s)election, (a)ctive window, (w)hole screen"
-set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
-set $mode_resize "resize"
-
-# Colors
-set $brightblack #1d2021
-set $brightwhite #ebdbb2
-set $black       #282828
-set $red         #cc241d
-set $green       #98971a
-set $yellow      #d79921
-set $blue        #458588
-set $magenta     #b16286
-set $cyan        #689d6a
-set $white       #a89984
-
 # Modifier key
 set $mod Mod4
 
@@ -42,6 +20,28 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+# Rofi theme and font options
+set $rofi_options -theme gruvbox-dark-hard -font "Iosevka 14"
+
+# Modes
+set $mode_session "[session] (e)xit i3, (l)ock, (r)eboot, (s)hutdown"
+set $mode_layout "[layout] (p)t, (u)s-altgr-intl"
+set $mode_printscreen "[printscreen] (s)election, (a)ctive window, (w)hole screen"
+set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
+set $mode_resize "resize"
+
+# Colors
+set $brightblack #928374
+set $brightwhite #ebdbb2
+set $black       #1d2021
+set $red         #cc241d
+set $green       #98971a
+set $yellow      #d79921
+set $blue        #458588
+set $magenta     #b16286
+set $cyan        #689d6a
+set $white       #a89984
 
 # }}}
 
@@ -253,7 +253,7 @@ bar {
 	status_command i3status # config at $HOME/.config/i3status/config
 
 	colors {
-		background $brightblack
+		background $black
 		statusline $brightwhite
 		separator  $white
 
@@ -269,12 +269,12 @@ bar {
 # border|background|text|indicator|child_border
 client.focused          $blue $blue $black $black $blue
 client.focused_inactive $white $white $black $black $white
-client.unfocused        $brightblack $black $white $black $black
+client.unfocused        $black $black $white $white $black
 client.urgent           $red $red $black $black $red
 # }}}
 
 # MODE: Exit i3, lock, reboot, shutdown {{{
-mode $mode_loginopts {
+mode $mode_session {
 	bindsym e exec --no-startup-id i3-msg exit
 	bindsym l exec --no-startup-id loginctl lock-session; mode "default"
 	bindsym r exec --no-startup-id reboot
@@ -285,7 +285,7 @@ mode $mode_loginopts {
 	bindsym $mod+q mode "default"
 }
 
-bindsym $mod+q mode $mode_loginopts
+bindsym $mod+q mode $mode_session
 # }}}
 
 # MODE: Change keyboard layout {{{

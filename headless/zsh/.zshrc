@@ -386,7 +386,7 @@ if (( $+commands[fzf] )); then
 	if [[ $TERM = "alacritty" ]]; then
 		local config_file="$HOME/.config/alacritty/alacritty.yml"
 		if [[ -f $config_file ]]; then
-			local foreground=$(grep "foreground" "$config_file" | cut -d: -f2 | tr -d " |'")
+			local foreground=$(grep "foreground" "$config_file" | cut -d: -f2 | tr -d " |'|\"")
 			if [[ -n $foreground ]]; then
 				fzf_options+=(
 					"--color='fg+:$foreground'"

@@ -5,9 +5,7 @@ local cmp_nvim_lsp = REQUIRE({
 })
 
 -- Update capabilities of LSP to support snippets
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- LSP on_attach function to define settings and keybinds only if a LSP exists
 M.on_attach = function(client, bufnr)

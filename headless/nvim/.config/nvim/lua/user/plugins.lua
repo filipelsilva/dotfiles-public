@@ -96,7 +96,6 @@ return packer.startup(function(use)
 		run = ":TSUpdate",
 		requires = {
 			"nvim-treesitter/playground",
-			"nvim-treesitter/nvim-treesitter-context"
 		}
 	})
 
