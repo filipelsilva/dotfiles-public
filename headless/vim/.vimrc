@@ -119,32 +119,13 @@ endfor
 
 " Functions {{{
 
-" SearchWords {{{
-function! SearchWords(search) abort
-	if executable("rg")
-		execute "grep! " . shellescape(a:search) . " ."
-	else
-		execute "grep! -R -I --exclude-dir=\".git\" " . shellescape(a:search) . " ."
-	endif
-	if len(getqflist()) != 0
-		copen
-	endif
-endfunction
-" }}}
-
-" TrimWhitespace {{{
-function! TrimWhitespace() abort
-	let l:save = winsaveview()
-	keeppatterns %s/\s\+$//e
-	call winrestview(l:save)
-endfunction
-" }}}
-
 " CreateUndoBreakPoint {{{
 function! CreateUndoBreakPoint(char) abort
 	" This funcion creates a insert mode map with undo break points
 	execute "inoremap " . a:char . " " . a:char . "<C-g>u"
 endfunction
+
+command! -nargs=1 CreateUndoBreakPoint call CreateUndoBreakPoint(<f-args>)
 " }}}
 
 " CreateTextObject {{{
@@ -154,29 +135,8 @@ function! CreateTextObject(char) abort
 		execute mode . " <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
 	endfor
 endfunction
-" }}}
 
-" HeaderToDefinition (c/cpp only) {{{
-function! HeaderToDefinition() abort
-	let l:filename = fnameescape(expand("%:.:r"))
-	let l:new_extensions = []
-	let l:extension = expand("%:e")
-
-	if l:extension ==# "c" || l:extension ==# "cpp"
-		call add(l:new_extensions, ".h")
-		call add(l:new_extensions, ".hpp")
-	elseif l:extension ==# "h" || l:extension ==# "hpp"
-		call add(l:new_extensions, ".c")
-		call add(l:new_extensions, ".cpp")
-	endif
-
-	for new_extension in l:new_extensions
-		let l:file_try = l:filename . new_extension
-		if !empty(glob(l:file_try))
-			execute "edit " . l:file_try
-		endif
-	endfor
-endfunction
+command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
 " }}}
 
 " OSC52Yank {{{
@@ -186,6 +146,18 @@ function! OSC52Yank() abort
 	silent exe "!echo -ne " . shellescape(buffer) . " > " . (exists("g:tty") ? shellescape(g:tty) : "/dev/tty")
 	redraw!
 endfunction
+
+command! OSC52Yank call OSC52Yank()
+" }}}
+
+" TrimWhitespace {{{
+function! TrimWhitespace() abort
+	let l:save = winsaveview()
+	keeppatterns %s/\s\+$//e
+	call winrestview(l:save)
+endfunction
+
+command! TrimWhitespace call TrimWhitespace()
 " }}}
 
 " }}}
@@ -193,28 +165,10 @@ endfunction
 " Commands {{{
 
 " Cd to where the current file is edited (changes only for the current window)
-command! CDC lcd %:p:h
+command! CD lcd %:p:h
 
 " Diff between the current buffer and the file it was loaded from
 command! DiffOrig vertical new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis
-
-" SearchWords
-command! -nargs=1 SearchWords call SearchWords(<f-args>)
-
-" TrimWhitespace
-command! TrimWhitespace call TrimWhitespace()
-
-" CreateUndoBreakPoint
-command! -nargs=1 CreateUndoBreakPoint call CreateUndoBreakPoint(<f-args>)
-
-" CreateTextObject
-command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
-
-" HeaderToDefinition
-command! HeaderToDefinition call HeaderToDefinition()
-
-" OSC52Yank
-command! OSC52Yank call OSC52Yank()
 
 " }}}
 
@@ -259,7 +213,7 @@ augroup ColorschemeOverrides
 	autocmd!
 
 	" Colorscheme changes
-	autocmd VimEnter,Colorscheme * call clearmatches() | highlight! link Character80 ColorColumn | call matchadd("Character80", '\%80v.')
+	autocmd Colorscheme * call clearmatches() | highlight! link Character80 ColorColumn | call matchadd("Character80", '\%80v.')
 
 augroup END
 " }}}
@@ -269,25 +223,11 @@ augroup END
 " <Leader> key bind
 let mapleader = "\<Space>"
 
-" Easier completion menus
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " Easier navigation in splits
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
-
-" Change binds for Esc inside the terminal
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
-
-" Easier navigation in splits for the terminal
-tnoremap <C-h> <C-\><C-n><C-w><C-h>
-tnoremap <C-j> <C-\><C-n><C-w><C-j>
-tnoremap <C-k> <C-\><C-n><C-w><C-k>
-tnoremap <C-l> <C-\><C-n><C-w><C-l>
 
 " Zoom and unzoom pane
 noremap <Leader>z <C-w>_<Bar><C-w>\|
@@ -304,12 +244,6 @@ nnoremap <silent> <Leader><Leader>l :set invspell<CR>
 
 " Disable highlighting
 nnoremap <Leader>, <Cmd>nohlsearch<CR>
-
-" Jump to file with same name but another extension
-nnoremap <Leader>h :edit <C-r>=fnameescape(expand("%:.:r"))<CR>.
-
-" Jump to header file and back (only works in c/cpp files)
-nnoremap <silent> <Leader><Leader>h :HeaderToDefinition<CR>
 
 " File jumping
 nnoremap [a :previous<CR>
@@ -343,22 +277,9 @@ nnoremap ]L :llast<CR>
 " Reselect pasted text
 nnoremap gV `[v`]
 
-" Like o and O but stays on cursor
-nnoremap <silent> ]<Space> :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> [<Space> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
-
-" Substitute word under cursor ('s': wherever | 'S': word only)
-nnoremap <Leader>s :%s/<C-r><C-w>//g<Left><Left>
-vnoremap <Leader>s "zy<Esc>:%s/<C-r>z//g<Left><Left>
-nnoremap <Leader>S :%s/\<<C-r><C-w>\>//g<Left><Left>
-vnoremap <Leader>S "zy<Esc>:%s/\<<C-r>z\>//g<Left><Left>
-
-" Search for word quickly
-nnoremap <Leader>r :SearchWords<Space>
-
 " Create quickfix list with searched word
-nnoremap <Leader>q :SearchWords <cword><CR>
-vnoremap <Leader>q "zy<Esc>:SearchWords <C-r>z<CR>
+nnoremap <Leader>q <Cmd>grep! <cword><CR>
+vnoremap <Leader>q "zy<Esc>:grep! <C-r>z<CR>
 
 " Open files quickly
 nnoremap <Leader>f :edit $PWD/
@@ -379,10 +300,6 @@ for char in [".", ",", ";", ":", "/", "\\", "-", "_", "@", "+", "-", "=", "`"]
 	call CreateTextObject(char)
 endfor
 
-" Add <number>[jk] to jumplists
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . "j"
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . "k"
-
 " Move blocks of code
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
@@ -393,18 +310,8 @@ vnoremap . :normal .<CR>
 " Run line as command, output here
 noremap Q yyp!!$SHELL<CR>
 
-" Open $SHELL in splits
-if has("nvim")
-	noremap <silent> <Leader>t :vsplit term://$SHELL<CR>i
-	noremap <silent> <Leader>T :split term://$SHELL<CR>i
-else
-	noremap <silent> <Leader>t :vertical terminal<CR>
-	noremap <silent> <Leader>T :terminal<CR>
-endif
-
-" Quickly edit/reload the vimrc file
+" Quickly edit the vimrc file
 nmap <silent> <Leader>e :edit $MYVIMRC<CR>
-nmap <silent> <Leader>E :source $MYVIMRC<CR>
 
 " Shortcuts to use blackhole register
 nnoremap <Leader>d "_d
@@ -420,7 +327,7 @@ vnoremap <Leader>x "_x
 nnoremap <Leader>X "_X
 vnoremap <Leader>X "_X
 
-" Copy to/Paste from the clipboard
+" Clipboard copy/paste
 nnoremap <Leader>y "+y
 vnoremap <Leader>y "+y
 nnoremap <Leader>Y "+y$
@@ -430,7 +337,7 @@ vnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
 vnoremap <Leader>P "+P
 
-" Copy the whole working file to the clipboard
+" Copy the current buffer to the clipboard
 nnoremap <Leader><Leader>y :%yank+<CR>
 
 " }}}
