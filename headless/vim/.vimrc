@@ -42,12 +42,6 @@ set ignorecase smartcase incsearch hlsearch
 " Completion menu settings
 set completeopt=menuone,noinsert,noselect
 set wildmenu wildmode=longest:full,full
-set wildignore+=*.o,*.obj,*~,*.pyc
-if has("win16") || has("win32") || has("win64")
-	set wildignore+=.git\*,.hg\*,.svn\*
-else
-	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/CVS/*,*/.DS_Store
-endif
 
 " Backspace settings
 set backspace=indent,eol,start
@@ -234,45 +228,45 @@ noremap <Leader>z <C-w>_<Bar><C-w>\|
 noremap <Leader>Z <C-w>=
 
 " Toggle numbers
-nnoremap <silent> <Leader>n :set invnumber invrelativenumber<CR>
+nnoremap <silent> <Leader>n <Cmd>set invnumber invrelativenumber<CR>
 
 " Toggle list
-nnoremap <silent> <Leader>l :set invlist<CR>
+nnoremap <silent> <Leader>l <Cmd>set invlist<CR>
 
 " Toggle spell
-nnoremap <silent> <Leader><Leader>l :set invspell<CR>
+nnoremap <silent> <Leader><Leader>l <Cmd>set invspell<CR>
 
 " Disable highlighting
 nnoremap <Leader>, <Cmd>nohlsearch<CR>
 
 " File jumping
-nnoremap [a :previous<CR>
-nnoremap ]a :next<CR>
-nnoremap [A :first<CR>
-nnoremap ]A :last<CR>
+nnoremap [a <Cmd>previous<CR>
+nnoremap ]a <Cmd>next<CR>
+nnoremap [A <Cmd>first<CR>
+nnoremap ]A <Cmd>last<CR>
 
 " Buffer jumping
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
-nnoremap [B :bfirst<CR>
-nnoremap ]B :blast<CR>
+nnoremap [b <Cmd>bprevious<CR>
+nnoremap ]b <Cmd>bnext<CR>
+nnoremap [B <Cmd>bfirst<CR>
+nnoremap ]B <Cmd>blast<CR>
 inoremap <C-^> <Esc><C-^>
 
 " Alternative tab jumping
-nnoremap [t :tabprevious<CR>
-nnoremap ]t :tabnext<CR>
-nnoremap [T :tabfirst<CR>
-nnoremap ]T :tablast<CR>
+nnoremap [t <Cmd>tabprevious<CR>
+nnoremap ]t <Cmd>tabnext<CR>
+nnoremap [T <Cmd>tabfirst<CR>
+nnoremap ]T <Cmd>tablast<CR>
 
 " Quickfix list jumping
-nnoremap [q :cprevious<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
-nnoremap [l :lprevious<CR>
-nnoremap ]l :lnext<CR>
-nnoremap [L :lfirst<CR>
-nnoremap ]L :llast<CR>
+nnoremap [q <Cmd>cprevious<CR>
+nnoremap ]q <Cmd>cnext<CR>
+nnoremap [Q <Cmd>cfirst<CR>
+nnoremap ]Q <Cmd>clast<CR>
+nnoremap [l <Cmd>lprevious<CR>
+nnoremap ]l <Cmd>lnext<CR>
+nnoremap [L <Cmd>lfirst<CR>
+nnoremap ]L <Cmd>llast<CR>
 
 " Reselect pasted text
 nnoremap gV `[v`]
@@ -280,11 +274,6 @@ nnoremap gV `[v`]
 " Create quickfix list with searched word
 nnoremap <Leader>q <Cmd>grep! <cword><CR>
 vnoremap <Leader>q "zy<Esc>:grep! <C-r>z<CR>
-
-" Open files quickly
-nnoremap <Leader>f :edit $PWD/
-nnoremap <Leader><Leader>f :edit $HOME/
-nnoremap <Leader>F :edit <C-r>=expand("%:p:h") . "/"<CR>
 
 " Make Y work like D and C
 nnoremap Y y$
@@ -305,13 +294,13 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Make . to work with visually selected lines
-vnoremap . :normal .<CR>
+vnoremap . :normal .<CR>.
 
 " Run line as command, output here
 noremap Q yyp!!$SHELL<CR>
 
 " Quickly edit the vimrc file
-nmap <silent> <Leader>e :edit $MYVIMRC<CR>
+nmap <silent> <Leader>e <Cmd>edit $MYVIMRC<CR>
 
 " Shortcuts to use blackhole register
 nnoremap <Leader>d "_d
@@ -338,7 +327,7 @@ nnoremap <Leader>P "+P
 vnoremap <Leader>P "+P
 
 " Copy the current buffer to the clipboard
-nnoremap <Leader><Leader>y :%yank+<CR>
+nnoremap <Leader><Leader>y <Cmd>%yank+<CR>
 
 " }}}
 
@@ -349,6 +338,9 @@ colorscheme default
 " Vim does not set the background correctly
 if !has("nvim")
 	set background=dark
+endif
+if has("gui_running")
+	set background=light
 endif
 
 " }}}

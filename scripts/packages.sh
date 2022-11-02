@@ -99,6 +99,7 @@ packages=( # {{{
 	python-pynvim
 	python-keystone
 	python-capstone
+	sagemath
 
 	# C/Cpp and related packages
 	gcc
@@ -215,6 +216,7 @@ desktop_packages=( # {{{
 	kid3
 	kid3-common
 	playerctl
+	obs-studio
 	streamlink  # Pipe streams into a video player
 	pavucontrol # Control audio sources/sinks
 

@@ -18,22 +18,22 @@ scrolling:
 
 font: # {{{
   normal:
-    family: Iosevka
+    family: Iosevka Term
     style: Regular
 
   bold:
-    family: Iosevka
+    family: Iosevka Term
     style: Bold
 
   italic:
-    family: Iosevka
+    family: Iosevka Term
     style: Italic
 
   bold_italic:
-    family: Iosevka
+    family: Iosevka Term
     style: Bold Italic
 
-  size: 13.5
+  size: 14.0
 
   offset:
     x: 0

@@ -124,7 +124,7 @@ bindsym $mod+e exec thunar
 bindsym $mod+d exec --no-startup-id rofi $rofi_options -show drun -show-icons
 
 # Open files
-bindsym $mod+o exec --no-startup-id fd . $HOME | rofi $rofi_options -dmenu -i -p files -multi-select -keep-right | xargs -I {} xdg-open {}
+bindsym $mod+o exec --no-startup-id fd . $HOME | rofi $rofi_options -dmenu -i -p files -keep-right | xargs -I {} xdg-open {}
 
 # Splits
 bindsym $mod+v split h
@@ -142,8 +142,8 @@ bindsym $mod+Shift+Mod1+w layout stacked
 bindsym $mod+space floating toggle
 
 # No title bar on non tabbed mode
-default_border pixel 1
-default_floating_border normal 1
+default_border pixel 2
+default_floating_border normal 2
 
 # Title bar text alignment
 title_align left

@@ -49,6 +49,8 @@ if [[ -f $HOME/.gdbinit ]]; then
 fi
 # }}}
 
+# Variables {{{
+
 # PATH and related variables {{{
 export PATH
 typeset -U PATH
@@ -76,7 +78,6 @@ if (( $+commands[bat] )); then
 fi
 # }}}
 
-# Other variables {{{
 if (( $+commands[nvim] )); then
 	export EDITOR="nvim"
 	export MANPAGER="nvim +Man!"
@@ -109,34 +110,6 @@ fi
 
 # Functions {{{
 
-# [J]ump [D]irectories: poor man's autojump
-function jd() {
-	dirs -v
-	vared -p "> " -c tmp
-	cd +${tmp}
-	unset tmp
-}
-
-# [Take]: mkdir directory and cd to it
-function take() {
-	mkdir -p $@ && cd ${@:$#}
-}
-
-# [Calc]: run calculations quickly
-function calc() {
-	python3 -c "from math import *; print($*)"
-}
-
-# [Colors]: print colors and corresponding codes
-function colors() {
-	for c in {0..7}; do
-		b=$((c+8))
-		print -P - "%F{$c}$c%f -> %F{$b}$b%f"
-	done
-}
-
-# GUI dependant functions {{{
-
 # [Open] files
 function open() {
 	if [[ $# -ne 0 ]]; then
@@ -157,8 +130,6 @@ function x() {
 		startx
 	fi
 }
-
-# }}}
 
 # }}}
 
@@ -188,42 +159,7 @@ export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
 export RPROMPT="${PROMPT_GIT_INFO}"
 # }}}
 
-# Directory stack {{{
-setopt AUTO_PUSHD
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_SILENT
-
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-# }}}
-
-# Completion/Correction {{{
-
-# Expand multiple dots {{{
-function expand-dots() {
-	local MATCH
-	if [[ $LBUFFER =~ "(^| )\.\.\.+" ]]; then
-		LBUFFER="$LBUFFER:fs%\.\.\.%../..%"
-	fi
-}
-
-function expand-dots-then-expand-or-complete() {
-	zle expand-dots
-	zle expand-or-complete
-}
-
-function expand-dots-then-accept-line() {
-	zle expand-dots
-	zle accept-line
-}
-
-zle -N expand-dots
-zle -N expand-dots-then-expand-or-complete
-zle -N expand-dots-then-accept-line
-bindkey '^I' expand-dots-then-expand-or-complete
-bindkey '^M' expand-dots-then-accept-line
-# }}}
-
+# Completion {{{
 zmodload zsh/complist
 
 # Vi mode for selecting completion
