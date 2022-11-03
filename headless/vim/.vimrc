@@ -364,9 +364,8 @@ if executable("fzf")
 
 	" Mappings
 	nnoremap <silent> <Leader>f <Cmd>Files<CR>
+	nnoremap <silent> <Leader>F <Cmd>Files $HOME<CR>
 	nnoremap <silent> <Leader>g <Cmd>GitFiles<CR>
-	nnoremap <silent> <Leader>F :Files <C-r>=substitute(expand("%:p:h"), " ", "\\\\ ", "g")<CR><CR>
-	nnoremap <silent> <Leader><Leader>f <Cmd>Files $HOME<CR>
 	if executable("rg")
 		nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 	endif

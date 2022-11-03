@@ -1,6 +1,5 @@
-local telescope_builtin, telescope_utils = REQUIRE({
-	"telescope.builtin",
-	"telescope.utils"
+local telescope_builtin = REQUIRE({
+	"telescope.builtin"
 })
 
 local opts = { noremap = true, silent = true }
@@ -9,17 +8,12 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<Leader>a", "<Cmd>Telescope<CR>", opts)
 
 vim.keymap.set("n", "<Leader>f", function()
-	telescope_builtin.find_files({ hidden = true })
-end, opts)
-
-vim.keymap.set("n", "<Leader>F", function()
 	telescope_builtin.find_files({
-		cwd = telescope_utils.buffer_dir(),
 		hidden = true
 	})
 end, opts)
 
-vim.keymap.set("n", "<Leader><Leader>f", function()
+vim.keymap.set("n", "<Leader>F", function()
 	telescope_builtin.find_files({
 		cwd = "$HOME",
 		hidden = true
@@ -27,12 +21,19 @@ vim.keymap.set("n", "<Leader><Leader>f", function()
 end, opts)
 
 vim.keymap.set("n", "<Leader>g", function()
-	telescope_builtin.git_files({ hidden = true })
+	telescope_builtin.git_files({
+		hidden = true
+	})
 end, opts)
 
 vim.keymap.set("n", "<Leader>r", function()
 	telescope_builtin.live_grep({
-		glob_pattern = "!*.git"
+		glob_pattern = {
+			"!*.git",
+			"!*.hg" ,
+			"!*.svn",
+			"!*CVS"
+		}
 	})
 end, opts)
 
