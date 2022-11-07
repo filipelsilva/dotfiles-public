@@ -40,9 +40,9 @@ Usage:
 ```
 
 **Note:** this repo is now using `stow` for linking dotfiles, but a script
-(aptly named "stow") is in this folder to symlink manually, if `stow` is not
-present in your system (e.g., servers). Given the number of subfolders involved,
-it might be useful.
+(aptly named "stow.sh") is in the *scripts* folder to symlink manually, if
+`stow` is not present in your system (e.g., servers). Given the number of
+subfolders involved, it might be useful.
 
 Usage:
 
@@ -64,10 +64,10 @@ other settings, but nothing of great importance.
 
 ### gdbinit
 
-If the packages for pwndbg and gef are installed, the aliases in zsh will source
-the files defined in there. This way, you can run default `gdb`, `pwndbg`, and
-`gef`, all separated. Before, I had a git repo dedicated to this, but this
-solution is way cleaner. This only works with Arch Linux.
+If a symlink to this file is found, the aliases in zsh will source the files
+defined in there. This way, you can run default `gdb`, `pwndbg`, and `gef`, all
+separated. Before, I had a git repo dedicated to this, but this solution is way
+cleaner. This only works with Arch Linux.
 
 ### gitconfig
 
@@ -82,7 +82,7 @@ recommend putting your name and email in here, to ease the commit/push process.
 
 The editor used for the difftool and mergetool is your $EDITOR. In the file
 itself, only Vim is defined, but in .zshrc the options are overwritten to
-accomodate the possible (and likely) using of Neovim.
+accomodate the possible (and likely) usage of Neovim.
 
 ### i3config and i3statusconfig
 
@@ -90,8 +90,8 @@ Using Gruvbox colors, the keybinds have been defined so that even people with
 60% keyboards can do things such as play/pause audio, change brightness, volume,
 etc. However, the keybind placement is quite subjective (as is the case with all
 config files, actually, but I feel this one might be even less intuitive to
-those first seeing it), so I recommend seeing what you like and changing what
-you don't.
+those first seeing it), so I recommend that you keep what you like and discard
+what you don't.
 
 ### tmux.conf
 
@@ -106,7 +106,7 @@ border status only appears if there is more than one pane.
 ### screenrc
 
 Just a basic config to support 256 colors. Honestly, this file was just the
-excuse I made to try out screen, in the case I someday need to use it.
+excuse I made to try out screen, in case I someday need to use it.
 
 ### vimrc
 
@@ -116,10 +116,9 @@ and some plugins were added on order to improve the experience (mostly surround
 words with characters, comment stuff quickly, and change indentation settings
 according to the file that is being edited). If ripgrep (`rg`) is installed, it
 will be used as the grep program, and if `fzf` is installed, it will be used for
-the functions to edit files (mapped to \<Leader\>[f,ff,F]), and the fzf-vim
-plugin will be installed, which adds integration with ripgrep and some other
-packages, to provide some quite useful functions. Otherwise, normal Vim methods
-will be used.
+the functions to edit files (mapped to \<Leader\>[f,F]), and the fzf-vim plugin
+will be installed, which adds integration with ripgrep and some other packages,
+to provide some quite useful functions.
 
 It automatically installs a simple plugin manager (minpac) that uses Vim's
 runtimepath, if the system has `git` (well, if it hadn't, the probability you
@@ -161,6 +160,6 @@ to do this, preferring to not use them or have them break if used.
 The completion system is done "by hand", instead of using some package to manage
 it. This assures that it works the way I expect it to work always (or *almost*
 always), but it might not be your preferred way of using completion. If you
-don't like it, i suggest using a package that provides completion, or running
+don't like it, I suggest using a package that provides completion, or running
 the completion assistant and defining the settings yourself: `autoload -U
 zsh-newuser-install && zsh-newuser-install -f`.

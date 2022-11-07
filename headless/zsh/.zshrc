@@ -296,6 +296,9 @@ setopt NO_HUP
 setopt NO_SH_WORD_SPLIT
 setopt NOTIFY
 setopt CORRECT_ALL
+
+# Renamer ($ zmv '(*)_(*)_(*)' '$3_$2_$1' # foo_bar_baz -> baz_bar_foo)
+autoload -Uz zmv
 # }}}
 
 # Fzf {{{

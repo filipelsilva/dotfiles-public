@@ -354,14 +354,6 @@ if executable("fzf")
 		cc
 	endfunction
 
-	" Remake keybinds for terminal to keep fzf in mind
-	tnoremap <expr> <C-h> (&filetype == "fzf") ? "<C-h>" : "<C-\><C-n><C-w><C-h>"
-	tnoremap <expr> <C-j> (&filetype == "fzf") ? "<C-n>" : "<C-\><C-n><C-w><C-j>"
-	tnoremap <expr> <C-k> (&filetype == "fzf") ? "<C-p>" : "<C-\><C-n><C-w><C-k>"
-	tnoremap <expr> <C-l> (&filetype == "fzf") ? "<C-l>" : "<C-\><C-n><C-w><C-l>"
-	tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
-	tnoremap <expr> <C-v><Esc> (&filetype == "fzf") ? "<C-v><Esc>" : "<Esc>"
-
 	" Mappings
 	nnoremap <silent> <Leader>f <Cmd>Files<CR>
 	nnoremap <silent> <Leader>F <Cmd>Files $HOME<CR>

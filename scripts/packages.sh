@@ -28,6 +28,7 @@ packages=( # {{{
 	diffutils
 	findutils
 	pciutils
+	moreutils
 
 	# Find filenames quickly
 	mlocate
@@ -207,7 +208,7 @@ desktop_packages=( # {{{
 	# Video/Audio management
 	vlc
 	mpv
-	rhythmbox
+	clementine
 	yt-dlp
 	flac
 	sox
