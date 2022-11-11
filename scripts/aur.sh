@@ -10,17 +10,14 @@ if [[ -z $DOTFILES_FULL ]]; then
 fi
 
 packages=( # {{{
-	igrep      # Interactive grep using ripgrep
 	cht.sh-git # Cheat sheet
 	downgrade  # Downgrade packages
 	forgit-git # Git aliases with fzf
-	gef-git    # GDB Enhanced Features
-	lurk       # Alternative to strace
-	mprocs     # Run multiple commands in parallel
 	rar        # Archive management
-	reple      # REPL for compiled languages
+	pup-bin    # Like jq, but for HTML (parsing)
+	mprocs     # Run multiple commands in parallel
 	rr-bin     # Record process to debug
-	yank       # Read input from stdin, select field to copy
+	lurk       # Alternative to strace
 ) # }}}
 
 desktop_packages=( # {{{

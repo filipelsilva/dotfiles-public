@@ -63,6 +63,10 @@ packages=( # {{{
 	git
 	tk # gitk dependency
 
+	# File management
+	rsync
+	progress
+
 	# Archive management
 	atool
 	gzip
@@ -105,6 +109,7 @@ packages=( # {{{
 	# C/Cpp and related packages
 	gcc
 	gdb
+	gef
 	pwndbg
 	indent
 	valgrind

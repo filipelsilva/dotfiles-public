@@ -14,7 +14,7 @@ window:
     y: 0
 
 scrolling:
-  history: 10000
+  history: 100000
 
 font: # {{{
   normal:
@@ -85,22 +85,11 @@ selection:
 
 cursor:
   unfocused_hollow: true
+  thickness: 0.0
   style:
     blinking: Off
     shape: Block
 
-shell:
-  program: zsh
-  args:
-    - -l
-    - -c
-    - "tmux attach || tmux"
-
 key_bindings:
-  - { key: F11,                           action: ToggleFullscreen }
-  - { key: Key0,           mods: Control, action: ResetFontSize    }
-  - { key: Equals,         mods: Control, action: IncreaseFontSize }
-  - { key: Plus,           mods: Control, action: IncreaseFontSize }
-  - { key: NumpadAdd,      mods: Control, action: IncreaseFontSize }
-  - { key: Minus,          mods: Control, action: DecreaseFontSize }
-  - { key: NumpadSubtract, mods: Control, action: DecreaseFontSize }
+  - { key: F11,                               action: ToggleFullscreen }
+  - { key: Space, mods: Shift, mode: ~Search, action: ToggleViMode     }

@@ -15,13 +15,13 @@ fi
 
 # Ls aliases
 # alias ls="ls --color"
-alias lsa="ls -A"
+alias lsa="ls -a"
 alias lsr="ls -R"
 alias l="ls -lh"
-alias la="ls -lhA"
+alias la="ls -lha"
 alias lr="ls -lhR"
-alias lar="ls -lhAR"
-alias lx="ls -lhAFis"
+alias lar="ls -lhaR"
+alias lx="ls -lhaFis"
 
 # Ssh with xterm, for compatibility
 alias ssh="TERM=xterm-256color ssh"
@@ -63,7 +63,7 @@ fi
 (( $+commands[cargo] )) && PATH="$PATH:$HOME/.cargo/bin"
 
 if (( $+commands[go] )); then
-	export GOPATH="$HOME/go"
+	export GOPATH="$HOME/.go"
 	PATH="$PATH:$GOPATH/bin"
 fi
 

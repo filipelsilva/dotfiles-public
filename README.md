@@ -81,8 +81,8 @@ recommend putting your name and email in here, to ease the commit/push process.
 ```
 
 The editor used for the difftool and mergetool is your $EDITOR. In the file
-itself, only Vim is defined, but in .zshrc the options are overwritten to
-accomodate the possible (and likely) usage of Neovim.
+itself, only Vim is defined (sane default), but in .zshrc the options are
+overwritten to accomodate the possible (and likely) usage of Neovim.
 
 ### i3config and i3statusconfig
 

@@ -5,13 +5,14 @@
 	defaultBranch = main
 
 [alias]
-	ac = "!f() { git add -A && git commit; }; f"
-	acp = "!f() { git add -A && git commit && git push; }; f"
+	ac = "!git add --all && git commit"
+	br = "branch"
 	cm = "commit"
-	cma = "commit -a"
 	co = "checkout"
-	cob = "checkout -b"
-	dif = "!f() { git diff | $EDITOR \"+set filetype=diff\" -; }; f"
+	df = "diff"
+	dt = "difftool"
+	mg = "merge"
+	mt = "mergetool"
 	st = "status"
 	tree = "log --graph --oneline --decorate --all"
 
