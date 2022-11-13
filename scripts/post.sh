@@ -20,9 +20,6 @@ if [[ -n $DOTFILES_FULL ]]; then
 	# Create user directories
 	xdg-user-dirs-update
 
-	# Start daemon for playerctl
-	playerctld daemon
-
 	# Create xinitrc file
 	echo "#!/bin/sh" >> $HOME/.xinitrc
 	if [[ -f /usr/bin/prime-offload ]]; then

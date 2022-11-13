@@ -58,6 +58,7 @@ packages=( # {{{
 	screen
 	tmux
 	tmuxp # automatically create tmux session with layouts
+	tmate # share tmux session
 
 	# VCS
 	git
@@ -170,6 +171,7 @@ packages=( # {{{
 	terminus-font
 
 	# Other packages
+	reptyr         # Send process to another terminal
 	parallel       # Xargs alternative
 	entr           # Run commands when files change
 	rlwrap         # Readline wrapper

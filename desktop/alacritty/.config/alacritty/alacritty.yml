@@ -91,5 +91,4 @@ cursor:
     shape: Block
 
 key_bindings:
-  - { key: F11,                               action: ToggleFullscreen }
-  - { key: Space, mods: Shift, mode: ~Search, action: ToggleViMode     }
+  - { key: F11, action: ToggleFullscreen }
