@@ -24,6 +24,8 @@ These consist of configurations for some programs:
 
 * alacritty
 * i3
+* sxiv
+* xresources
 * zathura
 
 ## Installer scripts
@@ -135,6 +137,18 @@ also works really well (warning: it is slower with large folders, e.g. your home
 folder). The plugins are manager using packer.nvim instead of minpac (a variable
 is declared before sourcing .vimrc to stop minpac from installing itself on
 Neovim).
+
+### sxiv
+
+Added keybinds to open file in another app, or set as wallpaper, or copy
+filename/image to the clipboard. Colors are defined in XResources file.
+
+### xresources
+
+This file only defines the Gruvbox color scheme for the apps that use this file
+for config (like sxiv), and the font for sxiv. As I don't (currently) use XTerm
+or other terminal emulator that uses XResources, there is nothing else in this
+file.
 
 ### zathurarc
 

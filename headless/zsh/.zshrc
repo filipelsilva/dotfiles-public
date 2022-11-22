@@ -1,12 +1,44 @@
+# Prompt {{{
+setopt PROMPT_SUBST
+autoload -Uz vcs_info
+precmd_functions+=( vcs_info )
+
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' formats '%c%u%b'
+zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
+
+# Prompt auxiliary variables
+# (Note: replace %# with %(!.#.$) for bash-like prompt)
+local NEWLINE=$'\n'
+local PROMPT_GIT_INFO='${vcs_info_msg_0_:- }'
+local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
+
+local PROMPT_SELECTOR=1
+case "$PROMPT_SELECTOR" in
+	1)
+		local PROMPT_INFO="%n@%m:%1~%#"
+		# local PROMPT_INFO="%m%S%n%s%1~ %#"
+		;;
+	2)
+		local PROMPT_INFO="%B%F{10}%n@%m%f%b:%B%F{12}%~%f%b${NEWLINE}%#"
+		local PROMPT_GIT_INFO="%B%F{13}${PROMPT_GIT_INFO}%f%b"
+		local PROMPT_ERROR_HANDLING="%B${PROMPT_ERROR_HANDLING}%b"
+		;;
+esac
+
+export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
+export RPROMPT="${PROMPT_GIT_INFO}"
+# }}}
+
 # Aliases {{{
 
 # Basic commands
 alias -- -="cd -"
-alias bc="bc --mathlib"
-alias wget="wget --continue"
-alias ip="ip --color"
 alias diff="diff --color"
 alias grep="grep --color"
+alias ip="ip --color"
 alias info="info --vi-keys"
 alias v="$EDITOR"
 if (( $+commands[nvim] )); then
@@ -49,8 +81,48 @@ if [[ -f $HOME/.gdbinit ]]; then
 fi
 # }}}
 
-# Variables {{{
+# Options {{{
 
+# Miscellaneous
+setopt HASH_LIST_ALL
+setopt LONG_LIST_JOBS
+setopt NO_BEEP
+setopt NO_GLOB_DOTS
+setopt NO_HUP
+setopt NO_SH_WORD_SPLIT
+setopt NOTIFY
+setopt CORRECT_ALL
+
+# Command history
+HISTFILE="$HOME/.zhistory"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt INC_APPEND_HISTORY_TIME
+
+# }}}
+
+# Plugin/Variable loading {{{
+
+# Set LS_COLORS
+eval "$(dircolors)"
+
+# Colors
+autoload -U colors && colors
+
+# Renamer ($ zmv '(*)_(*)_(*)' '$3_$2_$1' # foo_bar_baz -> baz_bar_foo)
+autoload -Uz zmv
+
+# }}}
+
+# Variables {{{
 # PATH and related variables {{{
 export PATH
 typeset -U PATH
@@ -108,57 +180,6 @@ if (( $+commands[bat] )); then
 fi
 # }}}
 
-# Functions {{{
-
-# [Open] files
-function open() {
-	if [[ $# -ne 0 ]]; then
-		for arg in "$@"; do
-			(xdg-open "$PWD/$arg" > /dev/null 2>&1 &)
-		done
-	else
-		(fzf --multi | xargs -I {} sh -c "xdg-open '$PWD/{}' > /dev/null 2>&1 &")
-	fi
-}
-
-# Start[x]: wrapper around startx to use optimus-manager if needed
-function x() {
-	if (( $+commands[prime-switch] )); then
-		sudo /usr/bin/prime-switch
-		exec startx
-	else
-		startx
-	fi
-}
-
-# }}}
-
-# Prompt {{{
-setopt PROMPT_SUBST
-
-autoload -Uz vcs_info
-precmd_functions+=( vcs_info )
-
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:*' unstagedstr '*'
-zstyle ':vcs_info:*' formats '%c%u%b'
-zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
-
-# Replace %# with %(!.#.$) for bash-like prompt
-local NEWLINE=$'\n'
-local PROMPT_GIT_INFO='${vcs_info_msg_0_:- }'
-local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
-
-# local PROMPT_INFO="[%n@%m %1~]%#"
-local PROMPT_INFO="%n@%m:%1~%#"
-# local PROMPT_INFO="%n@%m %1~ %#"
-# local PROMPT_INFO="%m%S%n%s%1~ %#"
-
-export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
-export RPROMPT="${PROMPT_GIT_INFO}"
-# }}}
-
 # Completion {{{
 zmodload zsh/complist
 
@@ -183,7 +204,6 @@ setopt GLOB_COMPLETE
 setopt LIST_TYPES
 unsetopt FLOW_CONTROL
 
-# eval "$(dircolors)"
 # zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' add-space true
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -217,7 +237,7 @@ zstyle ':completion:*:*:*:*:messages' format '-- %d --'
 zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
 # }}}
 
-# Vi-mode and keybinds {{{
+# Keybinds {{{
 autoload -Uz up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search
 autoload -Uz edit-command-line
@@ -244,6 +264,7 @@ bindkey "\e." insert-last-word
 
 # Ctrl-e to edit command line in $EDITOR
 bindkey "^E" edit-command-line
+bindkey -M vicmd "^E" edit-command-line
 
 # Ctrl-r (or / in normal mode of vi-mode) to search commands
 bindkey "^R" history-incremental-search-backward
@@ -271,34 +292,25 @@ for km in viopp visual; do
 done
 # }}}
 
-# Command history {{{
-HISTFILE="$HOME/.zhistory"
-HISTSIZE=100000
-SAVEHIST=100000
+# Functions {{{
+function open() {
+	if [[ $# -ne 0 ]]; then
+		for arg in "$@"; do
+			(xdg-open "$PWD/$arg" > /dev/null 2>&1 &)
+		done
+	else
+		(fzf --multi | xargs -I {} sh -c "xdg-open '$PWD/{}' > /dev/null 2>&1 &")
+	fi
+}
 
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_VERIFY
-setopt INC_APPEND_HISTORY_TIME
-# }}}
-
-# Other options {{{
-setopt HASH_LIST_ALL
-setopt LONG_LIST_JOBS
-setopt NO_BEEP
-setopt NO_GLOB_DOTS
-setopt NO_HUP
-setopt NO_SH_WORD_SPLIT
-setopt NOTIFY
-setopt CORRECT_ALL
-
-# Renamer ($ zmv '(*)_(*)_(*)' '$3_$2_$1' # foo_bar_baz -> baz_bar_foo)
-autoload -Uz zmv
+function x() {
+	if (( $+commands[prime-switch] )); then
+		sudo /usr/bin/prime-switch
+		exec startx
+	else
+		startx
+	fi
+}
 # }}}
 
 # Fzf {{{

@@ -129,6 +129,10 @@ packages=( # {{{
 	ruby
 	rubygems
 
+	# JavaScript
+	nodejs
+	npm
+
 	# JSON
 	jq
 	jc
@@ -233,6 +237,7 @@ desktop_packages=( # {{{
 	transmission-gtk
 
 	# Image management
+	sxiv
 	feh
 	gthumb
 	perl-image-exiftool
@@ -287,6 +292,7 @@ desktop_packages=( # {{{
 	ttf-jetbrains-mono
 	ttf-input
 	ttf-monoid
+	ttf-ubuntu-font-family
 
 	# Other packages
 	discord

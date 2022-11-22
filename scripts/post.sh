@@ -13,7 +13,7 @@ fi
 chsh -s "$(command -v zsh)"
 
 # Tty font
-echo "FONT=ter-v20b" | sudo tee -a /etc/vconsole.conf
+echo "FONT=ter-v32b" | sudo tee -a /etc/vconsole.conf
 
 # Desktop stuff
 if [[ -n $DOTFILES_FULL ]]; then

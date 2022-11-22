@@ -37,7 +37,7 @@ desktop_packages=( # {{{
 	openasar-git           # Make Discord faster
 
 	# Fonts
-	ttf-ms-win11-auto
+	ttf-ms-win10-auto
 )
 
 # Switchable graphics in laptops

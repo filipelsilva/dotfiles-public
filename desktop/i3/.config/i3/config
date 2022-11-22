@@ -22,6 +22,9 @@ exec_always --no-startup-id autorandr --change --skip-options crtc
 # Apply wallpaper (feh --bg-fill <wallpaper>)
 exec_always --no-startup-id "$HOME/.fehbg"
 
+# Xresources
+exec_always --no-startup-id xrdb -merge -I$HOME ~/.Xresources
+
 # Redshift (f.lux alike)
 exec_always --no-startup-id pkill -9 redshift; redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
 
@@ -46,22 +49,6 @@ exec --no-startup-id blueman-applet
 # Media controls
 exec --no-startup-id playerctld daemon
 
-# Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
-# Media keys
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-
-# Adjust brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # }}}
 
 # Keybinds and settings {{{
@@ -337,6 +324,20 @@ mode $mode_media_brightness {
 }
 
 bindsym $mod+m mode $mode_media_brightness
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # }}}
 
 # MODE: Resize window {{{
