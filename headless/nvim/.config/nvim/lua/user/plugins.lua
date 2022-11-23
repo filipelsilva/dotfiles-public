@@ -44,11 +44,17 @@ return packer.startup(function(use)
 	-- Comment stuff
 	use("numToStr/Comment.nvim")
 
-	-- Colorscheme
-	use("gruvbox-community/gruvbox")
+	-- Extra keybinds
+	use("tpope/vim-unimpaired")
+
+	-- Git wrapper
+	use("tpope/vim-fugitive")
 
 	-- Fzf
 	use("junegunn/fzf.vim")
+
+	-- Colorscheme
+	use("gruvbox-community/gruvbox")
 
 	-- Telescope
 	use({

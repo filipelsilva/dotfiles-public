@@ -91,9 +91,8 @@ bindsym $mod+s split v
 bindsym $mod+f fullscreen toggle
 
 # Change container layout (stacked and split)
-bindsym $mod+w layout toggle tabbed split
+bindsym $mod+w layout toggle
 bindsym $mod+Shift+w layout toggle split
-bindsym $mod+Shift+Mod1+w layout stacked
 
 # Toggle tiling/floating
 bindsym $mod+space floating toggle
@@ -305,7 +304,7 @@ bindsym Print mode $mode_printscreen
 # }}}
 
 # MODE: Change brightness and media control {{{
-set $mode_media_brightness "[media/brightness] p,h,j,k,l,n,m"
+set $mode_media_brightness "[media/brightness] i,o,p,h,j,k,l,n,m"
 
 mode $mode_media_brightness {
 	bindsym i exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle

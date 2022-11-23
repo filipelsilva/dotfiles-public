@@ -133,6 +133,9 @@ packages=( # {{{
 	nodejs
 	npm
 
+	# Perl
+	perl
+
 	# JSON
 	jq
 	jc
