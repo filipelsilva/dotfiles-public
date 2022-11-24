@@ -14,21 +14,19 @@ function link_file() {
 
 function link_folder() {
 	folder=$1
-	for file in $(find "$folder" -type f -not -path '*/\.git/*'); do
-		link_file "$file"
-	done
+	find "$folder" -type f -not -path '*/\.git/*' | while read -r file; do link_file "$file"; done
 }
 
 FOLDER=0
 NAME="file"
-ARG="-type f"
+TYPE="f"
 
 while getopts "d" opt; do
 	case "$opt" in
 		"d")
 			FOLDER=1
 			NAME="folder"
-			ARG="-type d"
+			TYPE="d"
 			;;
 		*)
 			echo "Unsupported option. Exiting."
@@ -37,12 +35,12 @@ while getopts "d" opt; do
 	esac
 done
 
-if [[ "$(basename $PWD)" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles"
+if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
+	cd "$HOME/dotfiles" || return
 fi
 
 PS3="Select $NAME to link: "
-select linkee in $(find $ARG -not -path '*/\.git/*'); do
+select linkee in $(find . -type "$TYPE" -not -path '*/\.git/*'); do
 	if [[ "$FOLDER" = 1 ]]; then
 		link_folder "$linkee"
 	else

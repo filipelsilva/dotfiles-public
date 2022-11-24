@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [[ "$(basename $PWD)" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles"
+if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
+	cd "$HOME/dotfiles" || return
 fi
 
 if [[ -z $DOTFILES_FULL ]]; then
@@ -9,9 +9,9 @@ if [[ -z $DOTFILES_FULL ]]; then
 	parse_arguments "$@"
 fi
 
-echo "#########################"
-echo "# Beggining instalation #"
-echo "#########################"
+echo "##########################"
+echo "# Beginning installation #"
+echo "##########################"
 
 sudo -v; sudo echo "# Getting password..."
 
@@ -24,5 +24,5 @@ echo "# AUR"
 echo "# Linker"
 ./scripts/linker.sh
 
-echo "# Post instalation things..."
+echo "# Post installation things..."
 ./scripts/post.sh

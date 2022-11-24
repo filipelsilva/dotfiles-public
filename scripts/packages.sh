@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [[ "$(basename $PWD)" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles"
+if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
+	cd "$HOME/dotfiles" || return
 fi
 
 if [[ -z $DOTFILES_FULL ]]; then
@@ -306,11 +306,11 @@ desktop_packages=( # {{{
 ) # }}}
 
 if [[ -n $DOTFILES_FULL ]]; then
-	packages+=(${desktop_packages[@]})
+	packages+=("${desktop_packages[@]}")
 fi
 
 sudo -v; sudo pacman -Syu --noconfirm
-sudo -v; sudo pacman -S --noconfirm ${packages[@]}
+sudo -v; sudo pacman -S --noconfirm "${packages[@]}"
 
 # For the rustup package, so that rustc and cargo work out of the box
 rustup default stable

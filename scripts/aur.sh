@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [[ "$(basename $PWD)" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles"
+if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
+	cd "$HOME/dotfiles" || return
 fi
 
 if [[ -z $DOTFILES_FULL ]]; then
@@ -41,7 +41,7 @@ desktop_packages=( # {{{
 )
 
 # Switchable graphics in laptops
-if [[ laptop-detect ]] && [[ ! -z $(lspci | grep -i "nvidia") ]]; then
+if laptop-detect && lspci | grep -qi "nvidia"; then
 	desktop_packages+=(
 		auto-cpufreq
 		optimus-manager
@@ -51,10 +51,10 @@ fi
 # }}}
 
 if [[ -n $DOTFILES_FULL ]]; then
-	packages+=(${desktop_packages[@]})
+	packages+=("${desktop_packages[@]}")
 fi
 
-git clone https://aur.archlinux.org/yay.git $HOME/.yay
-(cd $HOME/.yay && makepkg -si --noconfirm)
+git clone https://aur.archlinux.org/yay.git "$HOME/.yay"
+(cd "$HOME/.yay" && makepkg -si --noconfirm)
 
-yay -S --noconfirm ${packages[@]}
+yay -S --noconfirm "${packages[@]}"
