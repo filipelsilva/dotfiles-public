@@ -27,7 +27,6 @@ desktop_packages=( # {{{
 
 	# Other packages
 	zoom
-	spotify
 	slack-desktop
 	visual-studio-code-bin
 	onedrive-abraunegg-git # OneDrive client

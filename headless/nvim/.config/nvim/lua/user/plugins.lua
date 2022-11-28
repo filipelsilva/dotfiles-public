@@ -39,16 +39,26 @@ return packer.startup(function(use)
 	use("tpope/vim-sleuth")
 
 	-- Surround stuff
-	use("kylechui/nvim-surround")
+	use({
+		"tpope/vim-surround",
+		requires = {
+			"tpope/vim-repeat"
+		}
+	})
 
 	-- Comment stuff
-	use("numToStr/Comment.nvim")
+	use('tpope/vim-commentary')
 
 	-- Extra keybinds
-	use("tpope/vim-unimpaired")
+	use({
+		"tpope/vim-unimpaired",
+		requires = {
+			"tpope/vim-repeat"
+		}
+	})
 
 	-- Git wrapper
-	use("tpope/vim-fugitive")
+	use('tpope/vim-fugitive')
 
 	-- Fzf
 	use("junegunn/fzf.vim")

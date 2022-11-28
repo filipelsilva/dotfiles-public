@@ -1,127 +1,3 @@
-# Prompt {{{
-setopt PROMPT_SUBST
-autoload -Uz vcs_info
-precmd_functions+=( vcs_info )
-
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:*' unstagedstr '*'
-zstyle ':vcs_info:*' formats '%c%u%b'
-zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
-
-# Prompt auxiliary variables
-# (Note: replace %# with %(!.#.$) for bash-like prompt)
-local NEWLINE=$'\n'
-local PROMPT_GIT_INFO='${vcs_info_msg_0_:- }'
-local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
-
-local PROMPT_SELECTOR=1
-case "$PROMPT_SELECTOR" in
-	1)
-		local PROMPT_INFO="%n@%m:%1~%#"
-		# local PROMPT_INFO="%m%S%n%s%1~ %#"
-		;;
-	2)
-		local PROMPT_INFO="%B%F{10}%n@%m%f%b:%B%F{12}%~%f%b${NEWLINE}%#"
-		local PROMPT_GIT_INFO="%B%F{13}${PROMPT_GIT_INFO}%f%b"
-		local PROMPT_ERROR_HANDLING="%B${PROMPT_ERROR_HANDLING}%b"
-		;;
-esac
-
-export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
-export RPROMPT="${PROMPT_GIT_INFO}"
-# }}}
-
-# Aliases {{{
-
-# Basic commands
-alias -- -="cd -"
-alias diff="diff --color"
-alias grep="grep --color"
-alias ip="ip --color"
-alias info="info --vi-keys"
-alias v="$EDITOR"
-if (( $+commands[nvim] )); then
-	alias vimdiff="nvim -d"
-fi
-
-# Ls aliases
-# alias ls="ls --color"
-alias lsa="ls -a"
-alias lsr="ls -R"
-alias l="ls -lh"
-alias la="ls -lha"
-alias lr="ls -lhR"
-alias lar="ls -lhaR"
-alias lx="ls -lhaFis"
-
-# Ssh with xterm, for compatibility
-alias ssh="TERM=xterm-256color ssh"
-
-# Search for processes
-alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
-
-# Zsh configuration and reload
-alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
-alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
-
-# Git configuration
-alias gitconfig="$EDITOR $HOME/.gitconfig"
-
-# i3 configuration and reload
-if (( $+commands[i3] )); then
-	alias i3source="i3-msg restart"
-	alias i3config="$EDITOR $HOME/.config/i3/config && i3source"
-fi
-
-# GDB aliases
-if [[ -f $HOME/.gdbinit ]]; then
-	alias pwndbg="gdb -quiet -ex init-pwndbg"
-	alias gef="gdb -quiet -ex init-gef"
-fi
-# }}}
-
-# Options {{{
-
-# Miscellaneous
-setopt HASH_LIST_ALL
-setopt LONG_LIST_JOBS
-setopt NO_BEEP
-setopt NO_GLOB_DOTS
-setopt NO_HUP
-setopt NO_SH_WORD_SPLIT
-setopt NOTIFY
-setopt CORRECT_ALL
-
-# Command history
-HISTFILE="$HOME/.zhistory"
-HISTSIZE=100000
-SAVEHIST=100000
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_VERIFY
-setopt INC_APPEND_HISTORY_TIME
-
-# }}}
-
-# Plugin/Variable loading {{{
-
-# Set LS_COLORS
-eval "$(dircolors)"
-
-# Colors
-autoload -U colors && colors
-
-# Renamer ($ zmv '(*)_(*)_(*)' '$3_$2_$1' # foo_bar_baz -> baz_bar_foo)
-autoload -Uz zmv
-
-# }}}
-
 # Variables {{{
 # PATH and related variables {{{
 export PATH
@@ -178,6 +54,129 @@ if (( $+commands[bat] )); then
 	export BAT_THEME="ansi"
 	export BAT_STYLE="auto"
 fi
+# }}}
+
+# Aliases {{{
+
+# Basic commands
+alias -- -="cd -"
+alias diff="diff --color"
+alias grep="grep --color"
+alias ip="ip --color"
+alias info="info --vi-keys"
+alias v="$EDITOR"
+if (( $+commands[nvim] )); then
+	alias vimdiff="nvim -d"
+fi
+
+# Ls aliases
+# alias ls="ls --color"
+alias l="ls -lh"
+alias la="ls -lha"
+alias lr="ls -lhR"
+alias lx="ls -lhaFis"
+
+# Ssh with xterm, for compatibility
+alias ssh="TERM=xterm-256color ssh"
+
+# Search for processes
+alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+
+# Zsh configuration and reload
+alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
+alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
+
+# Git configuration
+alias gitconfig="$EDITOR $HOME/.gitconfig"
+
+# i3 configuration and reload
+if (( $+commands[i3] )); then
+	alias i3source="i3-msg restart"
+	alias i3config="$EDITOR $HOME/.config/i3/config && i3source"
+fi
+
+# GDB aliases
+if [[ -f $HOME/.gdbinit ]]; then
+	alias pwndbg="gdb -quiet -ex init-pwndbg"
+	alias gef="gdb -quiet -ex init-gef"
+fi
+# }}}
+
+# Prompt {{{
+setopt PROMPT_SUBST
+autoload -Uz vcs_info
+precmd_functions+=( vcs_info )
+
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' formats '%c%u%b'
+zstyle ':vcs_info:*' actionformats '%c%u%b(%a)'
+
+# Prompt auxiliary variables
+# (Note: replace %# with %(!.#.$) for bash-like prompt)
+local NEWLINE=$'\n'
+local PROMPT_GIT_INFO='${vcs_info_msg_0_:- }'
+local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
+
+local PROMPT_SELECTOR=1
+case "$PROMPT_SELECTOR" in
+	1)
+		local PROMPT_INFO="%n@%m:%1~%#"
+		;;
+	2)
+		local PROMPT_INFO="%m%S%n%s%1~ %#"
+		;;
+	3)
+		local PROMPT_INFO="%B%F{10}%n@%m%f%b:%B%F{12}%~%f%b${NEWLINE}%#"
+		local PROMPT_GIT_INFO="%B%F{13}${PROMPT_GIT_INFO}%f%b"
+		local PROMPT_ERROR_HANDLING="%B${PROMPT_ERROR_HANDLING}%b"
+		;;
+esac
+
+export PROMPT="${PROMPT_ERROR_HANDLING}${PROMPT_INFO} "
+export RPROMPT="${PROMPT_GIT_INFO}"
+# }}}
+
+# Options {{{
+
+# Miscellaneous
+setopt HASH_LIST_ALL
+setopt LONG_LIST_JOBS
+setopt NO_BEEP
+setopt NO_GLOB_DOTS
+setopt NO_HUP
+setopt NO_SH_WORD_SPLIT
+setopt NOTIFY
+setopt CORRECT_ALL
+
+# Command history
+HISTFILE="$HOME/.zhistory"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt INC_APPEND_HISTORY_TIME
+
+# }}}
+
+# Autoloads and evals {{{
+
+# Set LS_COLORS
+eval "$(dircolors)"
+
+# Colors
+autoload -U colors && colors
+
+# Renamer ($ zmv '(*)_(*)_(*)' '$3_$2_$1' # foo_bar_baz -> baz_bar_foo)
+autoload -Uz zmv
+
 # }}}
 
 # Completion {{{

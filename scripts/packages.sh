@@ -232,8 +232,9 @@ desktop_packages=( # {{{
 	kid3-common
 	playerctl
 	obs-studio
-	streamlink  # Pipe streams into a video player
-	pavucontrol # Control audio sources/sinks
+	spotify-launcher # Spotify install in home folder
+	streamlink       # Pipe streams into a video player
+	pavucontrol      # Control audio sources/sinks
 
 	# Torrent management
 	transmission-cli
@@ -302,6 +303,7 @@ desktop_packages=( # {{{
 	texlive-most
 	libreoffice-still
 	bless         # Hex editor
+	mypaint       # Drawing table
 	laptop-detect # Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 
