@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles" || return
+	cd "$HOME/dotfiles" || exit
 fi
 
 if [[ -z $DOTFILES_FULL ]]; then
@@ -10,7 +10,7 @@ if [[ -z $DOTFILES_FULL ]]; then
 fi
 
 (
-cd headless || return
+cd headless || exit
 for folder in *; do
 	stow --restow "$folder"
 done
@@ -18,7 +18,7 @@ done
 
 if [[ -n $DOTFILES_FULL ]]; then
 	(
-	cd desktop || return
+	cd desktop || exit
 	for folder in *; do
 		stow --restow "$folder"
 	done

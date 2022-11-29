@@ -49,17 +49,6 @@ return packer.startup(function(use)
 	-- Comment stuff
 	use('tpope/vim-commentary')
 
-	-- Extra keybinds
-	use({
-		"tpope/vim-unimpaired",
-		requires = {
-			"tpope/vim-repeat"
-		}
-	})
-
-	-- Git wrapper
-	use('tpope/vim-fugitive')
-
 	-- Fzf
 	use("junegunn/fzf.vim")
 

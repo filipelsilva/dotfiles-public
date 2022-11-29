@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles" || return
+	cd "$HOME/dotfiles" || exit
 fi
 
 if [[ -z $DOTFILES_FULL ]]; then

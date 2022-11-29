@@ -14,6 +14,7 @@ These consist of configurations for some programs:
 
 * gdb
 * git
+* locale
 * nvim
 * screen
 * tmux
@@ -85,6 +86,11 @@ recommend putting your name and email in here, to ease the commit/push process.
 The editor used for the difftool and mergetool is your $EDITOR. In the file
 itself, only Vim is defined (sane default), but in .zshrc the options are
 overwritten to accomodate the possible (and likely) usage of Neovim.
+
+### locale.conf
+
+This only sets some variables (like the monetary ones, or the measurements) to
+the Portuguese standard, instead of the English one.
 
 ### i3config and i3statusconfig
 

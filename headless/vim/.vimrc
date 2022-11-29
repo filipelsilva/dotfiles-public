@@ -253,6 +253,36 @@ vnoremap <Leader>q "zy<Esc>:grep! <C-r>z<CR>
 nnoremap Y y$
 xnoremap Y <Esc>y$gv
 
+" File jumping
+nnoremap [a <Cmd>previous<CR>
+nnoremap ]a <Cmd>next<CR>
+nnoremap [A <Cmd>first<CR>
+nnoremap ]A <Cmd>last<CR>
+
+" Buffer jumping
+nnoremap [b <Cmd>bprevious<CR>
+nnoremap ]b <Cmd>bnext<CR>
+nnoremap [B <Cmd>bfirst<CR>
+nnoremap ]B <Cmd>blast<CR>
+
+" Alternative tab jumping
+nnoremap [t <Cmd>tabprevious<CR>
+nnoremap ]t <Cmd>tabnext<CR>
+nnoremap [T <Cmd>tabfirst<CR>
+nnoremap ]T <Cmd>tablast<CR>
+
+" Quickfix list jumping
+nnoremap [q <Cmd>cprevious<CR>
+nnoremap ]q <Cmd>cnext<CR>
+nnoremap [Q <Cmd>cfirst<CR>
+nnoremap ]Q <Cmd>clast<CR>
+
+" Location list jumping
+nnoremap [l <Cmd>lprevious<CR>
+nnoremap ]l <Cmd>lnext<CR>
+nnoremap [L <Cmd>lfirst<CR>
+nnoremap ]L <Cmd>llast<CR>
+
 " Undo break points (add or remove more, according to needs)
 for char in [".", ",", "!", "?"]
 	call CreateUndoBreakPoint(char)
@@ -372,12 +402,6 @@ if !exists("g:no_vim_plugins")
 
 			" Comment stuff
 			call minpac#add("tpope/vim-commentary")
-
-			" Extra keybinds
-			call minpac#add("tpope/vim-unimpaired")
-
-			" Git wrapper
-			call minpac#add("tpope/vim-fugitive")
 
 			" If fzf is installed, add companion commands
 			if executable("fzf")

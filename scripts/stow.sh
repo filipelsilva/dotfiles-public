@@ -36,7 +36,7 @@ while getopts "d" opt; do
 done
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
-	cd "$HOME/dotfiles" || return
+	cd "$HOME/dotfiles" || exit
 fi
 
 PS3="Select $NAME to link: "
