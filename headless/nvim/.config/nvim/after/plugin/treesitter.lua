@@ -1,9 +1,10 @@
-local treesitter = REQUIRE({
-	"nvim-treesitter.configs",
-})
+local ok, treesitter = pcall(require, "nvim-treesitter.configs")
+
+if not ok then
+	return
+end
 
 treesitter.setup({
-	-- Enabled languages {{{
 	ensure_installed = {
 		"bash",
 		"c",
@@ -26,7 +27,6 @@ treesitter.setup({
 		"typescript",
 		"vim"
 	},
-	-- }}}
 	sync_install = true,
 	highlight = {
 		enable = true,

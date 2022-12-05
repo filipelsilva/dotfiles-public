@@ -178,7 +178,8 @@ packages=( # {{{
 	terminus-font
 
 	# Other packages
-	reptyr         # Send process to another terminal
+	hq             # Like jq, but for HTML (parsing)
+	bc             # Calculator
 	parallel       # Xargs alternative
 	entr           # Run commands when files change
 	rlwrap         # Readline wrapper

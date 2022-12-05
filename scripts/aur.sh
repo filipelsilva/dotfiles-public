@@ -14,7 +14,6 @@ packages=( # {{{
 	downgrade  # Downgrade packages
 	forgit-git # Git aliases with fzf
 	rar        # Archive management
-	pup-bin    # Like jq, but for HTML (parsing)
 	mprocs     # Run multiple commands in parallel
 	rr-bin     # Record process to debug
 	lurk       # Alternative to strace

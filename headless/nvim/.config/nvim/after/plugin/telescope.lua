@@ -1,7 +1,9 @@
-local telescope, actions = REQUIRE({
-	"telescope",
-	"telescope.actions"
-})
+local ok_telescope, telescope = pcall(require, "telescope")
+local ok_actions, actions = pcall(require, "telescope.actions")
+
+if not ok_telescope or not ok_actions then
+	return
+end
 
 telescope.setup({
 	defaults = {

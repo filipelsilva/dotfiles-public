@@ -52,7 +52,7 @@ set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
 
 " Visual settings
 set ruler showcmd linebreak wrap number relativenumber
-set laststatus=2 signcolumn=auto display=truncate
+set laststatus=2 signcolumn=auto display=truncate colorcolumn=80
 set listchars=tab:<->,trail:-,nbsp:+,eol:$ shortmess=OtTF
 
 " Motions keep cursor on the same column
@@ -200,14 +200,6 @@ augroup NumberToggle
 
 	" If buffer gets out of focus, disable relative numbers
 	autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &number | set norelativenumber | endif
-
-augroup END
-
-augroup ColorschemeOverrides
-	autocmd!
-
-	" Colorscheme changes
-	autocmd Colorscheme * call clearmatches() | highlight! link Character80 ColorColumn | call matchadd("Character80", '\%80v.')
 
 augroup END
 " }}}

@@ -4,3 +4,8 @@ vim.opt.eventignore:append({
 	"FocusGained",
 	"FocusLost"
 })
+
+-- Disable virtual text for diagnostics (use popup instead)
+vim.diagnostic.config({
+	virtual_text = false,
+})
