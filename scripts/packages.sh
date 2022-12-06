@@ -263,11 +263,11 @@ desktop_packages=( # {{{
 	thunar
 	thunar-archive-plugin
 	thunar-volman
-	file-roller    # Archive manager for thunar
-	gvfs           # Enables things like trashing files in Thunar
-	ntfs-3g        # Support for NTFS drives
-	lxsession      # This includes lxpolkit, in order to be able to mount some drives
-	perl-file-mime # Detect MIME type of files
+	file-roller        # Archive manager for thunar
+	gvfs               # Enables things like trashing files in Thunar
+	ntfs-3g            # Support for NTFS drives
+	lxsession          # This includes lxpolkit, in order to be able to mount some drives
+	perl-file-mimeinfo # Detect MIME type of files
 
 	# PDF management
 	pandoc
