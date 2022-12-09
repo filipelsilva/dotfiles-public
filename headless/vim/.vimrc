@@ -33,9 +33,6 @@ set keywordprg=:Man
 " Folds (marker = 3*'{')
 set foldmethod=marker
 
-" Do splits the "normal" way
-set splitright splitbelow
-
 " Search settings
 set ignorecase smartcase incsearch hlsearch
 

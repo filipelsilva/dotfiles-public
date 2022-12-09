@@ -31,6 +31,23 @@ end
 mason.setup()
 
 -- Setup mason with lspconfig
+mason_lspconfig.setup({
+	ensure_installed = {
+		"bashls",
+		"clangd",
+		"dockerls",
+		"eslint",
+		"html",
+		"jdtls",
+		"sumneko_lua",
+		"pyright",
+		"rust_analyzer",
+		"terraformls",
+		"tsserver",
+		"vimls"
+	}
+})
+
 mason_lspconfig.setup_handlers({
 	function(server_name) -- Default handler
 		lspconfig[server_name].setup({

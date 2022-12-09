@@ -15,6 +15,14 @@ chsh -s "$(command -v zsh)"
 # Tty font
 echo "FONT=ter-v32b" | sudo tee -a /etc/vconsole.conf
 
+if [[ -x $(command -v tldr) ]]; then
+	mkdir -p "$HOME/.config/tealdeer"
+	{
+		echo "[updates]"
+		echo "auto_update = true"
+	} >> "$HOME/.config/tealdeer/config.toml"
+fi
+
 # Desktop stuff
 if [[ -n $DOTFILES_FULL ]]; then
 	# Create user directories
