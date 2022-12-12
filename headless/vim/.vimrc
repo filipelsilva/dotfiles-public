@@ -179,6 +179,9 @@ augroup Vimrc
 	" Change formatoptions everywhere
 	autocmd FileType * setlocal formatoptions=tcqj
 
+	" All gitconfig files with gitconfig filetype
+	autocmd BufNewFile,BufRead *gitconfig* setfile gitconfig
+
 augroup END
 
 augroup PlainTextWidth
@@ -283,8 +286,8 @@ for char in [".", ",", ";", ":", "/", "\\", "-", "_", "@", "+", "-", "=", "`"]
 endfor
 
 " Move blocks of code
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+vnoremap <C-j> :move '>+1<CR>gv=gv
+vnoremap <C-k> :move '<-2<CR>gv=gv
 
 " Make . to work with visually selected lines
 vnoremap . :normal .<CR>.

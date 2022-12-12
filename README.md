@@ -74,8 +74,10 @@ cleaner. This only works with Arch Linux.
 
 ### gitconfig
 
-Aliases and some settings to do diffs and merges are defined in here. I
-recommend putting your name and email in here, to ease the commit/push process.
+Aliases and some settings to do diffs and merges are defined in here. In order
+to put your name and email in the config, create a file in the home directory
+called ".gitconfig.user", with the following content (".gitconfig" will include
+it):
 
 ```
 [user]

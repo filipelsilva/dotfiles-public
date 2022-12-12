@@ -41,6 +41,7 @@ mason_lspconfig.setup({
 		"jdtls",
 		"sumneko_lua",
 		"pyright",
+		"ruby_ls",
 		"rust_analyzer",
 		"terraformls",
 		"tsserver",

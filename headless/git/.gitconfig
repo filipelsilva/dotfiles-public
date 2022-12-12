@@ -1,12 +1,3 @@
-[core]
-	autocrlf = input
-
-[help]
-	autocorrect = 30
-
-[init]
-	defaultBranch = main
-
 [alias]
 	ac = "!git add --all && git commit"
 	br = "branch"
@@ -21,6 +12,15 @@
 	st = "status"
 	tree = "log --graph --oneline --decorate --all"
 
+[core]
+	autocrlf = input
+
+[help]
+	autocorrect = 30
+
+[init]
+	defaultBranch = main
+
 [diff]
 	tool = vimdiff
 [difftool]
@@ -34,3 +34,6 @@
 	prompt = true
 [mergetool "vimdiff"]
 	cmd = vim -d "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
+
+[include]
+	path = .gitconfig.user

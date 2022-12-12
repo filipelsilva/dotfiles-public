@@ -15,6 +15,7 @@ chsh -s "$(command -v zsh)"
 # Tty font
 echo "FONT=ter-v32b" | sudo tee -a /etc/vconsole.conf
 
+# TLDR (tealdeer) auto update
 if [[ -x $(command -v tldr) ]]; then
 	mkdir -p "$HOME/.config/tealdeer"
 	{

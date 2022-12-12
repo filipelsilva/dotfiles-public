@@ -305,6 +305,7 @@ desktop_packages=( # {{{
 	libreoffice-still
 	barrier       # KVM
 	bless         # Hex editor
+	gpick         # Color picker
 	mypaint       # Drawing table
 	laptop-detect # Returns 0 if host is laptop, 1 otherwise
 ) # }}}
