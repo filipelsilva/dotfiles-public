@@ -94,6 +94,7 @@ packages=( # {{{
 	htop
 	sysstat
 	iftop
+	nvtop
 
 	# Python and related packages (some of them used for gdb/gef/pwndbg)
 	python
@@ -155,6 +156,7 @@ packages=( # {{{
 	time
 	hyperfine
 	strace
+	ltrace
 	perf
 	cargo-flamegraph
 
@@ -195,6 +197,7 @@ packages=( # {{{
 	pipe-rename    # Rename files in your $EDITOR
 	perl-rename    # Rename files using Perl regex
 	magic-wormhole # Send/Receive files
+	openssh        # SSH programs
 ) # }}}
 
 desktop_packages=( # {{{
@@ -263,6 +266,7 @@ desktop_packages=( # {{{
 	thunar
 	thunar-archive-plugin
 	thunar-volman
+	tumbler            # Thunar preview window
 	file-roller        # Archive manager for thunar
 	gvfs               # Enables things like trashing files in Thunar
 	ntfs-3g            # Support for NTFS drives

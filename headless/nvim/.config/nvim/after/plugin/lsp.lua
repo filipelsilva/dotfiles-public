@@ -37,6 +37,7 @@ mason_lspconfig.setup({
 		"clangd",
 		"dockerls",
 		"eslint",
+		"gopls",
 		"html",
 		"jdtls",
 		"sumneko_lua",

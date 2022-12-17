@@ -27,6 +27,13 @@ endif
 let g:vimsyn_embed="lmpPrt"
 let g:markdown_fenced_languages = ["bash", "zsh", "python", "lua", "go", "ruby", "perl"]
 
+" Netrw settings
+let g:netrw_banner = 1
+let g:netrw_browse_split = 0
+let g:netrw_keepdir = 0
+let g:netrw_liststyle = 1
+let g:netrw_winsize = 25
+
 " K under cursor uses :Man
 set keywordprg=:Man
 
@@ -173,9 +180,6 @@ augroup Vimrc
 	" Go to last edited position on open file
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype !~# "commit" | execute "normal! g'\"" | endif
 
-	" If window is resized, resize the splits within
-	autocmd VimResized * wincmd =
-
 	" Change formatoptions everywhere
 	autocmd FileType * setlocal formatoptions=tcqj
 
@@ -215,18 +219,8 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
-" Zoom and unzoom pane
-noremap <Leader>z <C-w>_<Bar><C-w>\|
-noremap <Leader>Z <C-w>=
-
-" Toggle numbers
-nnoremap <silent> <Leader>n <Cmd>set invnumber invrelativenumber<CR>
-
-" Toggle list
-nnoremap <silent> <Leader>l <Cmd>set invlist<CR>
-
-" Toggle spell
-nnoremap <silent> <Leader><Leader>l <Cmd>set invspell<CR>
+" Open netrw
+nnoremap <Leader>e <Cmd>Explore<CR>
 
 " Disable highlighting
 nnoremap <Leader>, <Cmd>nohlsearch<CR>
@@ -296,7 +290,7 @@ vnoremap . :normal .<CR>.
 noremap Q yyp!!$SHELL<CR>
 
 " Quickly edit the vimrc file
-nmap <silent> <Leader>e <Cmd>edit $MYVIMRC<CR>
+nmap <silent> <Leader>v <Cmd>edit $MYVIMRC<CR>
 
 " Shortcuts to use blackhole register
 nnoremap <Leader>d "_d
@@ -351,9 +345,8 @@ if executable("fzf")
 	endfunction
 
 	" Mappings
-	nnoremap <silent> <Leader>f <Cmd>Files<CR>
+	nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles")."\<CR>"
 	nnoremap <silent> <Leader>F <Cmd>Files $HOME<CR>
-	nnoremap <silent> <Leader>g <Cmd>GitFiles<CR>
 	if executable("rg")
 		nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 	endif
@@ -394,6 +387,12 @@ if !exists("g:no_vim_plugins")
 
 			" Comment stuff
 			call minpac#add("tpope/vim-commentary")
+
+			" Vim wrapper
+			call minpac#add("tpope/vim-fugitive")
+
+			" Undo tree
+			call minpac#add("mbbill/undotree")
 
 			" If fzf is installed, add companion commands
 			if executable("fzf")

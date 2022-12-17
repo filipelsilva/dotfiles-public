@@ -37,6 +37,12 @@ return packer.startup(function(use)
 	-- Comment stuff
 	use('tpope/vim-commentary')
 
+	-- Vim wrapper
+	use('tpope/vim-fugitive')
+
+	-- Undo tree
+	use("mbbill/undotree")
+
 	-- Fzf
 	use("junegunn/fzf.vim")
 
