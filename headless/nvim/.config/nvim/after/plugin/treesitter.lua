@@ -31,12 +31,18 @@ treesitter.setup({
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = false,
+		disable = {
+			"markdown"
+		},
 	},
 	incremental_selection = {
 		enable = true,
 	},
 	indent = {
 		enable = true,
+		disable = {
+			"python"
+		}
 	},
 	playground = {
 		enable = true,

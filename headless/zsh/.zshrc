@@ -235,6 +235,15 @@ zstyle ':completion:*:*:*:*:messages' format '-- %d --'
 zstyle ':completion:*:*:*:*:warnings' format '-- no matches found --'
 # }}}
 
+# Autojump {{{
+# (if zoxide is not installed, this is a good fallback)
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+zstyle ':completion:*' recent-dirs-insert always
+zstyle ':chpwd:*' recent-dirs-max 100000
+# }}}
+
 # Keybinds {{{
 autoload -Uz up-line-or-beginning-search
 autoload -Uz down-line-or-beginning-search

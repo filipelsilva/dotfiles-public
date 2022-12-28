@@ -119,11 +119,8 @@ endfor
 
 " CreateUndoBreakPoint {{{
 function! CreateUndoBreakPoint(char) abort
-	" This funcion creates a insert mode map with undo break points
 	execute "inoremap " . a:char . " " . a:char . "<C-g>u"
 endfunction
-
-command! -nargs=1 CreateUndoBreakPoint call CreateUndoBreakPoint(<f-args>)
 " }}}
 
 " CreateTextObject {{{
@@ -133,8 +130,6 @@ function! CreateTextObject(char) abort
 		execute mode . " <silent> a" . a:char . " :<C-u>normal! F" . a:char . "vf" . a:char . "<CR>"
 	endfor
 endfunction
-
-command! -nargs=1 CreateTextObject call CreateTextObject(<f-args>)
 " }}}
 
 " OSC52Yank {{{
@@ -184,7 +179,7 @@ augroup Vimrc
 	autocmd FileType * setlocal formatoptions=tcqj
 
 	" All gitconfig files with gitconfig filetype
-	autocmd BufNewFile,BufRead *gitconfig* setfile gitconfig
+	autocmd BufNewFile,BufRead *gitconfig* setfiletype gitconfig
 
 augroup END
 
@@ -290,7 +285,7 @@ vnoremap . :normal .<CR>.
 noremap Q yyp!!$SHELL<CR>
 
 " Quickly edit the vimrc file
-nmap <silent> <Leader>v <Cmd>edit $MYVIMRC<CR>
+nmap <Leader>v <Cmd>edit $MYVIMRC<CR>
 
 " Shortcuts to use blackhole register
 nnoremap <Leader>d "_d

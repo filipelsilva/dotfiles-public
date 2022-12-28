@@ -40,10 +40,10 @@ mason_lspconfig.setup({
 		"gopls",
 		"html",
 		"jdtls",
-		"sumneko_lua",
-		"pyright",
+		"jedi_language_server",
 		"ruby_ls",
 		"rust_analyzer",
+		"sumneko_lua",
 		"terraformls",
 		"tsserver",
 		"vimls"
