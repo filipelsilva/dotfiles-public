@@ -9,5 +9,12 @@ define init-gef
 source /usr/share/gef/gef.py
 end
 document init-gef
-GEF (GDB Enhanced Features)
+GEF
+end
+
+define init-peda
+source /usr/share/peda/peda.py
+end
+document init-peda
+Peda
 end

@@ -74,8 +74,6 @@ if not ok_signature then
 end
 
 signature.setup({
-	bind = true,
 	handler_opts = { border = "none" },
 	hint_enable = false,
-	padding = " ",
 })

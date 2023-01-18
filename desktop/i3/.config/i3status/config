@@ -34,7 +34,7 @@ cpu_usage {
 }
 
 memory {
-	format = "%used/%available"
+	format = "%used %available"
 }
 
 disk "/" {

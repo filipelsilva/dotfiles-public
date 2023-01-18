@@ -18,19 +18,19 @@ scrolling:
 
 font: # {{{
   normal:
-    family: Iosevka Term
+    family: iosevka-emoji
     style: Regular
 
   bold:
-    family: Iosevka Term
+    family: iosevka-emoji
     style: Bold
 
   italic:
-    family: Iosevka Term
+    family: iosevka-emoji
     style: Italic
 
   bold_italic:
-    family: Iosevka Term
+    family: iosevka-emoji
     style: Bold Italic
 
   size: 14.0

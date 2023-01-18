@@ -10,6 +10,7 @@ if [[ -z $DOTFILES_FULL ]]; then
 fi
 
 packages=( # {{{
+	bvi        # Vi-like hex editor
 	cht.sh-git # Cheat sheet
 	downgrade  # Downgrade packages
 	forgit-git # Git aliases with fzf

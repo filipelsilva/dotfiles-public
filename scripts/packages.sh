@@ -39,6 +39,11 @@ packages=( # {{{
 	# Find packages associated with program
 	pkgfile
 
+	# Calculators
+	bc
+	libqalculate
+	qalculate-qt
+
 	# Shells and respective completions
 	bash
 	bash-completion
@@ -53,6 +58,10 @@ packages=( # {{{
 	vi
 	gvim # why gvim and not vim? Clipboard support
 	neovim
+
+	# Pagers
+	less
+	lesspipe
 
 	# Terminal multiplexer
 	screen
@@ -92,6 +101,7 @@ packages=( # {{{
 	# System monitoring
 	procps-ng
 	htop
+	bottom
 	sysstat
 	iftop
 	nvtop
@@ -101,6 +111,7 @@ packages=( # {{{
 	python-pip
 	pypy
 	pypy3
+	python-black
 	python-pwntools
 	python-pyperclip
 	python-pynvim
@@ -112,6 +123,7 @@ packages=( # {{{
 	gcc
 	gdb
 	gef
+	peda
 	pwndbg
 	indent
 	valgrind
@@ -171,6 +183,7 @@ packages=( # {{{
 	duf
 	dust
 	diskus
+	ncdu
 
 	# Information fetchers
 	neofetch
@@ -181,7 +194,6 @@ packages=( # {{{
 
 	# Other packages
 	hq             # Like jq, but for HTML (parsing)
-	bc             # Calculator
 	parallel       # Xargs alternative
 	entr           # Run commands when files change
 	rlwrap         # Readline wrapper
@@ -311,6 +323,7 @@ desktop_packages=( # {{{
 	bless         # Hex editor
 	gpick         # Color picker
 	mypaint       # Drawing table
+	scrcpy        # Android screen mirroring and control
 	laptop-detect # Returns 0 if host is laptop, 1 otherwise
 ) # }}}
 

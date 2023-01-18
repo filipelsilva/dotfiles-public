@@ -20,7 +20,7 @@ if (( $+commands[java] )); then
 	PATH="$PATH:$JAVA_HOME/bin"
 fi
 
-if (( $+commands[bat] )); then
+if (( $+commands[gem] )); then
 	export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 	export PATH="$PATH:$GEM_HOME/bin"
 fi
@@ -48,6 +48,9 @@ export DISTRONAME=$(cat /etc/os-release | grep "NAME" | head -n 1 | cut -d'=' -f
 
 # Terminal environment variable
 (( $+commands[alacritty] )) && export TERMINAL="alacritty"
+
+# Lesspipe
+(( $+commands[lesspipe.sh] )) && eval "$(lesspipe.sh)"
 
 # Bat settings
 if (( $+commands[bat] )); then
@@ -89,16 +92,17 @@ alias zshconfig="$EDITOR $HOME/.zshrc && zshsource"
 # Git configuration
 alias gitconfig="$EDITOR $HOME/.gitconfig"
 
+# GDB aliases
+if [[ -f $HOME/.gdbinit ]]; then
+	alias gef="gdb -quiet -ex init-gef"
+	alias peda="gdb -quiet -ex init-peda"
+	alias pwndbg="gdb -quiet -ex init-pwndbg"
+fi
+
 # i3 configuration and reload
 if (( $+commands[i3] )); then
 	alias i3source="i3-msg restart"
 	alias i3config="$EDITOR $HOME/.config/i3/config && i3source"
-fi
-
-# GDB aliases
-if [[ -f $HOME/.gdbinit ]]; then
-	alias pwndbg="gdb -quiet -ex init-pwndbg"
-	alias gef="gdb -quiet -ex init-gef"
 fi
 # }}}
 

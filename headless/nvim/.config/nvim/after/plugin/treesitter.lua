@@ -30,19 +30,16 @@ treesitter.setup({
 	sync_install = true,
 	highlight = {
 		enable = true,
-		additional_vim_regex_highlighting = false,
 		disable = {
 			"markdown"
 		},
+		additional_vim_regex_highlighting = false,
 	},
 	incremental_selection = {
 		enable = true,
 	},
 	indent = {
-		enable = true,
-		disable = {
-			"python"
-		}
+		enable = false,
 	},
 	playground = {
 		enable = true,

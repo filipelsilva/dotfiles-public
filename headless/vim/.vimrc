@@ -12,9 +12,6 @@ set updatetime=100 ttimeoutlen=0 mouse=a
 
 if !has("nvim")
 
-	" Set mouse mode
-	set ttymouse=xterm2
-
 	" Enable matchit (extends the use of %)
 	runtime! macros/matchit.vim
 
@@ -216,6 +213,12 @@ nnoremap <C-l> <C-w><C-l>
 
 " Open netrw
 nnoremap <Leader>e <Cmd>Explore<CR>
+
+" Toggle list mode (see tabs, trailing spaces, et cetera)
+nnoremap <Leader>l <Cmd>set invlist<CR>
+
+" Toggle spell
+nnoremap <Leader><Leader>l <Cmd>set invspell<CR>
 
 " Disable highlighting
 nnoremap <Leader>, <Cmd>nohlsearch<CR>
