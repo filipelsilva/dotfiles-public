@@ -1,6 +1,6 @@
 [alias]
-	ac = "!git add --all && git commit"
-	br = "branch"
+	ac = "!git add --all && git commit --verbose --verbose"
+	br = "branch --all --verbose --verbose"
 	cm = "commit"
 	co = "checkout"
 	df = "diff"
@@ -15,11 +15,22 @@
 [core]
 	autocrlf = input
 
+[pager]
+	log =  diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+
 [help]
 	autocorrect = 30
 
 [init]
 	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[rerere]
+	enabled = true
 
 [diff]
 	colorMoved = zebra

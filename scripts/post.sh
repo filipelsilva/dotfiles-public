@@ -9,6 +9,9 @@ if [[ -z $DOTFILES_FULL ]]; then
 	parse_arguments "$@"
 fi
 
+# Add some Git extra commands
+./scripts/git-extra.sh
+
 # Set default shell
 chsh -s "$(command -v zsh)"
 
