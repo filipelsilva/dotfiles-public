@@ -266,9 +266,8 @@ desktop_packages=( # {{{
 	kid3-common
 	playerctl
 	obs-studio
-	spotify-launcher # Spotify install in home folder
-	streamlink       # Pipe streams into a video player
-	pavucontrol      # Control audio sources/sinks
+	streamlink  # Pipe streams into a video player
+	pavucontrol # Control audio sources/sinks
 
 	# Torrent management
 	transmission-cli
@@ -337,6 +336,8 @@ desktop_packages=( # {{{
 	discord
 	texlive-most
 	libreoffice-still
+	tigervnc      # VNC server/client
+	remmina       # Remote desktop client
 	barrier       # KVM
 	bless         # Hex editor
 	gpick         # Color picker

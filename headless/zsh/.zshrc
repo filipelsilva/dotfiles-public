@@ -74,16 +74,16 @@ fi
 
 # Ls aliases
 # alias ls="ls --color"
-alias l="ls -lh"
-alias la="ls -lha"
-alias lr="ls -lhR"
-alias lx="ls -lhaFis"
+alias l="ls -l --human-readable"
+alias la="ls -l --human-readable --all"
+alias lr="ls -l --human-readable --recursive"
+alias lx="ls -l --human-readable --all --classify --inode --size"
 
 # Ssh with xterm, for compatibility
 alias ssh="TERM=xterm-256color ssh"
 
 # Search for processes
-alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias psgrep="ps aux | grep --invert-match grep | grep --ignore-case --regexp VSZ --regexp "
 
 # Zsh configuration and reload
 alias zshsource="source $HOME/.zshrc && echo 'sourced zshrc'"
@@ -94,9 +94,9 @@ alias gitconfig="git config --global --edit"
 
 # GDB aliases
 if [[ -f $HOME/.gdbinit ]]; then
-	alias gef="gdb -quiet -ex init-gef"
-	alias peda="gdb -quiet -ex init-peda"
-	alias pwndbg="gdb -quiet -ex init-pwndbg"
+	alias gef="gdb --silent --eval-command init-gef"
+	alias peda="gdb --silent --eval-command init-peda"
+	alias pwndbg="gdb --silent --eval-command init-pwndbg"
 fi
 
 # i3 configuration and reload

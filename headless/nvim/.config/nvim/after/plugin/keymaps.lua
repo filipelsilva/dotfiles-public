@@ -22,20 +22,9 @@ vim.keymap.set("n", "<Leader>f", function()
 	end
 end, opts)
 
-vim.keymap.set("n", "<Leader>F", function()
-	telescope_builtin.find_files({
-		cwd = "$HOME",
-	})
-end, opts)
-
 vim.keymap.set("n", "<Leader>r", function()
 	telescope_builtin.live_grep({
-		glob_pattern = {
-			"!*.git",
-			"!*.hg" ,
-			"!*.svn",
-			"!*CVS"
-		}
+		glob_pattern = { "!*.git", "!*.hg" , "!*.svn", "!*CVS" }
 	})
 end, opts)
 

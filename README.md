@@ -142,7 +142,7 @@ piggybacks on the vimrc described above, and adds many plugins, in order to
 leverage Neovim's LSP capabilities. I include a colorscheme as well (Gruvbox
 really is the best), and `fzf` is joined by Telescope, which is Neovim only and
 also works really well (warning: it is slower with large folders, e.g. your home
-folder). The plugins are manager using packer.nvim instead of minpac (a variable
+folder). The plugins are managed using lazy.nvim instead of minpac (a variable
 is declared before sourcing .vimrc to stop minpac from installing itself on
 Neovim).
 

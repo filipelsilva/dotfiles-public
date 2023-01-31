@@ -344,7 +344,6 @@ if executable("fzf")
 
 	" Mappings
 	nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles")."\<CR>"
-	nnoremap <silent> <Leader>F <Cmd>Files $HOME<CR>
 	if executable("rg")
 		nnoremap <silent> <Leader>r <Cmd>Rg<CR>
 	endif
