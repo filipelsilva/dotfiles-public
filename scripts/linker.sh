@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles" || exit

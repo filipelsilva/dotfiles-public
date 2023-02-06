@@ -41,6 +41,7 @@ mason_lspconfig.setup({
 		"html",
 		"jdtls",
 		"jedi_language_server",
+		"rnix",
 		"ruby_ls",
 		"rust_analyzer",
 		"sumneko_lua",

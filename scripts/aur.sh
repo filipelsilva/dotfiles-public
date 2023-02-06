@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles" || exit
@@ -11,6 +11,7 @@ fi
 
 packages=( # {{{
 	bvi        # Vi-like hex editor
+	pup        # Like jq, but for HTML (parsing)
 	cht.sh-git # Cheat sheet
 	downgrade  # Downgrade packages
 	forgit-git # Git aliases with fzf
@@ -26,6 +27,7 @@ desktop_packages=( # {{{
 	diff-pdf
 
 	# Other packages
+	zoom
 	visual-studio-code-bin
 	onedrive-abraunegg     # OneDrive client
 	ventoy-bin             # Make multiboot USB drives

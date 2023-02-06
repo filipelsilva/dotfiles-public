@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function parse_arguments() {
 	while getopts "f" opt; do

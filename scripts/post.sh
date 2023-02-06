@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles" || exit
@@ -8,9 +8,6 @@ if [[ -z $DOTFILES_FULL ]]; then
 	source scripts/argparse.sh
 	parse_arguments "$@"
 fi
-
-# Add some Git extra commands
-./scripts/git-extra.sh
 
 # Set default shell
 chsh -s "$(command -v zsh)"

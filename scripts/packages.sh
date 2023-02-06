@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ "$(basename "$PWD")" != "dotfiles" ]]; then
 	cd "$HOME/dotfiles" || exit
@@ -209,7 +209,6 @@ packages=( # {{{
 	terminus-font
 
 	# Other packages
-	hq             # Like jq, but for HTML (parsing)
 	ctop           # Top for containers
 	parallel       # Xargs alternative
 	entr           # Run commands when files change
@@ -266,8 +265,9 @@ desktop_packages=( # {{{
 	kid3-common
 	playerctl
 	obs-studio
-	streamlink  # Pipe streams into a video player
-	pavucontrol # Control audio sources/sinks
+	spotify-launcher # Spotify install in home folder
+	streamlink       # Pipe streams into a video player
+	pavucontrol      # Control audio sources/sinks
 
 	# Torrent management
 	transmission-cli
