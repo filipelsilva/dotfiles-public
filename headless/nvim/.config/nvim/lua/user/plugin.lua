@@ -42,7 +42,15 @@ lazy.setup({
 	"mbbill/undotree",
 
 	-- Fzf
-	"junegunn/fzf.vim",
+	{
+		"junegunn/fzf.vim",
+		dependencies = {
+			{
+				"junegunn/fzf",
+				build = ":call fzf#install()"
+			}
+		}
+	},
 
 	-- Colorscheme
 	"gruvbox-community/gruvbox",

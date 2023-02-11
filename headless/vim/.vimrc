@@ -392,9 +392,8 @@ if !exists("g:no_vim_plugins")
 			call minpac#add("mbbill/undotree")
 
 			" If fzf is installed, add companion commands
-			if executable("fzf")
-				call minpac#add("junegunn/fzf.vim")
-			endif
+			call minpac#add("junegunn/fzf", { "do": "call fzf#install()" })
+			call minpac#add("junegunn/fzf.vim")
 		endfunction
 
 		command! PackUpdate call PackInit() | call minpac#update()

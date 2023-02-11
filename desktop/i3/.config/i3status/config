@@ -35,6 +35,8 @@ cpu_usage {
 
 memory {
 	format = "%used %available"
+	threshold_degraded = "1G"
+	format_degraded = "%used %available"
 }
 
 disk "/" {
@@ -49,12 +51,12 @@ battery all {
 
 wireless _first_ {
 	format_up = "%ip (\"%essid\" %bitrate)"
-	format_down = ""
+	format_down = "W down"
 }
 
 ethernet _first_ {
 	format_up = "%ip (%speed)"
-	format_down = ""
+	format_down = "E down"
 }
 
 tztime local {

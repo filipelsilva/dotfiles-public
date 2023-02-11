@@ -31,9 +31,6 @@ packages=( # {{{
 	moreutils
 	pciutils
 
-	# Find filenames quickly
-	mlocate
-
 	# Pacman scripts
 	pacman-contrib
 
@@ -43,7 +40,6 @@ packages=( # {{{
 	# Calculators
 	bc
 	libqalculate
-	qalculate-qt
 
 	# Shells and respective completions
 	bash
@@ -111,7 +107,6 @@ packages=( # {{{
 	dnsutils
 	tcpdump
 	bind
-	dog
 
 	# System monitoring
 	procps-ng
@@ -209,6 +204,8 @@ packages=( # {{{
 	terminus-font
 
 	# Other packages
+	file           # Get type of file
+	plocate        # Find filenames quickly
 	ctop           # Top for containers
 	parallel       # Xargs alternative
 	entr           # Run commands when files change
@@ -336,6 +333,7 @@ desktop_packages=( # {{{
 	discord
 	texlive-most
 	libreoffice-still
+	qalculate-qt
 	tigervnc      # VNC server/client
 	remmina       # Remote desktop client
 	barrier       # KVM
