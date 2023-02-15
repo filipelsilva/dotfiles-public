@@ -41,10 +41,10 @@ mason_lspconfig.setup({
 		"html",
 		"jdtls",
 		"jedi_language_server",
+		"lua_ls",
 		"rnix",
 		"ruby_ls",
 		"rust_analyzer",
-		"sumneko_lua",
 		"terraformls",
 		"texlab",
 		"tsserver",
@@ -59,8 +59,8 @@ mason_lspconfig.setup_handlers({
 			capabilities = custom_capabilities,
 		})
 	end,
-	["sumneko_lua"] = function()
-		lspconfig.sumneko_lua.setup({
+	["lua_ls"] = function()
+		lspconfig.lua_ls.setup({
 			on_attach = custom_on_attach,
 			capabilities = custom_capabilities,
 			settings = { Lua = { diagnostics = { globals = { "vim" } } } }

@@ -326,10 +326,18 @@ function x() {
 
 # Fzf {{{
 if (( $+commands[fzf] )); then
-	local FZF_KEYBINDS="/usr/share/fzf/key-bindings.zsh"
-	local FZF_COMPLETION="/usr/share/fzf/completion.zsh"
-	[[ -f $FZF_KEYBINDS ]] && source $FZF_KEYBINDS
-	[[ -f $FZF_COMPLETION ]] && source $FZF_COMPLETION
+	case "$DISTRONAME" in
+		"NixOS")
+			local FZF_KEYBINDS="$(fzf-share)/key-bindings.zsh"
+			local FZF_COMPLETION="$(fzf-share)/completion.zsh"
+			;;
+		"Arch Linux")
+			local FZF_KEYBINDS="/usr/share/fzf/key-bindings.zsh"
+			local FZF_COMPLETION="/usr/share/fzf/completion.zsh"
+			;;
+	esac
+	[[ -n $FZF_KEYBINDS ]] && source $FZF_KEYBINDS
+	[[ -n $FZF_COMPLETION ]] && source $FZF_COMPLETION
 
 	# Stop fzf completion trigger from colliding with zsh glob operator
 	export FZF_COMPLETION_TRIGGER=",,"
@@ -385,8 +393,15 @@ fi
 # }}}
 
 # Plugins {{{
-export FORGIT_PLUGIN="/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh"
-[[ -f $FORGIT_PLUGIN ]] && source "$FORGIT_PLUGIN"
+case "$DISTRONAME" in
+	"NixOS")
+		export FORGIT_PLUGIN="$HOME/.zsh/plugins/forgit/forgit.plugin.zsh"
+		;;
+	"Arch Linux")
+		export FORGIT_PLUGIN="/usr/share/zsh/plugins/forgit-git/forgit.plugin.zsh"
+		;;
+esac
+[[ -n $FORGIT_PLUGIN ]] && source "$FORGIT_PLUGIN"
 
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh --cmd j)"
 # }}}
