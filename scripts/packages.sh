@@ -40,6 +40,7 @@ packages=( # {{{
 	# Calculators
 	bc
 	libqalculate
+	octave
 
 	# Shells and respective completions
 	bash
@@ -200,6 +201,14 @@ packages=( # {{{
 	neofetch
 	onefetch
 
+	# Run commands when files change
+	entr
+	watchexec
+
+	# Send/Receive files
+	magic-wormhole
+	croc
+
 	# Fonts
 	terminus-font
 
@@ -208,7 +217,6 @@ packages=( # {{{
 	plocate        # Find filenames quickly
 	ctop           # Top for containers
 	parallel       # Xargs alternative
-	entr           # Run commands when files change
 	gping          # Ping, but with a graph
 	rlwrap         # Readline wrapper
 	bat            # Cat with syntax highlighting
@@ -222,8 +230,9 @@ packages=( # {{{
 	tree           # List files in tree format
 	pipe-rename    # Rename files in your $EDITOR
 	perl-rename    # Rename files using Perl regex
-	magic-wormhole # Send/Receive files
 	openssh        # SSH programs
+	zbar           # Bar code reader
+	qrencode       # Generate QR codes
 ) # }}}
 
 desktop_packages=( # {{{

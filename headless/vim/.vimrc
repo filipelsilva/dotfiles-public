@@ -49,7 +49,7 @@ set backspace=indent,eol,start
 
 " Text formatting settings
 set autoindent copyindent shiftround smarttab breakindent nofixendofline
-set noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
+set noexpandtab tabstop=8 softtabstop=8 shiftwidth=8
 
 " Visual settings
 set ruler showcmd linebreak wrap number relativenumber
@@ -392,7 +392,7 @@ if !exists("g:no_vim_plugins")
 			call minpac#add("mbbill/undotree")
 
 			" If fzf is installed, add companion commands
-			call minpac#add("junegunn/fzf", { "do": "call fzf#install()" })
+			call minpac#add("junegunn/fzf", { "do": { -> fzf#install() } })
 			call minpac#add("junegunn/fzf.vim")
 		endfunction
 
