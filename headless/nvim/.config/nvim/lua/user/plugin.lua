@@ -52,6 +52,9 @@ lazy.setup({
 		}
 	},
 
+	-- REPL integration
+	"jpalardy/vim-slime",
+
 	-- Colorscheme
 	"gruvbox-community/gruvbox",
 

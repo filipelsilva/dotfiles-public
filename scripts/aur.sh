@@ -34,6 +34,7 @@ desktop_packages=( # {{{
 	dragon-drop            # Drag-and-drop source/sink
 	spek                   # Audio inspector
 	openasar-git           # Make Discord faster
+	uxplay-git             # AirPlay server
 
 	# Fonts
 	ttf-ms-win10-auto

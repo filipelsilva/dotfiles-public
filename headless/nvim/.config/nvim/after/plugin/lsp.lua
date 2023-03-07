@@ -33,6 +33,7 @@ mason.setup()
 -- Setup mason with lspconfig
 mason_lspconfig.setup({
 	ensure_installed = {
+		"asm_lsp",
 		"bashls",
 		"clangd",
 		"dockerls",
@@ -40,8 +41,8 @@ mason_lspconfig.setup({
 		"gopls",
 		"html",
 		"jdtls",
-		"jedi_language_server",
 		"lua_ls",
+		"pyright",
 		"rnix",
 		"ruby_ls",
 		"rust_analyzer",
