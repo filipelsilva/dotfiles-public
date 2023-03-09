@@ -11,10 +11,27 @@ local custom_on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	local opts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-	vim.keymap.set("n", "<Leader>a", function() vim.lsp.buf.code_action() end, opts)
-	vim.keymap.set("n", "<Leader>k", function() vim.lsp.buf.hover() end, opts)
-	vim.keymap.set("n", "<Leader>s", function() vim.lsp.buf.rename() end, opts)
+
+	if client.server_capabilities.goto_definition then
+		vim.keymap.set("n", "gd", function()
+			vim.lsp.buf.definition()
+		end, opts)
+	end
+	if client.server_capabilities.code_action then
+		vim.keymap.set("n", "<Leader>a", function()
+			vim.lsp.buf.code_action()
+		end, opts)
+	end
+	if client.server_capabilities.hover then
+		vim.keymap.set("n", "<Leader>k", function()
+			vim.lsp.buf.hover()
+		end, opts)
+	end
+	if client.server_capabilities.rename then
+		vim.keymap.set("n", "<Leader>r", function()
+			vim.lsp.buf.rename()
+		end, opts)
+	end
 	vim.keymap.set("n", "[e", function() vim.diagnostic.goto_prev() end, opts)
 	vim.keymap.set("n", "]e", function() vim.diagnostic.goto_next() end, opts)
 end

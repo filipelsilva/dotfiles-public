@@ -229,7 +229,10 @@ inoremap <C-^> <Esc><C-^>
 " Reselect pasted text
 nnoremap gV `[v`]
 
-" Create quickfix list with searched word
+" Quickly replace word under the cursor
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
+
+" Create quickfix list with word under the cursor
 nnoremap <Leader>q <Cmd>grep! <cword><CR>
 vnoremap <Leader>q "zy<Esc>:grep! <C-r>z<CR>
 
@@ -334,9 +337,10 @@ endif
 " }}}
 
 " Plugins {{{
+let s:plugin_folder = substitute(&packpath, ",.*", "", "")
+let s:plugin_folder .= "/pack/minpac/opt/minpac"
+
 if !exists("g:no_vim_plugins")
-	let s:plugin_folder = substitute(&packpath, ",.*", "", "")
-	let s:plugin_folder .= "/pack/minpac/opt/minpac"
 	if empty(glob(s:plugin_folder))
 		call system("git clone https://github.com/k-takata/minpac " . s:plugin_folder)
 		autocmd VimEnter * silent! source $MYVIMRC | PackUpdate
@@ -378,23 +382,21 @@ if !exists("g:no_vim_plugins")
 	endif
 endif
 
-" Fzf
-if executable("fzf")
-	" Create quickfix list out of selected files
+" Plugin configurations for Neovim and Vim with minpac
+if exists("g:no_vim_plugins") || ! empty(glob(s:plugin_folder))
+	" Fzf
 	function! s:build_quickfix_list(lines)
 		call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
 		copen
 		cc
 	endfunction
 
-	" Mappings
 	nnoremap <silent> <expr> <Leader>f (len(system("git rev-parse")) ? ":Files" : ":GFiles")."\<CR>"
 	if executable("rg")
-		nnoremap <silent> <Leader>r <Cmd>Rg<CR>
+		nnoremap <silent> <Leader>g <Cmd>Rg<CR>
 	endif
 	nnoremap <silent> <Leader>j <Cmd>Buffers<CR>
 
-	" Settings
 	let g:fzf_action = {
 		\ "alt-q": function("s:build_quickfix_list"),
 		\ "ctrl-t": "tab split",
@@ -402,14 +404,21 @@ if executable("fzf")
 		\ "ctrl-v": "vsplit" }
 	let g:fzf_buffers_jump = 1
 	let g:fzf_layout = { "window": { "width": 0.80, "height": 0.90 } }
-endif
 
-" Vim-slime
-if !has("nvim")
-	let g:slime_target = "vimterminal"
-else
-	let g:slime_target = "tmux"
-	let g:slime_paste_file = tempname()
-	let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": "{last}"}
+	" Vim-slime
+	let g:slime_no_mappings = 1
+	xmap <Leader>s <Plug>SlimeRegionSend
+	nmap <Leader>s <Plug>SlimeParagraphSend
+
+	if !has("nvim")
+		let g:slime_target = "vimterminal"
+	else
+		let g:slime_target = "tmux"
+		let g:slime_paste_file = tempname()
+		let g:slime_dont_ask_default = 1
+		let g:slime_default_config = {
+			\ "socket_name": get(split($TMUX, ","), 0),
+			\ "target_pane": "{last}" }
+	endif
 endif
 " }}}
