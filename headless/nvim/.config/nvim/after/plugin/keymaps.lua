@@ -22,14 +22,10 @@ vim.keymap.set("n", "<Leader>f", function()
 	end
 end, opts)
 
-vim.keymap.set("n", "<Leader>g", function()
+vim.keymap.set("n", "<Leader>j", function()
 	telescope_builtin.live_grep({
 		glob_pattern = { "!*.git", "!*.hg" , "!*.svn", "!*CVS" }
 	})
-end, opts)
-
-vim.keymap.set("n", "<Leader>j", function()
-	telescope_builtin.buffers()
 end, opts)
 
 -- Edit nvim configuration files
