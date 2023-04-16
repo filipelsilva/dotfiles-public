@@ -123,7 +123,7 @@ local PROMPT_ERROR_HANDLING="%(?..%F{9}%?%f )"
 local PROMPT_SELECTOR=3
 case "$PROMPT_SELECTOR" in
 	1)
-		local PROMPT_INFO="%n@%m:%1~%#"
+		local PROMPT_INFO="%n@%m:%~%#"
 		;;
 	2)
 		local PROMPT_INFO="%m%S%n%s%1~ %#"

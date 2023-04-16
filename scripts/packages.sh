@@ -108,6 +108,7 @@ packages=( # {{{
 	dnsutils
 	tcpdump
 	bind
+	whois
 
 	# System monitoring
 	procps-ng
@@ -343,6 +344,7 @@ desktop_packages=( # {{{
 	texlive-most
 	libreoffice-still
 	qalculate-qt
+	gparted
 	tigervnc      # VNC server/client
 	remmina       # Remote desktop client
 	barrier       # KVM
