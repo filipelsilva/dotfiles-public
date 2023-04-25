@@ -5,24 +5,34 @@ typeset -U PATH
 
 if (( $+commands[python] )); then
 	export PYTHONDONTWRITEBYTECODE=1
-	PATH="$PATH:$HOME/.local/bin"
+	local pathAdd="$HOME/.local/bin"
+	[[ -d $pathAdd ]] && PATH="$PATH:$pathAdd"
 fi
 
 (( $+commands[cargo] )) && PATH="$PATH:$HOME/.cargo/bin"
 
 if (( $+commands[go] )); then
-	export GOPATH="$HOME/.go"
-	PATH="$PATH:$GOPATH/bin"
+	local pathAdd="$HOME/.go"
+	if [[ -d $pathAdd ]]; then
+		export GOPATH=$pathAdd
+		PATH="$PATH:$GOPATH/bin"
+	fi
 fi
 
 if (( $+commands[java] )); then
-	export JAVA_HOME="/usr/lib/jvm/default"
-	PATH="$PATH:$JAVA_HOME/bin"
+	local pathAdd="/usr/lib/jvm/default"
+	if [[ -d $pathAdd ]]; then
+		export JAVA_HOME=$pathAdd
+		PATH="$PATH:$JAVA_HOME/bin"
+	fi
 fi
 
 if (( $+commands[gem] )); then
-	export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-	export PATH="$PATH:$GEM_HOME/bin"
+	local pathAdd="$(ruby -e 'puts Gem.user_dir')"
+	if [[ -d $pathAdd ]]; then
+		export GEM_HOME=$pathAdd
+		export PATH="$PATH:$GEM_HOME/bin"
+	fi
 fi
 # }}}
 

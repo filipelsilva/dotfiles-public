@@ -20,52 +20,24 @@ local custom_on_attach = function(client, bufnr)
 	vim.keymap.set("n", "]e", function() vim.diagnostic.goto_next() end, opts)
 end
 
--- Load mason
-local ok_mason, mason = pcall(require, "mason")
-local ok_mason_lspconfig, mason_lspconfig = pcall(require, "mason-lspconfig")
-local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+local ok, lazylsp = pcall(require, "lazy-lsp")
 
-if not ok_mason or not ok_mason_lspconfig or not ok_lspconfig then
+if not ok then
 	return
 end
 
-mason.setup()
-
--- Setup mason with lspconfig
-mason_lspconfig.setup({
-	ensure_installed = {
-		"asm_lsp",
-		"bashls",
-		"clangd",
-		"dockerls",
-		"eslint",
-		"gopls",
-		"html",
-		"jdtls",
-		"lua_ls",
-		"pyright",
-		"rnix",
-		"ruby_ls",
-		"rust_analyzer",
-		"terraformls",
-		"texlab",
-		"tsserver",
-		"vimls"
-	}
-})
-
-mason_lspconfig.setup_handlers({
-	function(server_name) -- Default handler
-		lspconfig[server_name].setup({
-			on_attach = custom_on_attach,
-			capabilities = custom_capabilities,
-		})
-	end,
-	["lua_ls"] = function()
-		lspconfig.lua_ls.setup({
-			on_attach = custom_on_attach,
-			capabilities = custom_capabilities,
+lazylsp.setup({
+	excluded_servers = {
+		"sqls",
+	},
+	default_config = {
+		flags = {},
+		on_attach = custom_on_attach,
+		capabilities = custom_capabilities,
+	},
+	configs = {
+		lua_ls = {
 			settings = { Lua = { diagnostics = { globals = { "vim" } } } }
-		})
-	end,
+		},
+	},
 })

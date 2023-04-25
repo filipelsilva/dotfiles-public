@@ -280,10 +280,6 @@ for char in [".", ",", ";", ":", "/", "\\", "-", "_", "@", "+", "-", "=", "`"]
 	call CreateTextObject(char)
 endfor
 
-" Move blocks of code
-vnoremap <C-j> :move '>+1<CR>gv=gv
-vnoremap <C-k> :move '<-2<CR>gv=gv
-
 " Make . to work with visually selected lines
 vnoremap . :normal .<CR>.
 
@@ -362,8 +358,14 @@ if !exists("g:no_vim_plugins")
 			" Comment stuff
 			call minpac#add("tpope/vim-commentary")
 
-			" Vim wrapper
+			" Git wrapper
 			call minpac#add("tpope/vim-fugitive")
+
+			" Vim session wrapper
+			call minpac#add("tpope/vim-obsession")
+
+			" Navigate between vim/neovim and tmux
+			call minpac#add("christoomey/vim-tmux-navigator")
 
 			" Undo tree
 			call minpac#add("mbbill/undotree")

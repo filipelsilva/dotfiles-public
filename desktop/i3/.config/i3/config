@@ -11,46 +11,6 @@ set $rofi_options -theme gruvbox-dark-hard -font "Iosevka 14"
 
 # }}}
 
-# System startup and other configs {{{
-
-# Authentication agent
-exec_always --no-startup-id lxpolkit
-
-# Detect monitors
-exec_always --no-startup-id autorandr --change --skip-options crtc
-
-# Apply wallpaper (feh --bg-fill <wallpaper>)
-exec_always --no-startup-id "$HOME/.fehbg"
-
-# Xresources
-exec_always --no-startup-id xrdb -merge -I$HOME ~/.Xresources
-
-# Redshift (f.lux alike)
-exec_always --no-startup-id pkill -9 redshift; redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
-
-# Keyboard layout
-exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps
-
-# Optimus-manager
-exec --no-startup-id optimus-manager-qt
-
-# Disable suspension
-exec --no-startup-id xset s off && xset -b -dpms
-
-# Lock screen
-exec --no-startup-id xss-lock -- i3lock
-
-# NetworkManager
-exec --no-startup-id nm-applet
-
-# Bluetooth
-exec --no-startup-id blueman-applet
-
-# Media controls
-exec --no-startup-id playerctld daemon
-
-# }}}
-
 # Keybinds and settings {{{
 
 # Modifier key

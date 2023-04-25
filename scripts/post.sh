@@ -29,8 +29,22 @@ if [[ -n $DOTFILES_FULL ]]; then
 	# Create user directories
 	xdg-user-dirs-update
 
-	# Create xinitrc file
+	# Create xinitrc file # TODO this is untested
 	echo "#!/bin/sh" >> "$HOME/.xinitrc"
+	{
+		echo "autorandr --change --skip-options crtc"
+		echo "./$HOME/.fehbg"
+		echo "xrdb -merge -I$HOME ~/.Xresources"
+		echo "xset s off && xset -b -dpms"
+		echo "setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps"
+		echo "lxpolkit &"
+		echo "pkill -9 redshift; redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//') &"
+		echo "optimus-manager-qt &"
+		echo "xss-lock -- i3lock &"
+		echo "nm-applet &"
+		echo "blueman-applet &"
+		echo "playerctld daemon &"
+	} >> "$HOME/.xinitrc"
 	if [[ -f /usr/bin/prime-offload ]]; then
 		{
 			echo "/usr/bin/prime-offload"

@@ -35,11 +35,17 @@ lazy.setup({
 	-- Comment stuff
 	"tpope/vim-commentary",
 
-	-- Vim wrapper
+	-- Git wrapper
 	"tpope/vim-fugitive",
+
+	-- Vim session wrapper
+	"tpope/vim-obsession",
 
 	-- Undo tree
 	"mbbill/undotree",
+
+	-- Navigate between vim/neovim and tmux
+	"christoomey/vim-tmux-navigator",
 
 	-- Fzf
 	{
@@ -73,15 +79,9 @@ lazy.setup({
 
 	-- LSP
 	{
-		"neovim/nvim-lspconfig",
+		"dundalek/lazy-lsp.nvim",
 		dependencies = {
-			-- Auto installer
-			{
-				"williamboman/mason.nvim",
-				dependencies = {
-					"williamboman/mason-lspconfig.nvim",
-				}
-			},
+			"neovim/nvim-lspconfig"
 		}
 	},
 
@@ -96,7 +96,8 @@ lazy.setup({
 			"hrsh7th/cmp-nvim-lua",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path"
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-git"
 		}
 	},
 
