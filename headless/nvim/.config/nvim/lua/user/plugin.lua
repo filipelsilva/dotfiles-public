@@ -81,7 +81,8 @@ lazy.setup({
 	{
 		"dundalek/lazy-lsp.nvim",
 		dependencies = {
-			"neovim/nvim-lspconfig"
+			"neovim/nvim-lspconfig",
+			"whonore/Coqtail"
 		}
 	},
 

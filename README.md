@@ -131,7 +131,7 @@ runtimepath, if the system has `git` (well, if it hadn't, the probability you
 were reading this was quite low anyway). This is used to install the plugins
 described in the paragraph above).
 
-### init.lua
+### init.vim
 
 This is the part of the config that I don't consider very portable. It
 piggybacks on the vimrc described above, and adds many plugins, in order to

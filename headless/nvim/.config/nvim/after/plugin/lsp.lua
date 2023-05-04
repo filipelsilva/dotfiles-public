@@ -20,6 +20,7 @@ local custom_on_attach = function(client, bufnr)
 	vim.keymap.set("n", "]e", function() vim.diagnostic.goto_next() end, opts)
 end
 
+-- Lazy lsp: uses nix-shell to spawn LSPs
 local ok, lazylsp = pcall(require, "lazy-lsp")
 
 if not ok then
@@ -29,6 +30,10 @@ end
 lazylsp.setup({
 	excluded_servers = {
 		"sqls",
+	},
+	preferred_servers = {
+		c = { "clangd" },
+		cpp = { "clangd" },
 	},
 	default_config = {
 		flags = {},
@@ -41,3 +46,7 @@ lazylsp.setup({
 		},
 	},
 })
+
+-- Coq configuration
+vim.g.coqtail_nomap = 1
+vim.g.coqtail_noimap = 1

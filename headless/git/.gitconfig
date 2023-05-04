@@ -1,7 +1,8 @@
 [alias]
-	ac = "!git add --all && git commit --verbose --verbose"
-	br = "branch --verbose --verbose"
-	cm = "commit --verbose --verbose"
+	ac = "!git add --all && git commit"
+	br = "branch"
+	brs = "branch --all --verbose --verbose"
+	cm = "commit"
 	co = "checkout"
 	df = "diff"
 	dfs = "diff --staged"
@@ -41,7 +42,7 @@
 [mergetool]
 	prompt = true
 [mergetool "vimdiff"]
-	cmd = vim -d "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
+	cmd = vim -d "$LOCAL" "$REMOTE" "$MERGED"
 
 [include]
 	path = .gitconfig.user

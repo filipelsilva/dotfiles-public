@@ -51,7 +51,7 @@ export GIT_CONFIG_COUNT=2
 export GIT_CONFIG_KEY_0="difftool.vimdiff.cmd"
 export GIT_CONFIG_VALUE_0="$DIFFPROG \$LOCAL \$REMOTE"
 export GIT_CONFIG_KEY_1="mergetool.vimdiff.cmd"
-export GIT_CONFIG_VALUE_1="$DIFFPROG \$LOCAL \$REMOTE \$MERGED -c '\$wincmd w' -c 'wincmd J'"
+export GIT_CONFIG_VALUE_1="$DIFFPROG \$LOCAL \$REMOTE \$MERGED"
 
 # Distro name
 export DISTRONAME=$(cat /etc/os-release | grep "NAME" | head -n 1 | cut -d'=' -f2 | tr -d '"')
