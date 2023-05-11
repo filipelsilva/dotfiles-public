@@ -58,6 +58,7 @@ cmp.setup({
 		["<S-Tab>"] = cmp.mapping(complete_or_snippet_prev, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
+		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },

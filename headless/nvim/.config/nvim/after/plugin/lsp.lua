@@ -34,6 +34,7 @@ lazylsp.setup({
 	preferred_servers = {
 		c = { "clangd" },
 		cpp = { "clangd" },
+		ruby = { "syntax_tree" },
 	},
 	default_config = {
 		flags = {},

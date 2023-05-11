@@ -35,6 +35,9 @@ lazy.setup({
 	-- Comment stuff
 	"tpope/vim-commentary",
 
+	-- UNIX helpers
+	"tpope/vim-eunuch",
+
 	-- Git wrapper
 	"tpope/vim-fugitive",
 
@@ -60,6 +63,15 @@ lazy.setup({
 
 	-- REPL integration
 	"jpalardy/vim-slime",
+
+	-- Copilot
+	{
+		-- "github/copilot.vim",
+		"zbirenbaum/copilot-cmp",
+		dependencies = {
+			"zbirenbaum/copilot.lua"
+		}
+	},
 
 	-- Colorscheme
 	"gruvbox-community/gruvbox",
@@ -92,6 +104,7 @@ lazy.setup({
 		dependencies = {
 			-- Snippets
 			"L3MON4D3/LuaSnip",
+
 			-- Completion sources
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",

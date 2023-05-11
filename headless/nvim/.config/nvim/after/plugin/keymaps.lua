@@ -6,6 +6,7 @@ end
 
 local opts = { noremap = true, silent = true }
 
+-- Telescope
 vim.keymap.set("n", "<Leader>t", "<Cmd>Telescope<CR>", opts)
 
 vim.keymap.set("n", "<Leader>f", function()
@@ -32,6 +33,11 @@ end, opts)
 vim.keymap.set("n", "<Leader><Leader>v", function()
 	telescope_builtin.find_files({
 		cwd = "$HOME/.config/nvim",
+		search_dirs = {
+			"$HOME/.config/nvim/init.lua",
+			"$HOME/.config/nvim/lua",
+			"$HOME/.config/nvim/after"
+		},
 		hidden = true,
 		follow = true
 	})

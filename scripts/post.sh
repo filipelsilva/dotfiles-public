@@ -33,7 +33,7 @@ if [[ -n $DOTFILES_FULL ]]; then
 	echo "#!/bin/sh" >> "$HOME/.xinitrc"
 	{
 		echo "autorandr --change --skip-options crtc"
-		echo "./$HOME/.fehbg"
+		echo "source $HOME/.fehbg"
 		echo "xrdb -merge -I$HOME ~/.Xresources"
 		echo "xset s off && xset -b -dpms"
 		echo "setxkbmap -layout us -variant altgr-intl -option ctrl:swapcaps"

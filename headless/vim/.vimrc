@@ -358,6 +358,9 @@ if !exists("g:no_vim_plugins")
 			" Comment stuff
 			call minpac#add("tpope/vim-commentary")
 
+			" UNIX helpers
+			call minpac#add("tpope/vim-eunuch")
+
 			" Git wrapper
 			call minpac#add("tpope/vim-fugitive")
 

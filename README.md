@@ -39,8 +39,8 @@ all needed packages. Keep in mind: these are **very likely to break**, therefore
 Usage:
 
 ```bash
-./scripts/install.sh		# If terminal is all you need
-./scripts/install.sh -f		# If you want to install the desktop packages as well
+./scripts/install.sh    # If terminal is all you need
+./scripts/install.sh -f # If you want to install the desktop packages as well
 ```
 
 **Note:** this repo is now using `stow` for linking dotfiles, but a script
@@ -51,8 +51,8 @@ subfolders involved, it might be useful.
 Usage:
 
 ```bash
-./scripts/stow			# Symlinks by file
-./scripts/stow -d		# Symlinks by folder
+./scripts/stow    # Symlinks by file
+./scripts/stow -d # Symlinks by folder
 ```
 
 **A word of caution:** it `stow` is installed, use it. This is a basic script,
